@@ -525,7 +525,7 @@ const updateUserStatus = async (req, res) => {
                     user: mailSettings.mailMailer,
                     pass: mailSettings.password,
                 },
-                tls: {
+                tls: { 
                     rejectUnauthorized: false,
                 },
             });
