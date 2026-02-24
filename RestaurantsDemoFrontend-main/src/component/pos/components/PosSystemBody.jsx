@@ -885,10 +885,9 @@ function PosSystemBody({ defaultWarehouse }) {
                                 ? saleSubtotal * (discountValue / 100)
                                 : discountValue;
                         }
-                        const offerDiscount = saleSubtotal * (parseFloat(sale.offerPercentage || 0) / 100);
 
                         totals.grandTotal += saleSubtotal;
-                        totals.totalDiscountAmount += productDiscounts + saleDiscount + offerDiscount;
+                        totals.totalDiscountAmount += productDiscounts + saleDiscount;
                     }
                     return totals;
                 }, {

@@ -122,7 +122,6 @@ export default function Header({ userData, grandTotal, orderStatus, paymentStatu
         manageCurrency: hasAnyPermission("manageCurrency"),
         manageRolesAndPermissions: hasAnyPermission("manageRolesAndPermissions"),
         manageReports: hasAnyPermission("manageReports"),
-        manageAdjustments: hasAnyPermission("manageAdjustments"),
         manageLanguage: hasAnyPermission("manageLanguage"),
         manageSettings: hasAnyPermission("manageSettings"),
         manageMailSettings: hasAnyPermission("manageMailSettings"),

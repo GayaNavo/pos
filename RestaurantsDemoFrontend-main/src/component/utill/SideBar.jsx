@@ -61,7 +61,6 @@ const Sidebar = ({ items, sidebarHidden }) => {
     '/botSettings': { index: 61, dropdown: 'settings' },
     '/prefixSettings': { index: 28, dropdown: 'settings' },
     '/saleReturnsToSupplier': { index: 32, dropdown: 'sale' },
-    '/viewOffers': { index: 45, dropdown: null },
     '/zBillRecords': { index: 60, dropdown: null },
   };
 
@@ -748,20 +747,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
             </li>
           )}
 
-          {/* Special Offers */}
-          {permissionData.manageRolesAndPermissions && (
-            <li id="offers" className="rounded-sm flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
-              <Link
-                to="/viewOffers"
-                className={`text-black hover:text-[#2a9d34] flex items-center w-full ${activeIndex === 45 ? 'bg-gray-100' : 'hover:bg-gray-100'
-                  }`}
-                onClick={() => handleClick(45, '/viewOffers')}
-              >
-                <GiftIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
-                Special Offers
-              </Link>
-            </li>
-          )}
+
 
           {/* Reports */}
           {permissionData.manageReports && (
@@ -778,24 +764,11 @@ const Sidebar = ({ items, sidebarHidden }) => {
             </li>
           )}
 
-          {/* Adjustment */}
-          {permissionData.manageAdjustments && (
-            <li id="adjustment" className="rounded-sm flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
-              <Link
-                to="/viewAdjustment"
-                className={`text-black hover:text-[#2a9d34] flex items-center w-full ${activeIndex === 23 ? 'bg-gray-100' : 'hover:bg-gray-100'
-                  }`}
-                onClick={() => handleClick(23, '/viewAdjustment')}
-              >
-                <AdjustmentsVerticalIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
-                Adjustment
-              </Link>
-            </li>
-          )}
+
 
           {/* Z Bill */}
           {permissionData.manageZbill && (
-            <li id="adjustment" className="rounded-sm flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
+            <li id="zBill" className="rounded-sm flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
               <Link
                 to="/zBillRecords"
                 className={`text-black hover:text-[#2a9d34] flex items-center w-full ${activeIndex === 60 ? 'bg-gray-100' : 'hover:bg-gray-100'

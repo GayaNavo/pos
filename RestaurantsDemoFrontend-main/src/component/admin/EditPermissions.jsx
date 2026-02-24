@@ -45,7 +45,6 @@ const EditPermissionsBody = () => {
         manageOffers: ["create_offer", "edit_offer", "delete_offer", "view_offer", "assign_offer"],
         manageRolesAndPermissions: ["create_role", "edit_role", "delete_role", "view_role"],
         manageReports: ["view_reports"],
-        manageAdjustments: ["create_adjustment", "edit_adjustment", "view_adjustment", "delete_adjustment", "view_adjustment_popup"],
         manageLanguage: ["view_language"],
         manageSettings: ["view_settings"],
         manageMailSettings: ["view_mail_settings"],

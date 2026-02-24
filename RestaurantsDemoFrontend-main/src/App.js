@@ -78,9 +78,7 @@ import CreateQuatationBody from "./component/quotation/CreateQuatation";
 import ViewQuatationBody from "./component/quotation/ViewQuatation";
 import EditQuatationBody from "./component/quotation/EditQuatation";
 import CreateSaleFromQuatationBody from "./component/quotation/CreateSaleFromQuatation";
-import CreateAdjustmentBody from "./component/adjustment/CreateAdjustment";
-import ViewAdjustmentBody from "./component/adjustment/ViewAdjustment";
-import EditAdjustmentBody from "./component/adjustment/EditAdjustment";
+
 
 import ViewReportBody from "./component/reports/ViewReports";
 import CustomerReportBody from "./component/reports/CustomerReportBody";
@@ -104,9 +102,7 @@ import { ToastContainer } from "react-toastify";
 import Languages from "./component/utill/sidebarLanguage";
 import Team from "./component/utill/navBar/team";
 import Products from "./component/utill/navBar/products";
-import ViewOffers from "./component/offers/ViewOffers";
-import CreateOffers from "./component/offers/CreateOffers";
-import EditOffer from "./component/offers/EditOffer";
+
 import BotSettingsBody from "./component/settings/BotSettingsBody";
 import ZBill from "./component/zBill/zBill";
 import RestaurantMenuView from "./component/pos/components/RestaurantMenuView.jsx";
@@ -463,19 +459,7 @@ function App() {
                   <CurrencyProvider><CreateSaleFromQuatationBody /></CurrencyProvider>
                 </PermissionGuard>} />
 
-              {/*Create adjustment*/}
-              <Route path="/createAdjustment" element={
-                <PermissionGuard requiredPermissions={['create_adjustment']}>
-                  <CurrencyProvider><CreateAdjustmentBody /></CurrencyProvider>
-                </PermissionGuard>} />
-              <Route path="/viewAdjustment" element={
-                <PermissionGuard requiredPermissions={['view_adjustment']}>
-                  <CurrencyProvider><ViewAdjustmentBody /></CurrencyProvider>
-                </PermissionGuard>} />
-              <Route path="/editAdjustment/:id" element={
-                <PermissionGuard requiredPermissions={['edit_adjustment']}>
-                  <CurrencyProvider><EditAdjustmentBody /></CurrencyProvider>
-                </PermissionGuard>} />
+
 
 
 
@@ -492,18 +476,7 @@ function App() {
               <Route path="/clickedStokeRep/:id" element={<CurrencyProvider><ClickedStokeReport /></CurrencyProvider>} />
               {/* <Route path="/profitAndLostReport" element={<CurrencyProvider><ProfitAndLost /></CurrencyProvider>} /> */}
 
-              {/* offers managing */}
-              <Route path="/viewOffers" element={
-                <PermissionGuard requiredPermissions={['view_offer']}><ViewOffers />
-                </PermissionGuard>} />
 
-              <Route path="/createOffers" element={
-                <PermissionGuard requiredPermissions={['create_offer']}><CreateOffers />
-                </PermissionGuard>} />
-
-              <Route path="/editOffers/:id" element={
-                <PermissionGuard requiredPermissions={['edit_offer']}><EditOffer />
-                </PermissionGuard>} />
 
 
               <Route path="/mailSettings" element={<MailSettingsBody />} />
