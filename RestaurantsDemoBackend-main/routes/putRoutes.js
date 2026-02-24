@@ -17,7 +17,7 @@ const fs = require('fs');
 
 const {authenticateToken} = require('../middleware/authMiddleware');
 const adminController = require('../controllers/userController/adminController');
-const adjustmentController = require('../controllers/adjustmentController/adjustmentController');
+
 const currencyController = require('../controllers/currencyController/currencyController');
 const customersController = require('../controllers/customerController/customerController');
 
@@ -99,7 +99,7 @@ const upload = multer({ storage });
 
 router.put('/updateProductQty', posController.updateProductQuantities);
 
-router.put('/updateAdjustment/:id' , adjustmentController.updateAdjustment);
+
 
 router.put('/updateCurrency/:id', currencyController.updateCurrency);
 

@@ -17,7 +17,7 @@ const fs = require('fs');
 const { uploadLogo } = require('../middleware/multerMiddleware'); //
 
 const adminController = require('../controllers/userController/adminController');
-const adjustmentController = require('../controllers/adjustmentController/adjustmentController');
+
 const currencyController = require('../controllers/currencyController/currencyController');
 const customersController = require('../controllers/customerController/customerController');
 
@@ -139,7 +139,7 @@ router.post('/holdProducts',posController.holdProducts);
 
 router.post('/getingHoldProductsQty', posController.getProductsByIds);
 
-router.post('/createAdjustment', adjustmentController.createAdjustment);
+
 
 router.post('/initialRunning', adminController.initialRunning);
 

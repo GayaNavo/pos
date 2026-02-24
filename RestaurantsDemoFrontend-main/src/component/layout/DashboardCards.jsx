@@ -94,7 +94,7 @@ const DashboardBody = ({ }) => {
           "manageRolesAndPermissions"
         ),
         manageReports: hasAnyPermission("manageReports"),
-        manageAdjustments: hasAnyPermission("manageAdjustments"),
+
         manageLanguage: hasAnyPermission("manageLanguage"),
         manageSettings: hasAnyPermission("manageSettings"),
         manageMailSettings: hasAnyPermission("manageMailSettings"),

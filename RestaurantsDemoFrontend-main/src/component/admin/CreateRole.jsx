@@ -294,19 +294,7 @@ const CreateRoleBody = () => {
                         { key: 'view_transfer_popup', label: 'View Transfer Details' },
                     ]
                 },
-                {
-                    name: 'Manage Adjustments',
-                    category: 'manageAdjustments',
-                    permissions: [
-                        { key: 'create_adjustment', label: 'Create Adjustment' },
-                        { key: 'edit_adjustment', label: 'Edit Adjustment' },
-                        { key: 'delete_adjustment', label: 'Delete Adjustment' },
-                        { key: 'view_adjustment', label: 'View Adjustment' },
-                    ],
-                    additionalPermissions: [
-                        { key: 'view_adjustment_popup', label: 'View Adjustment Details' },
-                    ]
-                },
+
             ]
         },
         {

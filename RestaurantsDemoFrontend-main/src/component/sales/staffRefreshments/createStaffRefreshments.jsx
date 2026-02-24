@@ -216,7 +216,7 @@ function CreateStaffRefreshmentsModal({ open, setOpen }) {
                     console.log(`🔵 Product ID: ${product._id} - productQty (before update): ${productQty}`);
     
                     const newStockQty = (productQty || 0) - netQty; // Use 0 if productQty is undefined or null
-                    console.log(`🟢 Product ID: ${product._id} - newStockQty (after netQty adjustment): ${newStockQty}`);
+                    console.log(`🟢 Product ID: ${product._id} - newStockQty (after netQty calculation): ${newStockQty}`);
     
                     // Ensure productQty matches the updated stock quantity
                     const updatedProductQty = newStockQty; // Set productQty equal to stockQty after calculation

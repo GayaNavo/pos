@@ -753,7 +753,7 @@ const ZBill = () => {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 onConfirm={() => handleDelete(zBillToDelete)}
-                message="Are you sure you want to delete this adjustment?"
+                message="Are you sure you want to delete this Z-bill?"
             />
 
             <div>

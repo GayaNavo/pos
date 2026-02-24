@@ -12,7 +12,7 @@
 const express = require('express');
 const router = express.Router();
 
-const adjustmentController = require('../controllers/adjustmentController/adjustmentController');
+
 const currencyController = require('../controllers/currencyController/currencyController');
 const customersController = require('../controllers/customerController/customerController');
 
@@ -46,7 +46,7 @@ router.delete('/deleteHeldProduct/:id', posController.deleteHeldProduct);
 
 router.delete('/closeRegister/:id', cashController.closeRegister);
 
-router.delete('/DeleteAdjustment/:id', adjustmentController.deleteAdjustment);
+
 
 router.delete('/deleteCurrency/:id',currencyController.deleteCurrency);
 
@@ -80,7 +80,7 @@ router.delete('/DeleteUser/:id', userController.deleteUser);
 
 router.delete('/DeleteWarehouse/:id',warehouseController.DeleteWarehouse);
 
-router.delete('/deleteProductFromAdjustment', adjustmentController.deleteProductFromAdjustment);
+
 
 router.delete('/deleteProductFromPurchase', purchaseController.deleteProductFromPurchase);
 

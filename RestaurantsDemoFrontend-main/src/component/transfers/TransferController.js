@@ -13,7 +13,7 @@ import axios from "axios";
 import { getTax, getPriceRange } from '../../component/sales/SaleController';
 import { toast } from "react-toastify";
 
-//HANDLE SAVE ADJUSTMENT
+//HANDLE SAVE TRANSFER
 export const handleCreateTransfer = async (grandTotal, warehouseFrom, warehouseTo, selectedProduct, date, discountType, discount, shipping, tax, orderStatus, setResponseMessage, setError, navigate) => {
     if (!warehouseFrom || !warehouseTo) {
         alert('Warehouse information is required');

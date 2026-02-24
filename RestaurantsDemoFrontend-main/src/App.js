@@ -81,7 +81,7 @@ import CreateSaleFromQuatationBody from "./component/quotation/CreateSaleFromQua
 import CreateAdjustmentBody from "./component/adjustment/CreateAdjustment";
 import ViewAdjustmentBody from "./component/adjustment/ViewAdjustment";
 import EditAdjustmentBody from "./component/adjustment/EditAdjustment";
-import ViewCurrencyBody from "./component/currency/ViewCurrency";
+
 import ViewReportBody from "./component/reports/ViewReports";
 import CustomerReportBody from "./component/reports/CustomerReportBody";
 import ClickedCustomerReport from "./component/reports/ClickedCustomerReport";
@@ -477,11 +477,7 @@ function App() {
                   <CurrencyProvider><EditAdjustmentBody /></CurrencyProvider>
                 </PermissionGuard>} />
 
-              {/*Create currency*/}
-              <Route path="/viewCurrency" element={
-                <PermissionGuard requiredPermissions={['view_currency']}>
-                  <ViewCurrencyBody />
-                </PermissionGuard>} />
+
 
               {/* 
             View Reports */}

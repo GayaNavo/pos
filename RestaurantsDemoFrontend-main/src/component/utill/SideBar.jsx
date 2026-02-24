@@ -731,20 +731,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
             </li>
           )}
 
-          {/* Currency */}
-          {permissionData.manageCurrency && (
-            <li id="currencies" className="rounded-sm flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
-              <Link
-                to="/viewCurrency"
-                className={`w-full text-black hover:text-[#2a9d34] flex items-center ${activeIndex === 19 ? 'bg-gray-100' : 'hover:bg-gray-100'
-                  }`}
-                onClick={() => handleClick(19, '/viewCurrency')}
-              >
-                <CurrencyDollarIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
-                Currencies
-              </Link>
-            </li>
-          )}
+
 
           {/* Roles/Permissions */}
           {permissionData.manageRolesAndPermissions && (

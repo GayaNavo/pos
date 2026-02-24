@@ -19,7 +19,7 @@ const fs = require('fs');
 
 const {authenticateToken} = require('../middleware/authMiddleware');
 const adminController = require('../controllers/userController/adminController');
-const adjustmentController = require('../controllers/adjustmentController/adjustmentController');
+
 const currencyController = require('../controllers/currencyController/currencyController');
 const customersController = require('../controllers/customerController/customerController');
 
@@ -96,7 +96,7 @@ router.get('/viewAllHeldProducts', posController.viewAllHeldProducts);
 
 router.get('/printHeldOrderBill/:heldOrderId', posController.printHeldOrderBill);
 
-router.get('/findAdjustmentById/:id',adjustmentController.findAdjustmentByIdForUpdate);
+
 
 router.get('/getActiveCashRegister/:username', cashController.getCashRegister);
 
@@ -219,7 +219,7 @@ router.get('/searchOffers', OffersController.searchOffers);
 router.get('/findOfferById/:id', OffersController.offerFindById);
 
 //updated routes
-router.get('/fetchAdjustments', adjustmentController.fetchAdjustments);
+
 
 router.get('/fetchCurrency', currencyController.fetchCurrencies);
 
@@ -289,7 +289,7 @@ router.get('/searchPurchase', purchaseController.searchPurchase)
 router.get('/searchPurchaseReturn', purchaseReturnController.searchPurchaseReturns)
 router.get('/searchQuotation', quatationController.searchQuotation)
 router.get('/searchCurrency', currencyController.searchCurrency)
-router.get('/searchAdjustment', adjustmentController.searchAdjustment)
+
 router.get('/getPlacedOrders', orderController.getPlacedOrderCount);
 router.get('/getProductsForMenu', orderController.findProducts);
 
