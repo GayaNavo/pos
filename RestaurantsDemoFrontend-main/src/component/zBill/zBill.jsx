@@ -607,7 +607,7 @@ const ZBill = () => {
                                                                                             <tr key={input._id} className={`hover:bg-gray-50 transition-colors ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-25'}`}>
                                                                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                                                                     <div className="flex items-center space-x-3">
-                                                                                                        <div className="w-9 h-9 bg-[#2D8D79] rounded-full flex items-center justify-center text-white p-1 text-xs">
+                                                                                                        <div className="w-9 h-9 bg-[#1F5F3B] rounded-full flex items-center justify-center text-white p-1 text-xs">
                                                                                                             {input.denomination}
                                                                                                         </div>
                                                                                                         <span className="text-sm font-medium text-gray-900">{currency}{' '}{input.denomination}</span>

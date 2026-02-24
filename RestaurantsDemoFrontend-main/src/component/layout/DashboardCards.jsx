@@ -259,7 +259,7 @@ const DashboardBody = ({ }) => {
                 <div
                   className="h-28 flex flex-col items-center justify-center rounded-[10px] shadow-lg relative"
                   style={{
-                    background: " #1A5B63",
+                    background: " #1F5F3B",
                   }}
                   data-aos="fade-up"
                 >
@@ -289,7 +289,7 @@ const DashboardBody = ({ }) => {
                 <div
                   className="h-28 flex flex-col items-center justify-center rounded-[10px] shadow-lg relative"
                   style={{
-                    background: " #44BC8D",
+                    background: " #4CAF50",
                   }}
                   data-aos="fade-up"
                 >
@@ -321,7 +321,7 @@ const DashboardBody = ({ }) => {
                 <div
                   className="h-28 flex flex-col items-center justify-center rounded-[10px] shadow-lg relative"
                   style={{
-                    background: " #1A5B63",
+                    background: " #D4AF37",
                   }}
                   data-aos="fade-up"
                 >
@@ -354,7 +354,7 @@ const DashboardBody = ({ }) => {
                 <div
                   className="h-28 flex flex-col items-center justify-center rounded-[10px] shadow-md relative"
                   style={{
-                    background: " #44BC8D",
+                    background: " #4CAF50",
                   }}
                   data-aos="fade-up"
                 >
@@ -385,7 +385,7 @@ const DashboardBody = ({ }) => {
               >
                 <div
                   className="h-28 flex items-center justify-center rounded-[10px] shadow-lg relative"
-                  style={{ backgroundColor: "#1A5B63" }}
+                  style={{ backgroundColor: "#1F5F3B" }}
                   data-aos="fade-down"
                 >
                   {/* Background Image */}
@@ -415,7 +415,7 @@ const DashboardBody = ({ }) => {
                 <div
                   className="h-28 flex flex-col items-center justify-center rounded-[10px] shadow-lg relative"
                   style={{
-                    background: " #1A5B63",
+                    background: " #4CAF50",
                   }}
                   data-aos="fade-down"
                 >
@@ -447,7 +447,7 @@ const DashboardBody = ({ }) => {
                 <div
                   className="h-28 flex flex-col items-center justify-center rounded-[10px] shadow-lg relative"
                   style={{
-                    background: " #44BC8D",
+                    background: " #D4AF37",
                   }}
                   data-aos="fade-down"
                 >
@@ -480,7 +480,7 @@ const DashboardBody = ({ }) => {
                 <div
                   className="h-28 flex flex-col items-center justify-center rounded-[10px] shadow-lg relative"
                   style={{
-                    background: " #1A5B63",
+                    background: " #1F5F3B",
                   }}
                   data-aos="fade-down"
                 >
@@ -512,8 +512,8 @@ const DashboardBody = ({ }) => {
             className="mt-8 ml-5 mr-5 bg-white rounded-lg shadow-md overflow-hidden"
             data-aos="fade-down"
           >
-            {/* Teal Header */}
-            <div className="bg-[#2D8A7E] py-4">
+            {/* Organic Theme Header */}
+            <div className="bg-[#1F5F3B] py-4">
               <h2 className="text-xl font-semibold text-center text-white">
                 Sales & Purchases
               </h2>
@@ -528,8 +528,8 @@ const DashboardBody = ({ }) => {
             className="mt-8 ml-5 mr-5 bg-white rounded-lg shadow-md overflow-hidden"
             data-aos="fade-down"
           >
-            {/* Teal Header */}
-            <div className="bg-[#2D8A7E] py-4">
+            {/* Organic Theme Header */}
+            <div className="bg-[#1F5F3B] py-4">
               <h2 className="text-xl font-semibold text-center text-white">
                 Stock Alert Report
               </h2>
@@ -548,8 +548,8 @@ const DashboardBody = ({ }) => {
             className="mt-8 ml-5 mr-5 bg-white rounded-lg shadow-md overflow-hidden"
             data-aos="fade-down"
           >
-            {/* Teal Header */}
-            <div className="bg-[#2D8A7E] py-4">
+            {/* Organic Theme Header */}
+            <div className="bg-[#1F5F3B] py-4">
               <h2 className="text-xl font-semibold text-center text-white">
                 Z Bill
               </h2>
@@ -582,42 +582,42 @@ const DashboardBody = ({ }) => {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 text-center">{item.closeTime}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">{item.username}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-center">
-                          <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#A8D8F0] text-[#2D6A8A]">
+                          <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#D4AF37]/20 text-[#1F5F3B]">
                             {currency} {item.cashHandIn.toLocaleString()}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-center">
-                          <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#A8E6CF] text-[#2D8A7E]">
+                          <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#4CAF50]/20 text-[#1F5F3B]">
                             {currency} {item.cardPayment.toLocaleString()}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-center">
-                          <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#A8E6CF] text-[#2D8A7E]">
+                          <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#4CAF50]/20 text-[#1F5F3B]">
                             {currency} {item.cashPayment.toLocaleString()}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-center">
-                          <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#A8E6CF] text-[#2D8A7E]">
+                          <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#4CAF50]/20 text-[#1F5F3B]">
                             {currency} {item.bankTransfer.toLocaleString()}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-center">
-                          <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#FFB8B8] text-[#8A2D2D]">
+                          <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-red-100 text-red-700">
                             {currency} {item.cashVariance.toLocaleString()}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-center">
-                          <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#A8E6CF] text-[#2D8A7E]">
+                          <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#4CAF50]/20 text-[#1F5F3B]">
                             {currency} {item.discount.toLocaleString()}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-center">
-                          <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#A8D8F0] text-[#2D6A8A]">
+                          <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#D4AF37]/20 text-[#1F5F3B]">
                             {currency} {item.profit.toLocaleString()}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-center">
-                          <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#A8E6CF] text-[#2D8A7E]">
+                          <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#4CAF50]/20 text-[#1F5F3B]">
                             {currency} {item.total.toLocaleString()}
                           </span>
                         </td>

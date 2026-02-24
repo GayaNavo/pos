@@ -442,97 +442,104 @@ function ViewProductsBody() {
             )}
           </div>
         ) : searchedProduct.length > 0 ? (
-          <div className="overflow-x-auto">
-            <table className="min-w-full bg-white border border-gray-200">
-              <thead className="bg-gray-50">
+          <div className="overflow-x-auto rounded-xl shadow-sm border border-[#D4AF37]/20">
+            <table className="min-w-full bg-white">
+              <thead className="bg-[#1F5F3B]">
                 <tr>
-                  <th className="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider rounded-tl-xl">
                     Product
                   </th>
-                  <th className="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
                     Name
                   </th>
-                  <th className="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
                     Code
                   </th>
-                  <th className="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
                     Brand
                   </th>
-                  <th className="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
                     Price
                   </th>
-                  <th className="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
                     Unit
                   </th>
-                  <th className="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
                     In Stock
                   </th>
-                  <th className="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
                     Created On
                   </th>
-                  <th className="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-right">
+                  <th className="px-6 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider rounded-tr-xl">
                     Action
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200 text-left">
+              <tbody className="bg-white divide-y divide-gray-100">
                 {searchedProduct.map((p) => (
-                  <tr key={p._id}>
+                  <tr key={p._id} className="hover:bg-[#FFF6E5]/50 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <img
-                        src={p.image ? p.image : ProductIcon}
-                        alt={p.name}
-                        className="w-10 h-10 object-cover rounded-full"
-                      />
+                      <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden">
+                        <img
+                          src={p.image ? p.image : ProductIcon}
+                          alt={p.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
                     </td>
-                    <td className="px-7 py-5 whitespace-nowrap text-m text-gray-900 text-left">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#4A2C1D]">
                       {p.name}
                     </td>
-                    <td className="px-7 py-5 whitespace-nowrap text-m text-gray-900 text-left">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       {p.code}
                     </td>
-                    <td className="px-7 py-5 whitespace-nowrap text-m text-gray-900 text-left">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       {p.brand}
                     </td>
-                    <td className="px-7 py-5 whitespace-nowrap text-m text-gray-900 text-left">{currency}  {' '}
-                      {formatWithCustomCommas(getPriceRange(p))}
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-[#1F5F3B]">
+                      {currency} {formatWithCustomCommas(getPriceRange(p))}
                     </td>
-                    <td className="px-7 py-5 whitespace-nowrap text-m text-gray-900 text-left">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       {p.saleUnit}
                     </td>
-                    <td className="px-7 py-5 whitespace-nowrap text-m text-gray-900 text-left">
-                      {p.productQty ? p.productQty : getQty(p)}
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
+                        (p.productQty ? p.productQty : getQty(p)) > 10 
+                          ? 'bg-[#4CAF50]/10 text-[#4CAF50]' 
+                          : (p.productQty ? p.productQty : getQty(p)) > 0 
+                            ? 'bg-[#D4AF37]/10 text-[#D4AF37]' 
+                            : 'bg-red-100 text-red-600'
+                      }`}>
+                        {p.productQty ? p.productQty : getQty(p)} units
+                      </span>
                     </td>
-                    <td className="px-7 py-5 whitespace-nowrap text-m text-gray-900 text-left">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                       {(p.createdAt)}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">
-                      <div className="flex items-center justify-end">
+                    <td className="px-6 py-4 whitespace-nowrap text-right">
+                      <div className="flex items-center justify-end gap-2">
                         {permissionData.view_product && (
                           <button
-                            className="text-[#35AF87] hover:text-[#16796E] font-bold py-1 px-2 mr-2 text-lg"
+                            className="w-8 h-8 rounded-lg bg-[#1F5F3B]/10 text-[#1F5F3B] hover:bg-[#1F5F3B] hover:text-white flex items-center justify-center transition-colors"
                             onClick={() => handleViewProduct(p)}
-                            style={{ background: "transparent" }}
                           >
-                            <i className="fas fa-eye mr-1"></i>
+                            <i className="fas fa-eye text-sm"></i>
                           </button>
                         )}
                         {permissionData.edit_product && (
                           <Link
                             to={`/editProduct/${p._id}`}
-                            className="text-blue-500 hover:text-blue-700 font-bold py-1 px-2 mr-2 text-lg"
-                            style={{ background: "transparent" }}
+                            className="w-8 h-8 rounded-lg bg-[#4CAF50]/10 text-[#4CAF50] hover:bg-[#4CAF50] hover:text-white flex items-center justify-center transition-colors"
                           >
-                            <i className="fas fa-edit mr-1"></i>
+                            <i className="fas fa-edit text-sm"></i>
                           </Link>
                         )}
                         {permissionData.delete_product && (
                           <button
                             onClick={() => showConfirmationModal(p._id)}
-                            className="text-red-500 hover:text-red-700 font-bold py-1 px-2 text-lg"
-                            style={{ background: "transparent" }}
+                            className="w-8 h-8 rounded-lg bg-red-50 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors"
                           >
-                            <i className="fas fa-trash"></i>
+                            <i className="fas fa-trash text-sm"></i>
                           </button>
                         )}
                       </div>
@@ -543,60 +550,62 @@ function ViewProductsBody() {
             </table>
           </div>
         ) : (
-        <div className="overflow-x-auto">
-          <table className="min-w-full bg-white border border-gray-200">
-            <thead className="bg-gray-50">
+        <div className="overflow-x-auto rounded-xl shadow-sm border border-[#D4AF37]/20">
+          <table className="min-w-full bg-white">
+            <thead className="bg-[#1F5F3B]">
               <tr>
-                <th className="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider rounded-tl-xl">
                   Product
                 </th>
-                <th className="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
                   Name
                 </th>
-                <th className="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
                   Code
                 </th>
-                <th className="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
                   Brand
                 </th>
-                <th className="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
                   Price
                 </th>
-                <th className="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
                   Unit
                 </th>
-                <th className="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
                   In Stock
                 </th>
-                <th className="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
                   Created On
                 </th>
-                <th className="px-7 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-right">
+                <th className="px-6 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider rounded-tr-xl">
                   Action
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white divide-y divide-gray-100">
               {productData.map((p) => (
-                <tr key={p._id}>
+                <tr key={p._id} className="hover:bg-[#FFF6E5]/50 transition-colors">
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <img
-                      src={p.image ? p.image : ProductIcon}
-                      alt={p.name}
-                      className="w-10 h-10 object-cover rounded-full"
-                    />
+                    <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden">
+                      <img
+                        src={p.image ? p.image : ProductIcon}
+                        alt={p.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   </td>
-                  <td className="px-7 py-5 whitespace-nowrap text-m text-gray-900 text-left">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#4A2C1D]">
                     {p.name}
                   </td>
-                  <td className="px-7 py-5 whitespace-nowrap text-m text-gray-900 text-left">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                     {p.code}
                   </td>
-                  <td className="px-4 py-5 whitespace-nowrap text-m text-gray-900 text-left">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                     {p.brand}
                   </td>
-                  <td className="px-7 py-5 whitespace-nowrap text-m text-gray-900 text-left">{currency}
-                    {formatWithCustomCommas(getPriceRange(p))}
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-[#1F5F3B]">
+                    {currency} {formatWithCustomCommas(getPriceRange(p))}
                   </td>
                   <td className="px-7 py-5 whitespace-nowrap text-m text-gray-900 text-left">
                     {p.saleUnit}

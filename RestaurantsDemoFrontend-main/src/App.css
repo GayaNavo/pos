@@ -15,27 +15,27 @@
 
 @keyframes glow {
   0% {
-    box-shadow: 0 0 5px #1A5B63, 0 0 10px #1A5B63, 0 0 15px #1A5B63;
+    box-shadow: 0 0 5px #1F5F3B, 0 0 10px #1F5F3B, 0 0 15px #1F5F3B;
   }
   100% {
-    box-shadow: 0 0 10px #35AF87, 0 0 20px #35AF87, 0 0 30px #35AF87;
+    box-shadow: 0 0 10px #4CAF50, 0 0 20px #4CAF50, 0 0 30px #4CAF50;
   }
 }
 
 
 .App-header {
-  background-color: #282c34;
+  background-color: #FFF6E5;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #4A2C1D;
 }
 
 .App-link {
-  color: #61dafb;
+  color: #1F5F3B;
 }
 
 /* Fullscreen loader styles */

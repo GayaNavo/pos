@@ -14,8 +14,8 @@
     background-color: #fff;
 }
 .checkbox-custom:checked {
-    background-color: #3b82f6; /* Tailwind blue-600 */
-    border-color: #3b82f6; /* Tailwind blue-600 */
+    background-color: #1F5F3B; /* Deep Green */
+    border-color: #1F5F3B; /* Deep Green */
 }
 .checkbox-custom:checked::after {
     content: '';

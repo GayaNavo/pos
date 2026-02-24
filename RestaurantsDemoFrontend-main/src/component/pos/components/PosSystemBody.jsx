@@ -1218,10 +1218,10 @@ function PosSystemBody({ defaultWarehouse }) {
     }, [menuType]);
 
     return (
-        <div className="bg-[#eff3f7] absolute w-full h-screen p-2 overflow-hidden">
+        <div className="bg-[#FFF6E5] absolute w-full h-screen p-2 overflow-hidden">
             {/* HEADER SECTION */}
             <div className="flex flex-col md:flex-row md:items-start xl:flex-row justify-between gap-2 xl:gap-0 w-full h-auto xl:h-[80px]">
-                <div className="flex flex-col xl:flex-row justify-start xl:justify-between w-full md:w-[45%] lg:w-[42%] xl:w-[34.9%] bg-white h-auto xl:h-[80px] rounded-[15px] p-2 lg:p-2 xl:p-0 gap-2 xl:gap-0">
+                <div className="flex flex-col xl:flex-row justify-start xl:justify-between w-full md:w-[45%] lg:w-[42%] xl:w-[34.9%] bg-white h-auto xl:h-[80px] rounded-[15px] p-2 lg:p-2 xl:p-0 gap-2 xl:gap-0 shadow-sm border border-[#D4AF37]/20">
 
                     <div className="w-full xl:w-1/2 h-auto xl:h-[82px] flex items-center relative xl:pb-[2px] xl:mt-0">
                         <form className="flex items-center relative w-full" onSubmit={(e) => e.preventDefault()}>
@@ -2467,10 +2467,10 @@ function PosSystemBody({ defaultWarehouse }) {
                                             </h3>
                                             <p className="text-center text-xs text-gray-600">{p.code}</p>
                                             <div className="flex space-between items-center text-left mt-[2px]">
-                                                <p className="bg-blue-600 mr-1 text-left px-1 py-[1.5px] rounded-[5px] text-center text-[11px] text-white">
+                                                <p className="bg-[#1F5F3B] mr-1 text-left px-1 py-[1.5px] rounded-[5px] text-center text-[11px] text-white">
                                                     {productQtyForSelectedWarehouse + ' ' + p.saleUnit}
                                                 </p>
-                                                <p className="bg-blue-400 px-2 py-[1.5px] rounded-[5px] text-center text-[11px] text-white">
+                                                <p className="bg-[#4CAF50] px-2 py-[1.5px] rounded-[5px] text-center text-[11px] text-white">
                                                     {currency + ' ' + formatWithCustomCommas(getPriceRange(p))}
                                                 </p>
                                             </div>
@@ -2511,7 +2511,7 @@ function PosSystemBody({ defaultWarehouse }) {
                                     <div className="rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-b from-[#E6F4F1] to-[#A7D4C2]">
 
                                         {/* Header (Drag Handle) */}
-                                        <div className="drag-handle flex items-center justify-between bg-gradient-to-r from-[#35AF87] to-[#146F5E] text-white px-4 py-2 cursor-move">
+                                        <div className="drag-handle flex items-center justify-between bg-gradient-to-r from-[#1F5F3B] to-[#4CAF50] text-white px-4 py-2 cursor-move">
                                             <div className="flex items-center gap-2 text-sm font-semibold tracking-wide">
                                                 <GripHorizontal className="w-4 h-4 opacity-80" />
                                                 Calculator

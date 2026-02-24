@@ -395,60 +395,52 @@ function ViewSuplierBody() {
           )}
         </div>
       ) : searchedSuplier.length > 0 ? (
-        <div className="overflow-x-auto">
-          <table className="min-w-full bg-white border border-gray-200">
-            <thead className="bg-gray-50">
+        <div className="overflow-x-auto rounded-xl shadow-sm border border-[#D4AF37]/20">
+          <table className="min-w-full bg-white">
+            <thead className="bg-[#1F5F3B]">
               <tr>
-                {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Username
-                </th> */}
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Supplier name
+                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider rounded-tl-xl">
+                  Supplier Name
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
                   Mobile
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Created on
+                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                  Created On
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider rounded-tr-xl">
                   Action
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white divide-y divide-gray-100">
               {searchedSuplier.map((searchedSuplier) => (
-                <tr key={searchedSuplier._id}>
-                  {/* <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 text-left">
-                    {searchedSuplier.username}
-                  </td> */}
-                  <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 text-left">
+                <tr key={searchedSuplier._id} className="hover:bg-[#FFF6E5]/50 transition-colors">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#4A2C1D]">
                     {searchedSuplier.name}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 text-left">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-[#4A2C1D]">
                     {searchedSuplier.mobile}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 text-left">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-[#4A2C1D]">
                     {new Date(searchedSuplier.createdAt).toLocaleDateString()}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 justify-end">
-                    <div className="flex items-center justify-end">
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="flex items-center justify-end gap-1">
                       {permissionData.edit_supplier && (
                         <Link
                           to={`/editSuplier/${searchedSuplier._id}`}
-                          className="text-blue-500 hover:text-blue-700 font-bold py-1 px-2 mr-2 flex items-center"
-                          style={{ background: "transparent" }}
+                          className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#1F5F3B]/10 text-[#1F5F3B] hover:bg-[#1F5F3B] hover:text-white transition-all"
                         >
-                          <i className="fas fa-edit mr-1"></i>
+                          <i className="fas fa-edit text-xs"></i>
                         </Link>
                       )}
                       {permissionData.delete_supplier && (
                         <button
                           onClick={() => showConfirmationModal(searchedSuplier._id)}
-                          className="text-red-500 hover:text-red-700 font-bold py-1 px-2 flex items-center"
-                          style={{ background: "transparent" }}
+                          className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-600 hover:text-white transition-all"
                         >
-                          <i className="fas fa-trash mr-1"></i>
+                          <i className="fas fa-trash text-xs"></i>
                         </button>
                       )}
                     </div>
@@ -459,60 +451,52 @@ function ViewSuplierBody() {
           </table>
         </div>
       ) : suplierData.length > 0 ? (
-        <div className="overflow-x-auto">
-          <table className="min-w-full bg-white border border-gray-200">
-            <thead className="bg-gray-50">
+        <div className="overflow-x-auto rounded-xl shadow-sm border border-[#D4AF37]/20">
+          <table className="min-w-full bg-white">
+            <thead className="bg-[#1F5F3B]">
               <tr>
-                {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Username
-                </th> */}
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Supplier name
+                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider rounded-tl-xl">
+                  Supplier Name
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
                   Mobile
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Created on
+                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                  Created On
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider rounded-tr-xl">
                   Action
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white divide-y divide-gray-100">
               {suplierData.map((suplier) => (
-                <tr key={suplier._id}>
-                  {/* <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 text-left">
-                    {suplier.username}
-                  </td> */}
-                  <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 text-left">
+                <tr key={suplier._id} className="hover:bg-[#FFF6E5]/50 transition-colors">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#4A2C1D]">
                     {suplier.name}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 text-left">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-[#4A2C1D]">
                     {suplier.mobile}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 text-left">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-[#4A2C1D]">
                     {new Date(suplier.createdAt).toLocaleDateString()}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 text-right justify-end">
-                    <div className="flex items-center justify-end">
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="flex items-center justify-end gap-1">
                       {permissionData.edit_supplier && (
                         <Link
                           to={`/editSuplier/${suplier._id}`}
-                          className="text-blue-500 hover:text-blue-700 font-bold py-1 px-2 mr-2 flex items-center"
-                          style={{ background: "transparent" }}
+                          className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#1F5F3B]/10 text-[#1F5F3B] hover:bg-[#1F5F3B] hover:text-white transition-all"
                         >
-                          <i className="fas fa-edit mr-1"></i>
+                          <i className="fas fa-edit text-xs"></i>
                         </Link>
                       )}
                       {permissionData.delete_supplier && (
                         <button
                           onClick={() => showConfirmationModal(suplier._id)}
-                          className="text-red-500 hover:text-red-700 font-bold py-1 px-2 flex items-center"
-                          style={{ background: "transparent" }}
+                          className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-600 hover:text-white transition-all"
                         >
-                          <i className="fas fa-trash mr-1"></i>
+                          <i className="fas fa-trash text-xs"></i>
                         </button>
                       )}
                     </div>
@@ -524,7 +508,7 @@ function ViewSuplierBody() {
         </div>
       ) : (
         <div className="text-center py-10">
-          <p className="text-gray-500">No suppliers found</p>
+          <p className="text-[#4A2C1D]/60">No suppliers found</p>
         </div>
       )}
 

@@ -321,10 +321,10 @@ const Sidebar = ({ items, sidebarHidden }) => {
       </div>
       <div
         ref={sidebarRef}
-        className={`sidebar overflow-y-auto scroll-container p-0 m-0 flex flex-col fixed left-0 top-0 h-full bg-white border-r transition-transform duration-300 transform ${isSidebarOpen ? 'translate-x-0 sidebar-open' : '-translate-x-full'
+        className={`sidebar overflow-y-auto scroll-container p-0 m-0 flex flex-col fixed left-0 top-0 h-full bg-[#1F5F3B] border-r border-[#1F5F3B]/20 transition-transform duration-300 transform ${isSidebarOpen ? 'translate-x-0 sidebar-open' : '-translate-x-full'
           } sm:translate-x-0 ${sidebarHidden ? 'md:translate-x-0' : ''}`}
       >
-        <h2 className="mb-5 text-xl text-left text-[#333]">Menu</h2>
+        <h2 className="mb-5 text-xl text-left text-white font-semibold">Menu</h2>
         <ul className="list-none p-0 pb-20 m-0">
           <div className="flex items-center space-x-2 mb-5">
             <div className="w-full max-w-lg relative">
@@ -333,9 +333,9 @@ const Sidebar = ({ items, sidebarHidden }) => {
                 placeholder="Search ..."
                 value={searchTerm}
                 onChange={handleInputChange}
-                className="searchBox w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md shadow-sm focus:border-transparent"
+                className="searchBox w-full pl-10 pr-4 py-2 border border-[#D4AF37]/30 rounded-md shadow-sm bg-white/10 text-white placeholder-white/70 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
               />
-              <button className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+              <button className="absolute inset-y-0 left-0 pl-3 flex items-center text-white/70">
                 <svg
                   className="h-5 w-5"
                   fill="currentColor"
@@ -360,12 +360,12 @@ const Sidebar = ({ items, sidebarHidden }) => {
           {/* Dashboard Item */}
           <li
             id="dashboard"
-            className={`rounded-sm w-full flex p-0 m-0 items-center space-x-2 cursor-pointer ${activeIndex === 1 ? 'bg-gray-100' : 'hover:bg-gray-100 w-full'
+            className={`rounded-sm w-full flex p-0 m-0 items-center space-x-2 cursor-pointer ${activeIndex === 1 ? 'bg-[#D4AF37]/20' : 'hover:bg-[#D4AF37]/10 w-full'
               }`}
             onClick={() => handleClick(1, '/dashboard')}
           >
-            <Link to="/dashboard" className="text-black p-0 m-0 w-full flex items-center space-x-2">
-              <HomeIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
+            <Link to="/dashboard" className="text-white p-0 m-0 w-full flex items-center space-x-2 hover:text-[#D4AF37]">
+              <HomeIcon className="h-6 w-6 text-[#D4AF37] mr-4" aria-hidden="true" />
               Dashboard
             </Link>
           </li>
@@ -375,16 +375,16 @@ const Sidebar = ({ items, sidebarHidden }) => {
             <li id="products" className="dropdown rounded-sm flex items-center w-full p-0 m-0 cursor-pointer">
               <button
                 onClick={ProductToggleDropdown}
-                className="dropdown-toggle text-gray hover:text-gray-700 flex items-center w-full"
+                className="dropdown-toggle text-white hover:text-[#D4AF37] flex items-center w-full"
               >
-                <span className="flex items-center text-black w-full">
-                  <ShoppingBagIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
+                <span className="flex items-center text-white w-full hover:text-[#D4AF37]">
+                  <ShoppingBagIcon className="h-6 w-6 text-[#D4AF37] mr-4" aria-hidden="true" />
                   Products
                 </span>
                 <span className="ml-auto" style={{ transformOrigin: 'center' }}>
                   <img
                     src={ArrowIcon}
-                    className={`h-3 w-3 transition-transform duration-500 transform text-gray-500 ${isProductDropdownOpen ? 'rotate-90' : ''
+                    className={`h-3 w-3 transition-transform duration-500 transform invert ${isProductDropdownOpen ? 'rotate-90' : ''
                       }`}
                     alt="arrow icon"
                     aria-hidden="true"

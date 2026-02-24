@@ -2,8 +2,8 @@
 .dot-spinner {
   --uib-size: 5rem;
   --uib-speed: .9s;
-  --primary-color: #35AF87;
-  --secondary-color: #16796E;
+  --primary-color: #1F5F3B;
+  --secondary-color: #4CAF50;
   position: relative;
   display: flex;
   align-items: center;

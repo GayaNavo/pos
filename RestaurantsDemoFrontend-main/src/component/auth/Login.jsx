@@ -190,114 +190,128 @@ const Login = () => {
     }, []);
 
     return (
-        <div className="w-full min-h-screen flex items-center justify-center bg-gray-100 px-4 py-6 sm:px-6 sm:py-8 overflow-auto">
-            <div className="w-full bg-gray-100 flex flex-col items-center justify-center">
+        <div className="w-full min-h-screen flex items-center justify-center bg-[#FFF6E5] px-4 py-6 sm:px-6 sm:py-8 overflow-auto">
+            <div className="w-full flex flex-col items-center justify-center">
                 
-                {/* Large Outer Card */}
-                <div className="w-full max-w-[400px] sm:max-w-[420px] md:max-w-[450px] lg:max-w-[480px] xl:max-w-[500px] 2xl:max-w-[520px] bg-white rounded-lg shadow-xl p-5 sm:p-6 md:p-8 flex flex-col items-center">
+                {/* Main Card */}
+                <div className="w-full max-w-[420px] bg-white rounded-2xl shadow-xl p-8 sm:p-10 flex flex-col items-center">
                     
-                    {/* Logo inside outer card */}
-                    <img
-                        alt="Your Company"
-                        src={logo}
-                        className="h-10 sm:h-12 md:h-14 w-auto mb-4 sm:mb-5 md:mb-6"
-                    />
-
-                    {/* Inner Card with teal header */}
-                    <div className="w-full overflow-hidden bg-white rounded-lg shadow-md border border-gray-200 flex flex-col">
-                        {/* Teal header inside the inner card */}
-                        <div className="bg-[#2D8D79] py-3 sm:py-4 px-4 sm:px-6 rounded-t-lg">
-                            <h3 className="text-center text-base sm:text-lg md:text-xl font-semibold text-white">
-                                Sign in to your Account
-                            </h3>
-                        </div>
-
-                        {/* Form section */}
-                        <div className="px-4 sm:px-6 py-4 sm:py-6 flex-1">
-                            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
-                                <div>
-                                    <label htmlFor="email" className="block text-sm font-normal leading-6 text-gray-700 text-left mb-1.5 sm:mb-2">
-                                        User name
-                                    </label>
-                                    <div>
-                                        <input
-                                            id="email"
-                                            name="email"
-                                            type="email"
-                                            required
-                                            autoComplete="email"
-                                            placeholder="pos.ideazone@gmail.com"
-                                            value={username}
-                                            onChange={(e) => setUsername(e.target.value)}
-                                            className="pass block w-full rounded-md border border-gray-300 py-2 sm:py-2.5 px-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D8D79] focus:border-transparent"
-                                        />
-                                    </div>
-                                    <div className="text-right mt-1.5 sm:mt-2">
-                                        <Link
-                                            to={`/forgetpassword`}
-                                            className="text-sm font-normal text-[#2D8D79] hover:text-[#246B5D]"
-                                        >
-                                            Forgot Password
-                                        </Link>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label htmlFor="password" className="block text-sm font-normal leading-6 text-gray-700 text-left mb-1.5 sm:mb-2">
-                                        Password
-                                    </label>
-                                    <div className="relative">
-                                        <input
-                                            id="password"
-                                            name="password"
-                                            type={showPassword ? "text" : "password"}
-                                            required
-                                            placeholder="••••••"
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            autoComplete="current-password"
-                                            className="pass block w-full rounded-md border border-gray-300 py-2 sm:py-2.5 px-3 pr-10 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2D8D79] focus:border-transparent"
-                                        />
-                                        <button
-                                            type="button"
-                                            onClick={() => setShowPassword(!showPassword)}
-                                            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
-                                        >
-                                            {showPassword ? (
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
-                                                </svg>
-                                            ) : (
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                </svg>
-                                            )}
-                                        </button>
-                                    </div>
-                                </div>
-                                <div className="flex w-full justify-center pt-2 sm:pt-3">
-                                    <button
-                                        type="submit"
-                                        className="submit flex w-full justify-center rounded-md bg-[#2D8D79] px-3 py-2 sm:py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#35AF87] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2D8D79]"
-                                    >
-                                        Log in
-                                    </button>
-                                </div>
-                                <div className="h-[18px] flex items-center justify-center">
-                                    {error && <h2 className="text-red-700 text-center text-sm">{error}</h2>}
-                                </div>
-                            </form>
-                        </div>
-
-                        {/* Footer inside inner card */}
-                        <div className="px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
-                            <div className="flex items-center gap-1">
-                                <span className="text-xs text-gray-600">Powerd by</span>
-                                <span className="text-xs font-bold text-gray-900">IDEAZONE</span>
-                            </div>
-                            <span className="text-xs text-[#2D8D79]">Version 2.0</span>
-                        </div>
+                    {/* Logo Icon */}
+                    <div className="w-16 h-16 bg-[#1F5F3B] rounded-xl flex items-center justify-center mb-6 shadow-lg">
+                        <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
                     </div>
+
+                    {/* Header */}
+                    <div className="w-full bg-[#1F5F3B] rounded-xl py-4 px-6 mb-8">
+                        <h3 className="text-center text-base sm:text-lg font-semibold text-white">
+                            Sign in to your Account
+                        </h3>
+                    </div>
+
+                    {/* Form section */}
+                    <form onSubmit={handleSubmit} className="w-full space-y-5">
+                        <div>
+                            <label htmlFor="email" className="block text-sm font-medium text-gray-700 text-left mb-2">
+                                User name
+                            </label>
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <svg className="h-5 w-5 text-[#4CAF50]" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                                    </svg>
+                                </div>
+                                <input
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    required
+                                    autoComplete="email"
+                                    placeholder="pos.ideazone@gmail.com"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    className="block w-full rounded-lg border border-gray-200 bg-gray-50 py-3 pl-10 pr-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1F5F3B] focus:border-transparent"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <div className="flex items-center justify-between mb-2">
+                                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                                    Password
+                                </label>
+                                <Link
+                                    to={`/forgetpassword`}
+                                    className="text-sm font-medium text-[#D4AF37] hover:text-[#1F5F3B]"
+                                >
+                                    Forgot Password
+                                </Link>
+                            </div>
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <svg className="h-5 w-5 text-[#4CAF50]" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                                    </svg>
+                                </div>
+                                <input
+                                    id="password"
+                                    name="password"
+                                    type={showPassword ? "text" : "password"}
+                                    required
+                                    placeholder="••••••"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    autoComplete="current-password"
+                                    className="block w-full rounded-lg border border-gray-200 bg-gray-50 py-3 pl-10 pr-10 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1F5F3B] focus:border-transparent"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                                >
+                                    {showPassword ? (
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                                        </svg>
+                                    ) : (
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    )}
+                                </button>
+                            </div>
+                        </div>
+                        <div className="pt-2">
+                            <button
+                                type="submit"
+                                className="submit flex w-full justify-center items-center gap-2 rounded-lg bg-[#1F5F3B] px-4 py-3 text-sm font-semibold text-white shadow-lg hover:bg-[#4CAF50] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1F5F3B] transition-colors"
+                            >
+                                Log in
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div className="h-[18px] flex items-center justify-center">
+                            {error && <h2 className="text-red-600 text-center text-sm">{error}</h2>}
+                        </div>
+                    </form>
+
+                    {/* Footer */}
+                    <div className="w-full mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
+                        <div className="flex items-center gap-1">
+                            <span className="text-xs text-gray-500">Powered by</span>
+                            <span className="text-xs font-semibold text-[#1F5F3B]">IDEAZONE</span>
+                        </div>
+                        <span className="text-xs text-gray-400">Version 2.0</span>
+                    </div>
+                </div>
+                
+                {/* System Status */}
+                <div className="mt-6 flex items-center gap-2 bg-white/50 rounded-full px-4 py-2">
+                    <span className="w-2 h-2 bg-[#4CAF50] rounded-full animate-pulse"></span>
+                    <span className="text-sm text-gray-600">System Online</span>
                 </div>
             </div>
             {progress && (

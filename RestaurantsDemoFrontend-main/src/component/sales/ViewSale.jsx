@@ -490,12 +490,12 @@ function ViewSaleBody() {
 
             {/* Order Type Filter Radio Buttons */}
             <div className="flex gap-3 items-center mb-4">
-                <span className="text-sm font-medium text-gray-700">Order Type:</span>
+                <span className="text-sm font-medium text-[#4A2C1D]">Order Type:</span>
                 <button
                     onClick={() => setOrderTypeFilter('All')}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${orderTypeFilter === 'All'
-                        ? 'bg-[#44BC8D] text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? 'bg-[#1F5F3B] text-white'
+                        : 'bg-[#FFF6E5] text-[#4A2C1D] hover:bg-[#D4AF37]/20'
                         }`}
                 >
                     All
@@ -503,8 +503,8 @@ function ViewSaleBody() {
                 <button
                     onClick={() => setOrderTypeFilter('Normal')}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${orderTypeFilter === 'Normal'
-                        ? 'bg-[#44BC8D] text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? 'bg-[#1F5F3B] text-white'
+                        : 'bg-[#FFF6E5] text-[#4A2C1D] hover:bg-[#D4AF37]/20'
                         }`}
                 >
                     Normal
@@ -512,8 +512,8 @@ function ViewSaleBody() {
                 <button
                     onClick={() => setOrderTypeFilter('PickMe')}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${orderTypeFilter === 'PickMe'
-                        ? 'bg-[#44BC8D] text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? 'bg-[#1F5F3B] text-white'
+                        : 'bg-[#FFF6E5] text-[#4A2C1D] hover:bg-[#D4AF37]/20'
                         }`}
                 >
                     PickMe
@@ -521,8 +521,8 @@ function ViewSaleBody() {
                 <button
                     onClick={() => setOrderTypeFilter('Uber')}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${orderTypeFilter === 'Uber'
-                        ? 'bg-[#44BC8D] text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? 'bg-[#1F5F3B] text-white'
+                        : 'bg-[#FFF6E5] text-[#4A2C1D] hover:bg-[#D4AF37]/20'
                         }`}
                 >
                     Uber
@@ -536,99 +536,97 @@ function ViewSaleBody() {
                     </Box>
 
                 ) : filteredByOrderType.length > 0 ? (
-                    <div className="overflow-x-auto">
-                        <table className=" overflow-x-auto min-w-full bg-white border mb-20 border-gray-200">
-                            <thead className="bg-gray-50">
+                    <div className="overflow-x-auto rounded-xl shadow-sm border border-[#D4AF37]/20">
+                        <table className="min-w-full bg-white">
+                            <thead className="bg-[#1F5F3B]">
                                 <tr>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reference</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Invoice No</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Warehouse</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order Status</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payment Status</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payment Type</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service Charge</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Grand Total</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Paid</th>
-                                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                    <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider rounded-tl-xl">Reference</th>
+                                    <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Invoice No</th>
+                                    <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Customer</th>
+                                    <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Warehouse</th>
+                                    <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Date</th>
+                                    <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Status</th>
+                                    <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Order Status</th>
+                                    <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Payment Status</th>
+                                    <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Payment Type</th>
+                                    <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Service Charge</th>
+                                    <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Grand Total</th>
+                                    <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Paid</th>
+                                    <th className="px-6 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider rounded-tr-xl">Action</th>
                                 </tr>
                             </thead>
-                            <tbody className="bg-white divide-y divide-gray-200">
+                            <tbody className="bg-white divide-y divide-gray-100">
                                 {filteredByOrderType.map((sale) => (
-                                    <tr key={sale._id}>
-                                        <td className="px-6 py-4 text-left whitespace-nowrap text-m text-gray-900"><p className='rounded-[5px] text-center p-[6px] bg-red-100 text-red-500'>{sale.refferenceId}</p></td>
-                                        <td className="px-6 py-4 text-left whitespace-nowrap text-m text-gray-900"><p className='rounded-[5px] text-center p-[6px] bg-red-100 text-red-500'>{sale.invoiceNumber}</p></td>
-                                        <td className="px-6 py-4 text-left whitespace-nowrap text-m text-gray-900"><p className='rounded-[5px] text-center p-[6px] bg-red-100 text-red-500'>{sale.customer}</p></td>
-                                        <td className="px-6 py-4 text-left whitespace-nowrap text-m text-gray-900">{sale.warehouse}</td>
-                                        <td className="px-6 py-4 text-left whitespace-nowrap text-m text-gray-900">{sale.date || 'Invalid Date'}</td>
-                                        <td className="px-6 py-4 text-left whitespace-nowrap text-m text-gray-900"><p className='rounded-[5px] text-center p-[6px] bg-green-100 text-green-500'>{sale.orderStatus}</p></td>
-                                        <td className="px-6 py-4 text-left whitespace-nowrap text-m text-gray-900">
-                                            <p className={`rounded-[5px] text-center p-[6px] ${(sale.orderType === 'Uber' || sale.orderType === 'uber') ? 'bg-teal-100 text-teal-500' :
-                                                (sale.orderType === 'PickMe' || sale.orderType === 'Pickme' || sale.orderType === 'pickme') ? 'bg-yellow-100 text-yellow-600' :
-                                                    'bg-blue-100 text-blue-500'
+                                    <tr key={sale._id} className="hover:bg-[#FFF6E5]/50 transition-colors">
+                                        <td className="px-6 py-4 whitespace-nowrap"><span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-[#1F5F3B]/10 text-[#1F5F3B]">{sale.refferenceId}</span></td>
+                                        <td className="px-6 py-4 whitespace-nowrap"><span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-[#D4AF37]/10 text-[#D4AF37]">{sale.invoiceNumber}</span></td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-[#4A2C1D] font-medium">{sale.customer}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-[#4A2C1D]">{sale.warehouse}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-[#4A2C1D]">{sale.date || 'Invalid Date'}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap"><span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-[#4CAF50]/10 text-[#4CAF50]">{sale.orderStatus}</span></td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${(sale.orderType === 'Uber' || sale.orderType === 'uber') ? 'bg-purple-100 text-purple-600' :
+                                                (sale.orderType === 'PickMe' || sale.orderType === 'Pickme' || sale.orderType === 'pickme') ? 'bg-[#D4AF37]/10 text-[#D4AF37]' :
+                                                    'bg-blue-100 text-blue-600'
                                                 }`}>
                                                 {sale.orderType || 'Normal'}
-                                            </p>
+                                            </span>
                                         </td>
-                                        <td className="px-6 py-4 text-left whitespace-nowrap text-m text-gray-900">
-                                            <p className={`rounded-[5px] text-center p-[6px] ${sale.paymentStatus === 'paid' ? 'bg-green-100 text-green-500' : sale.paymentStatus === 'partial' ? 'bg-yellow-100 text-yellow-500' :
-                                                'bg-red-100 text-red-500'}`}>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${sale.paymentStatus === 'paid' ? 'bg-[#4CAF50]/10 text-[#4CAF50]' : sale.paymentStatus === 'partial' ? 'bg-[#D4AF37]/10 text-[#D4AF37]' :
+                                                'bg-red-100 text-red-600'}`}>
                                                 {sale.paymentStatus}
-                                            </p>
+                                            </span>
                                         </td>
-                                        <td className="px-6 py-4 text-left whitespace-nowrap text-m text-gray-900">
-                                            <p className='rounded-[5px] text-center p-[6px] bg-blue-100 text-blue-500'>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-600">
                                                 {sale.paymentType.map(pt => pt.type).join(' + ')}
-                                            </p>
+                                            </span>
                                         </td>
 
-                                        <td className="px-6 py-4 text-left whitespace-nowrap text-m text-gray-900">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-[#4A2C1D]">
                                             {sale.serviceChargeValue || 0.00} {currency}
                                         </td>
 
-                                        <td className="px-6 py-4 text-left whitespace-nowrap text-m text-gray-900">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-[#1F5F3B]">
                                             {currency}{' '}{formatWithCustomCommas(sale.grandTotal)}
                                         </td>
-                                        <td className="px-6 py-4 text-left whitespace-nowrap text-m text-gray-900">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-[#4A2C1D]">
                                             {currency}{' '}{formatWithCustomCommas(sale.paidAmount)}
                                         </td>
-                                        <td className="px-6 py-4 text-left whitespace-nowrap text-m text-gray-900">
-                                            <div className='flex items-center'>
+                                        <td className="px-6 py-4 whitespace-nowrap">
+                                            <div className='flex items-center justify-end gap-1'>
                                                 {permissionData.edit_sale && (
                                                     <Link to={`/editSale/${sale._id}`}
-                                                        className="text-blue-500 hover:text-blue-700 font-bold py-1 px-2 mr-2 flex items-center"
-                                                        style={{ background: 'transparent' }}
+                                                        className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#1F5F3B]/10 text-[#1F5F3B] hover:bg-[#1F5F3B] hover:text-white transition-all"
                                                     >
-                                                        <i className="fas fa-edit mr-1"></i>
+                                                        <i className="fas fa-edit text-xs"></i>
                                                     </Link>
                                                 )}
                                                 {permissionData.delete_sale && (
                                                     <button
                                                         onClick={() => showConfirmationModal(sale._id)}
-                                                        className="text-red-500 hover:text-red-700 font-bold py-1 px-2 flex items-center"
-                                                        style={{ background: 'transparent' }}
+                                                        className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-600 hover:text-white transition-all"
                                                     >
-                                                        <i className="fas fa-trash mr-1"></i>
+                                                        <i className="fas fa-trash text-xs"></i>
                                                     </button>
                                                 )}
                                                 {(permissionData.view_sl_popup || permissionData.show_payment || permissionData.return_sale) && (
                                                     <button
                                                         onClick={() => handleTogglePopup(sale._id)}
-                                                        className="text-gray-500 hover:text-gray-700 font-bold py-1 px-2 flex items-center rotate-90"
+                                                        className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#D4AF37]/10 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white transition-all rotate-90"
                                                     >
-                                                        <i className="fa fa-ellipsis-h"></i>
+                                                        <i className="fa fa-ellipsis-h text-xs"></i>
                                                     </button>
                                                 )}
 
                                                 {/* Conditional rendering of the popup for the specific sale._id */}
                                                 {openPopupId === sale._id && (
-                                                    <div ref={popupRef} className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg z-10">
-                                                        <ul ref={targetRef} className="text-sm text-gray-700">
+                                                    <div ref={popupRef} className="absolute right-0 mt-2 w-48 bg-white border border-[#D4AF37]/20 rounded-xl shadow-lg z-10 overflow-hidden">
+                                                        <ul ref={targetRef} className="text-sm text-[#4A2C1D]">
                                                             {permissionData.view_sl_popup && (
-                                                                <li onClick={() => handleSaleViewPopUp(sale._id)} className="px-4 py-4 hover:bg-gray-100 cursor-pointer flex items-center">
-                                                                    <i className="fas fa-eye mr-2 text-gray-600"></i> {/* Icon for "View Sale" */}
+                                                                <li onClick={() => handleSaleViewPopUp(sale._id)} className="px-4 py-3 hover:bg-[#FFF6E5] cursor-pointer flex items-center transition-colors">
+                                                                    <i className="fas fa-eye mr-3 text-[#1F5F3B]"></i>
                                                                     View Sale
                                                                 </li>
                                                             )}
@@ -636,25 +634,24 @@ function ViewSaleBody() {
                                                                 <li
                                                                     key={sale._id}
                                                                     onClick={() => handleShowPaymentPopUp(sale._id)}
-                                                                    // Associate click event here
-                                                                    className="px-4 py-4 hover:bg-gray-100 cursor-pointer flex items-center"
+                                                                    className="px-4 py-3 hover:bg-[#FFF6E5] cursor-pointer flex items-center transition-colors"
                                                                 >
-                                                                    <i className="fas fa-credit-card mr-2 text-gray-600"></i>
+                                                                    <i className="fas fa-credit-card mr-3 text-[#1F5F3B]"></i>
                                                                     Show Payment
                                                                 </li>
                                                             )}
                                                             {permissionData.return_sale && sale.returnStatus === false && (
-                                                                <Link to={`/createSaleReturn/${sale._id}`} className="px-4 py-4 hover:bg-gray-100 cursor-pointer flex items-center">
-                                                                    <i className="fas fa-undo-alt mr-2 text-gray-600"></i> {/* Icon for "Create Return" */}
+                                                                <Link to={`/createSaleReturn/${sale._id}`} className="px-4 py-3 hover:bg-[#FFF6E5] cursor-pointer flex items-center transition-colors block">
+                                                                    <i className="fas fa-undo-alt mr-3 text-[#1F5F3B]"></i>
                                                                     Create Return
                                                                 </Link>
                                                             )}
                                                             {permissionData.print_sale && (
                                                                 <li
                                                                     onClick={() => handlePrintInvoice(sale._id)}
-                                                                    className="px-4 py-4 hover:bg-gray-100 cursor-pointer flex items-center"
+                                                                    className="px-4 py-3 hover:bg-[#FFF6E5] cursor-pointer flex items-center transition-colors"
                                                                 >
-                                                                    <i className="fas fa-print mr-2 text-gray-600"></i>
+                                                                    <i className="fas fa-print mr-3 text-[#1F5F3B]"></i>
                                                                     Print Invoice
                                                                 </li>
                                                             )}

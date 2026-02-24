@@ -267,68 +267,52 @@ function ViewPurchaseReturnBody() {
     const companyReturns = combinedProductData.filter(purchase => purchase.returnType === 'company');
 
     const renderTable = (data, title) => (
-        <div className="overflow-x-auto mb-8 rounded-lg shadow">
-            <table className="min-w-full bg-white border border-gray-200">
-                <thead className="bg-gray-50">
+        <div className="overflow-x-auto mb-8 rounded-xl shadow-sm border border-[#D4AF37]/20">
+            <table className="min-w-full bg-white">
+                <thead className="bg-[#1F5F3B]">
                     <tr>
-                        <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Refference</th>
-                        <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Suplier</th>
-                        <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Warehouse</th>
-                        <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                        <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Grand Total</th>
-                        <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Paid</th>
-                        <th className="px-3 md:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                        <th className="px-3 md:px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider rounded-tl-xl">Reference</th>
+                        <th className="px-3 md:px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Supplier</th>
+                        <th className="px-3 md:px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Warehouse</th>
+                        <th className="px-3 md:px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Date</th>
+                        <th className="px-3 md:px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Grand Total</th>
+                        <th className="px-3 md:px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Paid</th>
+                        <th className="px-3 md:px-6 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider rounded-tr-xl">Action</th>
                     </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-white divide-y divide-gray-100">
                     {data.map((purchase) => (
-                        <tr key={purchase._id}
-                        >
-                            <td className="px-3 md:px-6 py-4 text-left whitespace-nowrap text-sm text-gray-900"><p className='rounded-[5px] text-center p-[6px] bg-red-100 text-red-500'>{purchase.refferenceId}</p></td>
-                            <td className="px-3 md:px-6 py-4 text-left whitespace-nowrap text-sm text-gray-900"><p className='rounded-[5px] text-center p-[6px] bg-red-100 text-red-500'>{purchase.supplier}</p></td>
-                            <td className="px-3 md:px-6 py-4 text-left whitespace-nowrap text-sm text-gray-900">{purchase.warehouse}</td>
-                            <td className="px-3 md:px-6 py-4 text-left whitespace-nowrap text-sm text-gray-900">{purchase.date?.full}</td>
-                            <td className="px-3 md:px-6 py-4 text-left whitespace-nowrap text-sm text-gray-900">
-                                <p className={`rounded-[5px] text-center p-[6px] bg-green-100 text-green-500`}>
-                                    {currency}{' '} {formatWithCustomCommas(purchase.grandTotal)}
-                                </p>
-                            </td>
-                            <td className="px-3 md:px-6 py-4 text-left whitespace-nowrap text-sm text-gray-900">{currency}{' '} {formatWithCustomCommas(purchase.paidAmount)}</td>
-                            <td className="px-3 md:px-6 py-4 flex justify-end text-right whitespace-nowrap text-sm text-gray-900">
-                                <div className='flex items-center'>
-                                    {/* {activeTab === 'company' && permissionData.edit_pur_return && (
-                                        <Link to={`/editPurchaseReturn/${purchase._id}`}
-                                            className="text-blue-500 hover:text-blue-700 font-bold py-1 px-2 mr-2 flex items-center"
-                                            style={{ background: 'transparent' }}
-                                        >
-                                            <i className="fas fa-edit mr-1"></i>
-                                        </Link>
-                                    )} */}
+                        <tr key={purchase._id} className="hover:bg-[#FFF6E5]/50 transition-colors">
+                            <td className="px-3 md:px-6 py-4 whitespace-nowrap"><span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-[#1F5F3B]/10 text-[#1F5F3B]">{purchase.refferenceId}</span></td>
+                            <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm font-medium text-[#4A2C1D]">{purchase.supplier}</td>
+                            <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm text-[#4A2C1D]">{purchase.warehouse}</td>
+                            <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm text-[#4A2C1D]">{purchase.date?.full}</td>
+                            <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm font-semibold text-[#1F5F3B]">{currency}{' '} {formatWithCustomCommas(purchase.grandTotal)}</td>
+                            <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm text-[#4A2C1D]">{currency}{' '} {formatWithCustomCommas(purchase.paidAmount)}</td>
+                            <td className="px-3 md:px-6 py-4 whitespace-nowrap">
+                                <div className='flex items-center justify-end gap-1'>
                                     {permissionData.delete_pur_return && (
                                         <button
                                             onClick={() => showConfirmationModal(purchase._id)}
-                                            className="text-red-500 hover:text-red-700 font-bold py-1 px-2 flex items-center"
-                                            style={{ background: 'transparent' }}
+                                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-600 hover:text-white transition-all"
                                         >
-                                            <i className="fas fa-trash mr-1"></i>
+                                            <i className="fas fa-trash text-xs"></i>
                                         </button>
                                     )}
-                                    {/* {(permissionData.view_pur_return_popup) && ( */}
                                     <button
                                         onClick={() => handleTogglePopup(purchase._id)}
-                                        className="text-gray-500 hover:text-gray-700 font-bold py-1 px-2 flex items-center rotate-90"
+                                        className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#D4AF37]/10 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white transition-all rotate-90"
                                     >
-                                        <i className="fa fa-ellipsis-h"></i>
+                                        <i className="fa fa-ellipsis-h text-xs"></i>
                                     </button>
-                                    {/* )} */}
 
                                     {/* Conditional rendering of the popup for the specific sale._id */}
                                     {openPopupId === purchase._id && (
-                                        <div ref={popupRef} className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg z-10">
-                                            <ul className="text-sm text-gray-700">
+                                        <div ref={popupRef} className="absolute right-0 mt-2 w-48 bg-white border border-[#D4AF37]/20 rounded-xl shadow-lg z-10 overflow-hidden">
+                                            <ul className="text-sm text-[#4A2C1D]">
                                                 {permissionData.view_pur_return_popup && (
-                                                    <li onClick={() => handleSaleViewPopUp(purchase._id)} className="px-4 py-4 hover:bg-gray-100 cursor-pointer flex items-center">
-                                                        <i className="fas fa-eye mr-2 text-gray-600"></i> {/* Icon for "View Sale" */}
+                                                    <li onClick={() => handleSaleViewPopUp(purchase._id)} className="px-4 py-3 hover:bg-[#FFF6E5] cursor-pointer flex items-center transition-colors">
+                                                        <i className="fas fa-eye mr-3 text-[#1F5F3B]"></i>
                                                         View Purchase Return
                                                     </li>
                                                 )}
