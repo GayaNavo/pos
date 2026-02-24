@@ -90,8 +90,6 @@ const DashboardBody = ({ }) => {
         managePurchaseReturns: hasAnyPermission("managePurchaseReturns"),
         manageQuotations: hasAnyPermission("manageQuotations"),
         manageCurrency: hasAnyPermission("manageCurrency"),
-        manageExpenses: hasAnyPermission("manageExpenses"),
-        manageExpensesCategory: hasAnyPermission("manageExpensesCategory"),
         manageRolesAndPermissions: hasAnyPermission(
           "manageRolesAndPermissions"
         ),
@@ -112,7 +110,7 @@ const DashboardBody = ({ }) => {
         view_sl_return: permissions.manageSaleReturns?.view_sl_return || false,
         view_pur_return:
           permissions.managePurchaseReturns?.view_pur_return || false,
-        // create_expense: permissions.manageExpenses?.create_expense || false,
+        
       });
     }
   }, [userData]);

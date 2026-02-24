@@ -20,8 +20,7 @@ const adminController = require('../controllers/userController/adminController')
 const adjustmentController = require('../controllers/adjustmentController/adjustmentController');
 const currencyController = require('../controllers/currencyController/currencyController');
 const customersController = require('../controllers/customerController/customerController');
-const expensesController = require('../controllers/expensesController/expensesController');
-const expensesControllerCategory = require('../controllers/expensesController/expensesCatController');
+
 const purchaseReturnController = require('../controllers/purchaseController/purchaseReturnController');
 const reportController = require('../controllers/reportController/reportController');
 const customerReportController = require('../controllers/reportController/customerReportController');
@@ -105,10 +104,6 @@ router.put('/updateAdjustment/:id' , adjustmentController.updateAdjustment);
 router.put('/updateCurrency/:id', currencyController.updateCurrency);
 
 router.put('/editCustomerProfileByAdmin' , customersController.UpdateCustomer);
-
-router.put('/updateExpenses/:id', expensesController.updateExpenses);
-
-router.put('/updateExpensesCategory/:id', expensesControllerCategory.updateExpensesCategory);
 
 router.put('/updatePurchaseReturn/:id' ,purchaseReturnController.updatePurchaseReturn);
 

@@ -22,8 +22,7 @@ const adminController = require('../controllers/userController/adminController')
 const adjustmentController = require('../controllers/adjustmentController/adjustmentController');
 const currencyController = require('../controllers/currencyController/currencyController');
 const customersController = require('../controllers/customerController/customerController');
-const expensesController = require('../controllers/expensesController/expensesController');
-const expensesCatController = require('../controllers/expensesController/expensesCatController');
+
 const purchaseReturnController = require('../controllers/purchaseController/purchaseReturnController');
 const reportController = require('../controllers/reportController/reportController');
 const customerReportController = require('../controllers/reportController/customerReportController');
@@ -104,17 +103,6 @@ router.get('/getActiveCashRegister/:username', cashController.getCashRegister);
 router.get('/getCustomerForUpdate/:id' ,customersController.getCustomerForUpdate);
 
 router.get('/searchCustomerByName', customersController.searchCustomerByName);
-
-router.get('/getAllExpenses', expensesController.getAllExpenses);
-
-router.get('/findExpensesByCategory', expensesController.getExpensesByCategory);
-
-router.get('/findExpensesById/:id' , expensesController.findExpensesById);
-
-//expense routes category
-router.get('/viewExpenses', expensesCatController.getAllExpensesCat);
-router.get('/findExpensesCatByName',expensesCatController.findExpensesCatByName);
-router.get('/findExpensesById',expensesCatController.findExpensesById);
 
 router.get('/viewPurchaseReturns' , purchaseReturnController.fetchAllPurchaseReturns);
 // router.get('/findPurchaseReturnBySuplierName' , purchaseReturnController.findPurchasReturnBySuplier);
@@ -237,10 +225,6 @@ router.get('/fetchCurrency', currencyController.fetchCurrencies);
 
 router.get('/fetchCustomer', customersController.fetchCustomers);
 
-router.get('/getExpensesCategory', expensesCatController.getExpensesCategory);
-
-router.get('/getExpenses', expensesController.getExpenses);
-
 router.get('/getRole', permissionsController.getRole);
  
 router.get('/getQuatation',quatationController.getQuatation);
@@ -305,8 +289,6 @@ router.get('/searchPurchase', purchaseController.searchPurchase)
 router.get('/searchPurchaseReturn', purchaseReturnController.searchPurchaseReturns)
 router.get('/searchQuotation', quatationController.searchQuotation)
 router.get('/searchCurrency', currencyController.searchCurrency)
-router.get('/searchExpense', expensesController.searchExpense)
-router.get('/searchExpenseCategory', expensesCatController.searchExpenseCategory)
 router.get('/searchAdjustment', adjustmentController.searchAdjustment)
 router.get('/getPlacedOrders', orderController.getPlacedOrderCount);
 router.get('/getProductsForMenu', orderController.findProducts);

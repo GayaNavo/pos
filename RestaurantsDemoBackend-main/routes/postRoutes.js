@@ -20,8 +20,7 @@ const adminController = require('../controllers/userController/adminController')
 const adjustmentController = require('../controllers/adjustmentController/adjustmentController');
 const currencyController = require('../controllers/currencyController/currencyController');
 const customersController = require('../controllers/customerController/customerController');
-const expensesController = require('../controllers/expensesController/expensesController');
-const expensesCategoryController = require('../controllers/expensesController/expensesCatController');
+
 const purchaseReturnController = require('../controllers/purchaseController/purchaseReturnController');
 const sendPurchaseReturnToSupplier = require('../controllers/saleReturnController/saleReturnSendToSupplier');
 const purchaseController = require('../controllers/purchaseController/purchaseController');
@@ -151,10 +150,6 @@ router.post('/createCustomer', customersController.createCustomer);
 router.post('/walkInCustomer', customersController.walkInCustomer);
 
 router.post('/importCustomers', customersController.ImportCustomer);
-
-router.post('/createExpenses', expensesController.createExpenses);
-
-router.post('/createExpensesCategory', expensesCategoryController.createExpensesCategory);
 
 router.post('/returnPurchase', purchaseReturnController.returnPurchase);
 

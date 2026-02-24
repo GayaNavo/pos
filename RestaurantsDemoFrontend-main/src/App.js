@@ -82,10 +82,6 @@ import CreateAdjustmentBody from "./component/adjustment/CreateAdjustment";
 import ViewAdjustmentBody from "./component/adjustment/ViewAdjustment";
 import EditAdjustmentBody from "./component/adjustment/EditAdjustment";
 import ViewCurrencyBody from "./component/currency/ViewCurrency";
-import ViewExpensesCategoryBody from "./component/expenses/CreateExpensesCategory";
-import CreateExpensesBody from "./component/expenses/CreateExpenses";
-import ViewExpensesBody from "./component/expenses/ViewExpenses";
-import EditExpensesBody from "./component/expenses/EditExpenses";
 import ViewReportBody from "./component/reports/ViewReports";
 import CustomerReportBody from "./component/reports/CustomerReportBody";
 import ClickedCustomerReport from "./component/reports/ClickedCustomerReport";
@@ -487,25 +483,6 @@ function App() {
                   <ViewCurrencyBody />
                 </PermissionGuard>} />
 
-              {/*Create expenses category*/}
-              <Route path="/viewExpensesCategory" element={
-                <PermissionGuard requiredPermissions={['view_exp_category']}>
-                  <ViewExpensesCategoryBody />
-                </PermissionGuard>} />
-
-              {/*Create expenses*/}
-              <Route path="/createExpenses" element={
-                <PermissionGuard requiredPermissions={['create_expense']}>
-                  <CurrencyProvider><CreateExpensesBody /></CurrencyProvider>
-                </PermissionGuard>} />
-              <Route path="/viewExpenses" element={
-                <PermissionGuard requiredPermissions={['view_expense']}>
-                  <CurrencyProvider><ViewExpensesBody /></CurrencyProvider>
-                </PermissionGuard>} />
-              <Route path="/editExpenses/:id" element={
-                <PermissionGuard requiredPermissions={['edit_expense']}>
-                  <CurrencyProvider><EditExpensesBody /></CurrencyProvider>
-                </PermissionGuard>} />
               {/* 
             View Reports */}
               <Route path="/viewReport" element={<CurrencyProvider><ViewReportBody /></CurrencyProvider>} />

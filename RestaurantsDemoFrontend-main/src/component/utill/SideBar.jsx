@@ -17,8 +17,6 @@ const Sidebar = ({ items, sidebarHidden }) => {
   const [saleDropdownSearchOpen, setSaleDropdownSearchOpen] = useState(false);
   const [isPurchaseDropdownOpen, setPurchaseDropdownOpen] = useState(false);
   const [purchaseDropdownSearchOpen, setPurchaseDropdownSearchOpen] = useState(false);
-  const [isExpensesDropdownOpen, setExpensesDropdownOpen] = useState(false);
-  const [expensesDropdownSearchOpen, setExpensesDropdownSearchOpen] = useState(false);
   const [isSettingsDropdownOpen, setSettingsDropdown] = useState(false);
   const [settingsDropdownSearchOpen, setSettingsDropdownSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -52,7 +50,6 @@ const Sidebar = ({ items, sidebarHidden }) => {
     '/viewCustomers': { index: 17, dropdown: 'people' },
     '/viewQuotation': { index: 18, dropdown: null },
     '/viewCurrency': { index: 19, dropdown: null },
-    '/viewExpensesCategory': { index: 20, dropdown: 'expenses' },
     '/viewRoleAndPermissions': { index: 21, dropdown: null },
     '/viewReport': { index: 22, dropdown: null },
     '/viewAdjustment': { index: 23, dropdown: null },
@@ -63,7 +60,6 @@ const Sidebar = ({ items, sidebarHidden }) => {
     '/kotSettings': { index: 30, dropdown: 'settings' },
     '/botSettings': { index: 61, dropdown: 'settings' },
     '/prefixSettings': { index: 28, dropdown: 'settings' },
-    '/viewExpenses': { index: 29, dropdown: 'expenses' },
     '/saleReturnsToSupplier': { index: 32, dropdown: 'sale' },
     '/viewOffers': { index: 45, dropdown: null },
     '/zBillRecords': { index: 60, dropdown: null },
@@ -96,8 +92,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
         managePurchaseReturns: hasAnyPermission('managePurchaseReturns'),
         manageQuotations: hasAnyPermission('manageQuotations'),
         manageCurrency: hasAnyPermission('manageCurrency'),
-        manageExpenses: hasAnyPermission('manageExpenses'),
-        manageExpensesCategory: hasAnyPermission('manageExpensesCategory'),
+        
         manageRolesAndPermissions: hasAnyPermission('manageRolesAndPermissions'),
         manageReports: hasAnyPermission('manageReports'),
         manageAdjustments: hasAnyPermission('manageAdjustments'),
@@ -129,13 +124,13 @@ const Sidebar = ({ items, sidebarHidden }) => {
       setPeopleDropdownOpen(false);
       setSaleDropdownOpen(false);
       setPurchaseDropdownOpen(false);
-      setExpensesDropdownOpen(false);
+      
       setSettingsDropdown(false);
       sessionStorage.setItem('isProductDropdownOpen', false);
       sessionStorage.setItem('isPeopleDropdownOpen', false);
       sessionStorage.setItem('isSaleDropdownOpen', false);
       sessionStorage.setItem('isPurchaseDropdownOpen', false);
-      sessionStorage.setItem('isExpensesDropdownOpen', false);
+      
       sessionStorage.setItem('isSettingsDropdownOpen', false);
     };
 
@@ -154,9 +149,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
       } else if (dropdown === 'purchase') {
         setPurchaseDropdownOpen(true);
         sessionStorage.setItem('isPurchaseDropdownOpen', true);
-      } else if (dropdown === 'expenses') {
-        setExpensesDropdownOpen(true);
-        sessionStorage.setItem('isExpensesDropdownOpen', true);
+      
       } else if (dropdown === 'settings') {
         setSettingsDropdown(true);
         sessionStorage.setItem('isSettingsDropdownOpen', true);
@@ -186,11 +179,6 @@ const Sidebar = ({ items, sidebarHidden }) => {
     const savedPurchaseDropdownState = sessionStorage.getItem('isPurchaseDropdownOpen');
     if (savedPurchaseDropdownState !== null) {
       setPurchaseDropdownOpen(savedPurchaseDropdownState === 'true');
-    }
-
-    const savedExpensesDropdownState = sessionStorage.getItem('isExpensesDropdownOpen');
-    if (savedExpensesDropdownState !== null) {
-      setExpensesDropdownOpen(savedExpensesDropdownState === 'true');
     }
 
     const savedSettingsDropdownState = sessionStorage.getItem('isSettingsDropdownOpen');
@@ -236,12 +224,6 @@ const Sidebar = ({ items, sidebarHidden }) => {
     sessionStorage.setItem('isPurchaseDropdownOpen', newState);
   };
 
-  const ExpensestoggleDropdown = () => {
-    const newState = !isExpensesDropdownOpen;
-    setExpensesDropdownOpen(newState);
-    sessionStorage.setItem('isExpensesDropdownOpen', newState);
-  };
-
   const SettingsDropdown = () => {
     const newState = !isSettingsDropdownOpen;
     setSettingsDropdown(newState);
@@ -255,7 +237,6 @@ const Sidebar = ({ items, sidebarHidden }) => {
     let productMatch = false;
     let saleMatch = false;
     let purchaseMatch = false;
-    let expensesMatch = false;
     let settingsMatch = false;
 
     allTabs.forEach((tab) => {
@@ -266,7 +247,6 @@ const Sidebar = ({ items, sidebarHidden }) => {
         if (tab.closest('#productDropdownMenu')) productMatch = true;
         if (tab.closest('#saleDropdownMenu')) saleMatch = true;
         if (tab.closest('#purchaseDropdownMenu')) purchaseMatch = true;
-        if (tab.closest('#expensesDropdownMenu')) expensesMatch = true;
         if (tab.closest('#settings')) settingsMatch = true;
       } else {
         tab.style.display = 'none';
@@ -277,7 +257,6 @@ const Sidebar = ({ items, sidebarHidden }) => {
     setProductDropdownSearchOpen(trimmedQuery !== '' && productMatch);
     setSaleDropdownSearchOpen(trimmedQuery !== '' && saleMatch);
     setPurchaseDropdownSearchOpen(trimmedQuery !== '' && purchaseMatch);
-    setExpensesDropdownSearchOpen(trimmedQuery !== '' && expensesMatch);
     setSettingsDropdownSearchOpen(trimmedQuery !== '' && settingsMatch);
   };
 
@@ -766,58 +745,6 @@ const Sidebar = ({ items, sidebarHidden }) => {
               </Link>
             </li>
           )}
-
-          {/* Expenses Dropdown */}
-          {permissionData.manageExpenses && (
-            <li id="expenses" className="rounded-sm flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
-              <button
-                onClick={ExpensestoggleDropdown}
-                className="dropdown-toggle w-full flex items-center justify-between text-gray-500 hover:text-[#2a9d34]"
-              >
-                <span className="flex items-center space-x-2 text-gray-500">
-                  <ReceiptRefundIcon className="h-6 w-6 text-gray-500 mr-4 transition-colors duration-300" aria-hidden="true" />
-                  Expenses
-                </span>
-                <span className={`ml-auto transform transition-transform duration-300 ${isExpensesDropdownOpen ? 'rotate-90' : ''}`}>
-                  <img
-                    src={ArrowIcon}
-                    className="h-3 w-3 text-gray-500 transition-transform duration-500 hover:text-[#2a9d34]"
-                    alt="arrow icon"
-                    aria-hidden="true"
-                  />
-                </span>
-              </button>
-            </li>
-          )}
-
-          <ul className={`rounded-sm dropdown-menu ${isExpensesDropdownOpen || expensesDropdownSearchOpen ? 'open' : ''}`} id="expensesDropdownMenu">
-            {permissionData.manageExpenses && (
-              <li id="expenses" className="flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
-                <Link
-                  to="/viewExpenses"
-                  className={`w-full text-black hover:text-[#2a9d34] flex items-center ${activeIndex === 29 ? 'bg-gray-100' : 'hover:bg-gray-100'
-                    }`}
-                  onClick={() => handleClick(29, '/viewExpenses')}
-                >
-                  <ReceiptRefundIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
-                  Expenses
-                </Link>
-              </li>
-            )}
-            {permissionData.manageExpensesCategory && (
-              <li id="expenses" className="rounded-sm flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
-                <Link
-                  to="/viewExpensesCategory"
-                  className={`w-full text-black hover:text-[#2a9d34] flex items-center ${activeIndex === 20 ? 'bg-gray-100' : 'hover:bg-gray-100'
-                    }`}
-                  onClick={() => handleClick(20, '/viewExpensesCategory')}
-                >
-                  <ChartPieIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
-                  Exp Category
-                </Link>
-              </li>
-            )}
-          </ul>
 
           {/* Roles/Permissions */}
           {permissionData.manageRolesAndPermissions && (

@@ -120,8 +120,6 @@ export default function Header({ userData, grandTotal, orderStatus, paymentStatu
         managePurchaseReturns: hasAnyPermission("managePurchaseReturns"),
         manageQuotations: hasAnyPermission("manageQuotations"),
         manageCurrency: hasAnyPermission("manageCurrency"),
-        manageExpenses: hasAnyPermission("manageExpenses"),
-        manageExpensesCategory: hasAnyPermission("manageExpensesCategory"),
         manageRolesAndPermissions: hasAnyPermission("manageRolesAndPermissions"),
         manageReports: hasAnyPermission("manageReports"),
         manageAdjustments: hasAnyPermission("manageAdjustments"),
@@ -139,7 +137,6 @@ export default function Header({ userData, grandTotal, orderStatus, paymentStatu
         create_purchase: permissions.managePurchases?.create_purchase || false,
         create_customer: permissions.manageCustomers?.create_customer || false,
         create_supplier: permissions.manageSuppliers?.create_supplier || false,
-        create_expense: permissions.manageExpenses?.create_expense || false,
       });
 
     }
@@ -367,7 +364,6 @@ export default function Header({ userData, grandTotal, orderStatus, paymentStatu
     { name: 'Create Purchase', href: '/createPurchase' },
     { name: 'Create Customer', href: '/createCustomer' },
     { name: 'Create Supplier', href: '/createSuplier' },
-    { name: 'Create Expense', href: '/createExpenses' },
   ];
 
   const toggleDropdown = () => {
