@@ -1,0 +1,268 @@
+/* sidebar.css */
+
+/* Sidebar wrapper - should not take layout space since sidebar is fixed */
+.sidebar-wrapper {
+  width: 0;
+  height: 0;
+  overflow: visible;
+}
+
+.sidebar {
+  width: 18%;
+  height: 100vh;
+  background-color: #ffffff;
+  position: fixed;
+  top: 81px;
+  left: 0;
+  padding: 20px 12px 20px 10px;
+  box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  z-index: 40;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Content area default - NO margin since child pages handle their own positioning */
+.content {
+  margin-left: 0;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+/* Product page container - responsive positioning and width */
+.product-page-container {
+  left: 0;
+  width: 100%;
+}
+
+/* Mobile view - full width, no sidebar offset */
+@media (max-width: 639px) {
+  .product-page-container {
+    left: 0 !important;
+    width: 100% !important;
+  }
+}
+
+/* Tablet view - sidebar visible at 220px */
+@media (min-width: 640px) and (max-width: 1535px) {
+  .product-page-container {
+    left: 220px !important;
+    width: calc(100% - 220px) !important;
+  }
+  
+  /* When sidebar is hidden on tablets */
+  .sidebar-hidden .product-page-container {
+    left: 0 !important;
+    width: 100% !important;
+  }
+}
+
+/* Desktop view - sidebar at 18% */
+@media (min-width: 1536px) {
+  .product-page-container {
+    left: 18% !important;
+    width: 82% !important;
+  }
+}
+
+/* sidebar.css */
+
+.dropdown-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+}
+
+.dropdown-menu.open {
+  max-height: 500px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+}
+
+.sidebar li a {
+  text-decoration: none;
+  color: #333;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 2px;
+}
+
+.sidebar li span {
+  color: #333;
+}
+
+.sidebar li :hover {
+  background-color: #e9ecef;
+  color: #007bff;
+}
+.sidebar button :hover {
+  background-color: #e9ecef;
+  color: #007bff;
+}
+.sidebar button{
+  border-radius: 2px;
+}
+
+.sidebar .dropdown-menu {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.sidebar .dropdown-menu li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.sidebar .dropdown-menu li a {
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+}
+
+.sidebar .dropdown-toggle {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.sidebar .dropdown-toggle:hover {
+  background-color: #e9ecef;
+  color: #007bff;
+}
+
+/* Tablet view: sidebar and content layout adjustments */
+@media (min-width: 640px) and (max-width: 1535px) {
+  .sidebar {
+    width: 220px !important;
+    z-index: 45;
+    transform: translateX(0);
+  }
+  
+  /* Content wrapper - no margin needed as child pages use absolute positioning */
+  div.content {
+    margin-left: 0;
+  }
+  
+  /* When sidebar is hidden in tablet view - slide it out */
+  .sidebar-hidden .sidebar {
+    transform: translateX(-100%) !important;
+  }
+  
+  .sidebar-hidden .content {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+  
+  /* When sidebar is hidden, override the sm:left-[220px] positioning */
+  .sidebar-hidden [class*="sm:left-[220px]"] {
+    left: 0 !important;
+  }
+  
+  .sidebar-hidden [class*="sm:w-[calc(100%-220px)]"] {
+    width: 100% !important;
+  }
+  
+  .sidebar-hidden [class*="md:left-[220px]"] {
+    left: 0 !important;
+  }
+  
+  .sidebar-hidden [class*="md:w-[calc(100%-220px)]"] {
+    width: 100% !important;
+  }
+}
+
+/* Desktop view: Keep fixed sidebar layout unchanged */
+@media (min-width: 1536px) {
+  .sidebar {
+    width: 18%;
+  }
+  
+  /* Content wrapper - no margin needed as child pages use absolute positioning */
+  div.content {
+    margin-left: 0;
+  }
+  
+  /* Desktop always shows sidebar - ignore hidden state */
+  .sidebar-hidden .content {
+    margin-left: 0;
+  }
+}
+
+/* Mobile view */
+@media (max-width: 639px) {
+  .sidebar {
+    width: 80%;
+    max-width: 300px;
+    z-index: 100;
+    transform: translateX(-100%);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .sidebar.sidebar-open {
+    transform: translateX(0);
+  }
+  
+  /* Hide sidebar by default on mobile */
+  .sidebar-hidden .sidebar {
+    transform: translateX(-100%);
+  }
+  
+  div.content {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  /* Mobile: content should be full width with no left offset */
+  .content [class*="left-[18%]"],
+  [class*="left-[18%]"] {
+    left: 0 !important;
+  }
+  
+  .content [class*="w-[82%]"],
+  [class*="w-[82%]"] {
+    width: 100% !important;
+  }
+}
+
+/* Global override for all pages with left-[18%] w-[82%] in tablet view */
+/* Tablet view - sidebar visible: content starts at 220px */
+@media (min-width: 640px) and (max-width: 1535px) {
+  /* When sidebar is visible, adjust content to match 220px sidebar */
+  .content [class*="left-[18%]"],
+  div [class*="left-[18%]"],
+  [class*="left-[18%]"] {
+    left: 220px !important;
+  }
+  
+  .content [class*="w-[82%]"],
+  div [class*="w-[82%]"],
+  [class*="w-[82%]"] {
+    width: calc(100% - 220px) !important;
+  }
+  
+  /* When sidebar is hidden, content expands to full width */
+  .sidebar-hidden .content [class*="left-[18%]"],
+  .sidebar-hidden [class*="left-[18%]"],
+  .sidebar-hidden [class*="sm:left-[220px]"] {
+    left: 0 !important;
+  }
+  
+  .sidebar-hidden .content [class*="w-[82%]"],
+  .sidebar-hidden [class*="w-[82%]"],
+  .sidebar-hidden [class*="sm:w-[calc(100%-220px)]"] {
+    width: 100% !important;
+  }
+}

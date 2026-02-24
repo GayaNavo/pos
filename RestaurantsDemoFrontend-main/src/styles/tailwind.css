@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Page content positioning - accounts for fixed sidebar */
+@layer components {
+  .page-content {
+    position: absolute;
+    top: 80px;
+    left: 18%;
+    width: 82%;
+    min-height: 100vh;
+    transition: left 0.3s ease-in-out, width 0.3s ease-in-out;
+  }
+}
+
+/* Tablet view - page content adjustments */
+@media (min-width: 640px) and (max-width: 1535px) {
+  .page-content {
+    left: 220px;
+    width: calc(100% - 220px);
+  }
+  
+  /* When sidebar is hidden, page content expands */
+  .sidebar-hidden .page-content {
+    left: 0 !important;
+    width: 100% !important;
+  }
+}
+
+/* Desktop view */
+@media (min-width: 1536px) {
+  .page-content {
+    left: 18%;
+    width: 82%;
+  }
+}
+
+/* Mobile view */
+@media (max-width: 639px) {
+  .page-content {
+    left: 0;
+    width: 100%;
+  }
+}

@@ -1,0 +1,49 @@
+/**
+ * Copyright (c) 2025 Ideazone (Pvt) Ltd
+ * Proprietary and Confidential
+ */
+
+/**
+ * Category filtering utilities for separating bar items from kitchen items
+ */
+
+/**
+ * Check if a product belongs to the bar category
+ * @param {Object} product - Product object with category field
+ * @param {Array<String>} barCategories - Array of bar category identifiers
+ * @returns {Boolean} - True if product is a bar item
+ */
+const isBarItem = (product, barCategories) => {
+  if (!product || !product.category) return false;
+  if (!barCategories || barCategories.length === 0) return false;
+  
+  const productCategory = product.category.toLowerCase().trim();
+  
+  return barCategories.some(cat => 
+    productCategory.includes(cat.toLowerCase().trim())
+  );
+};
+
+/**
+ * Split products array into bar items and kitchen items
+ * @param {Array<Object>} products - Array of product objects
+ * @param {Array<String>} barCategories - Array of bar category identifiers
+ * @returns {Object} - { barItems: Array, kitchenItems: Array }
+ */
+const splitByCategory = (products, barCategories) => {
+  if (!products || !Array.isArray(products)) {
+    return { barItems: [], kitchenItems: [] };
+  }
+  
+  if (!barCategories || barCategories.length === 0) {
+    // If no bar categories defined, all items go to kitchen
+    return { barItems: [], kitchenItems: products };
+  }
+  
+  const barItems = products.filter(p => isBarItem(p, barCategories));
+  const kitchenItems = products.filter(p => !isBarItem(p, barCategories));
+  
+  return { barItems, kitchenItems };
+};
+
+module.exports = { isBarItem, splitByCategory };
