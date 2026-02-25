@@ -228,7 +228,7 @@ const Login = () => {
                                     type="email"
                                     required
                                     autoComplete="email"
-                                    placeholder="pos.ideazone@gmail.com"
+                                    placeholder="pos@gmail.com"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
                                     className="block w-full rounded-lg border border-gray-200 bg-gray-50 py-3 pl-10 pr-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1F5F3B] focus:border-transparent"
@@ -301,8 +301,7 @@ const Login = () => {
                     {/* Footer */}
                     <div className="w-full mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
                         <div className="flex items-center gap-1">
-                            <span className="text-xs text-gray-500">Powered by</span>
-                            <span className="text-xs font-semibold text-[#1F5F3B]">IDEAZONE</span>
+                            
                         </div>
                         <span className="text-xs text-gray-400">Version 2.0</span>
                     </div>
