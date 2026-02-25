@@ -34,13 +34,11 @@ function CreateBrandsBody() {
             return;
         }
 
-        // Check file type (strictly allow only JPG files)
-        if (
-            file.type !== "image/jpeg" ||
-            !file.name.toLowerCase().endsWith(".jpg")
-        ) {
+        // Check file type (allow JPG and PNG files)
+        if (!['image/jpeg', 'image/jpg', 'image/png'].includes(file.type) || 
+            !/\.(jpe?g|png)$/i.test(file.name)) {
             toast.error(
-                "Only JPG files are allowed. Please upload a valid JPG file."
+                "Only JPG and PNG files are allowed. Please upload a valid image file."
             );
             inputRef.current.value = ""; // Clear the input field
             return;
@@ -97,12 +95,14 @@ function CreateBrandsBody() {
 
             // Compress the image asynchronously
             const compressedBlob = await imageCompression(file, options);
-            // Convert compressed Blob to File with .jpg extension
+            // Determine the correct extension and type based on original file
+            const fileExtension = file.type === 'image/png' ? '.png' : '.jpg';
+            const fileType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
             const compressedFile = new File(
                 [compressedBlob],
-                file.name.replace(/\.[^/.]+$/, ".jpg"),
+                file.name.replace(/\.[^/.]+$/, fileExtension),
                 {
-                    type: "image/jpeg",
+                    type: fileType,
                 }
             );
 
@@ -228,7 +228,7 @@ function CreateBrandsBody() {
                                             id="file"
                                             name="logo"
                                             type="file"
-                                            accept="image/*"
+                                            accept=".jpg,.jpeg,.png"
                                             onChange={handleLogoChange}
                                             className="hidden"
                                             ref={inputRef}

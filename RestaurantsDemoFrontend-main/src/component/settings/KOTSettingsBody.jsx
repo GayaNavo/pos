@@ -179,8 +179,9 @@ function KOTSettingsBody() {
       return;
     }
 
-    if (!file.type.startsWith('image/')) {
-      toast.error('Please upload an image file (JPEG, PNG, etc.)');
+    if (!['image/jpeg', 'image/jpg', 'image/png'].includes(file.type) || 
+        !/\.(jpe?g|png)$/i.test(file.name)) {
+      toast.error('Only JPG and PNG files are allowed. Please upload a valid image file.');
       return;
     }
 
@@ -425,7 +426,7 @@ function KOTSettingsBody() {
                           <label className={`flex-1 cursor-pointer ${logoUploading ? 'opacity-50 cursor-not-allowed' : ''}`}>
                             <input
                               type="file"
-                              accept="image/*"
+                              accept=".jpg,.jpeg,.png"
                               onChange={handleLogoUpload}
                               disabled={logoUploading}
                               className="hidden"

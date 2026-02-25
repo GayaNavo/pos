@@ -313,7 +313,7 @@ function SystemSettingsBody() {
                                         id="file"
                                         name="logo"
                                         type="file"
-                                        accept="image/*"
+                                        accept=".jpg,.jpeg,.png"
                                         onChange={handleLogoChange}
                                         className="hidden"
                                         ref={inputRef}
