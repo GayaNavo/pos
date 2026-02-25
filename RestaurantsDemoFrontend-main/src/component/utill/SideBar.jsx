@@ -17,8 +17,6 @@ const Sidebar = ({ items, sidebarHidden }) => {
   const [saleDropdownSearchOpen, setSaleDropdownSearchOpen] = useState(false);
   const [isPurchaseDropdownOpen, setPurchaseDropdownOpen] = useState(false);
   const [purchaseDropdownSearchOpen, setPurchaseDropdownSearchOpen] = useState(false);
-  const [isExpensesDropdownOpen, setExpensesDropdownOpen] = useState(false);
-  const [expensesDropdownSearchOpen, setExpensesDropdownSearchOpen] = useState(false);
   const [isSettingsDropdownOpen, setSettingsDropdown] = useState(false);
   const [settingsDropdownSearchOpen, setSettingsDropdownSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -52,7 +50,6 @@ const Sidebar = ({ items, sidebarHidden }) => {
     '/viewCustomers': { index: 17, dropdown: 'people' },
     '/viewQuotation': { index: 18, dropdown: null },
     '/viewCurrency': { index: 19, dropdown: null },
-    '/viewExpensesCategory': { index: 20, dropdown: 'expenses' },
     '/viewRoleAndPermissions': { index: 21, dropdown: null },
     '/viewReport': { index: 22, dropdown: null },
     '/viewAdjustment': { index: 23, dropdown: null },
@@ -63,9 +60,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
     '/kotSettings': { index: 30, dropdown: 'settings' },
     '/botSettings': { index: 61, dropdown: 'settings' },
     '/prefixSettings': { index: 28, dropdown: 'settings' },
-    '/viewExpenses': { index: 29, dropdown: 'expenses' },
     '/saleReturnsToSupplier': { index: 32, dropdown: 'sale' },
-    '/viewOffers': { index: 45, dropdown: null },
     '/zBillRecords': { index: 60, dropdown: null },
   };
 
@@ -96,8 +91,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
         managePurchaseReturns: hasAnyPermission('managePurchaseReturns'),
         manageQuotations: hasAnyPermission('manageQuotations'),
         manageCurrency: hasAnyPermission('manageCurrency'),
-        manageExpenses: hasAnyPermission('manageExpenses'),
-        manageExpensesCategory: hasAnyPermission('manageExpensesCategory'),
+        
         manageRolesAndPermissions: hasAnyPermission('manageRolesAndPermissions'),
         manageReports: hasAnyPermission('manageReports'),
         manageAdjustments: hasAnyPermission('manageAdjustments'),
@@ -129,13 +123,13 @@ const Sidebar = ({ items, sidebarHidden }) => {
       setPeopleDropdownOpen(false);
       setSaleDropdownOpen(false);
       setPurchaseDropdownOpen(false);
-      setExpensesDropdownOpen(false);
+      
       setSettingsDropdown(false);
       sessionStorage.setItem('isProductDropdownOpen', false);
       sessionStorage.setItem('isPeopleDropdownOpen', false);
       sessionStorage.setItem('isSaleDropdownOpen', false);
       sessionStorage.setItem('isPurchaseDropdownOpen', false);
-      sessionStorage.setItem('isExpensesDropdownOpen', false);
+      
       sessionStorage.setItem('isSettingsDropdownOpen', false);
     };
 
@@ -154,9 +148,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
       } else if (dropdown === 'purchase') {
         setPurchaseDropdownOpen(true);
         sessionStorage.setItem('isPurchaseDropdownOpen', true);
-      } else if (dropdown === 'expenses') {
-        setExpensesDropdownOpen(true);
-        sessionStorage.setItem('isExpensesDropdownOpen', true);
+      
       } else if (dropdown === 'settings') {
         setSettingsDropdown(true);
         sessionStorage.setItem('isSettingsDropdownOpen', true);
@@ -186,11 +178,6 @@ const Sidebar = ({ items, sidebarHidden }) => {
     const savedPurchaseDropdownState = sessionStorage.getItem('isPurchaseDropdownOpen');
     if (savedPurchaseDropdownState !== null) {
       setPurchaseDropdownOpen(savedPurchaseDropdownState === 'true');
-    }
-
-    const savedExpensesDropdownState = sessionStorage.getItem('isExpensesDropdownOpen');
-    if (savedExpensesDropdownState !== null) {
-      setExpensesDropdownOpen(savedExpensesDropdownState === 'true');
     }
 
     const savedSettingsDropdownState = sessionStorage.getItem('isSettingsDropdownOpen');
@@ -236,12 +223,6 @@ const Sidebar = ({ items, sidebarHidden }) => {
     sessionStorage.setItem('isPurchaseDropdownOpen', newState);
   };
 
-  const ExpensestoggleDropdown = () => {
-    const newState = !isExpensesDropdownOpen;
-    setExpensesDropdownOpen(newState);
-    sessionStorage.setItem('isExpensesDropdownOpen', newState);
-  };
-
   const SettingsDropdown = () => {
     const newState = !isSettingsDropdownOpen;
     setSettingsDropdown(newState);
@@ -255,7 +236,6 @@ const Sidebar = ({ items, sidebarHidden }) => {
     let productMatch = false;
     let saleMatch = false;
     let purchaseMatch = false;
-    let expensesMatch = false;
     let settingsMatch = false;
 
     allTabs.forEach((tab) => {
@@ -266,7 +246,6 @@ const Sidebar = ({ items, sidebarHidden }) => {
         if (tab.closest('#productDropdownMenu')) productMatch = true;
         if (tab.closest('#saleDropdownMenu')) saleMatch = true;
         if (tab.closest('#purchaseDropdownMenu')) purchaseMatch = true;
-        if (tab.closest('#expensesDropdownMenu')) expensesMatch = true;
         if (tab.closest('#settings')) settingsMatch = true;
       } else {
         tab.style.display = 'none';
@@ -277,7 +256,6 @@ const Sidebar = ({ items, sidebarHidden }) => {
     setProductDropdownSearchOpen(trimmedQuery !== '' && productMatch);
     setSaleDropdownSearchOpen(trimmedQuery !== '' && saleMatch);
     setPurchaseDropdownSearchOpen(trimmedQuery !== '' && purchaseMatch);
-    setExpensesDropdownSearchOpen(trimmedQuery !== '' && expensesMatch);
     setSettingsDropdownSearchOpen(trimmedQuery !== '' && settingsMatch);
   };
 
@@ -342,10 +320,10 @@ const Sidebar = ({ items, sidebarHidden }) => {
       </div>
       <div
         ref={sidebarRef}
-        className={`sidebar overflow-y-auto scroll-container p-0 m-0 flex flex-col fixed left-0 top-0 h-full bg-white border-r transition-transform duration-300 transform ${isSidebarOpen ? 'translate-x-0 sidebar-open' : '-translate-x-full'
+        className={`sidebar overflow-y-auto scroll-container p-0 m-0 flex flex-col fixed left-0 top-0 h-full bg-[#1F5F3B] border-r border-[#1F5F3B]/20 transition-transform duration-300 transform ${isSidebarOpen ? 'translate-x-0 sidebar-open' : '-translate-x-full'
           } sm:translate-x-0 ${sidebarHidden ? 'md:translate-x-0' : ''}`}
       >
-        <h2 className="mb-5 text-xl text-left text-[#333]">Menu</h2>
+        <h2 className="mb-5 text-xl text-left text-white font-semibold">Menu</h2>
         <ul className="list-none p-0 pb-20 m-0">
           <div className="flex items-center space-x-2 mb-5">
             <div className="w-full max-w-lg relative">
@@ -354,9 +332,9 @@ const Sidebar = ({ items, sidebarHidden }) => {
                 placeholder="Search ..."
                 value={searchTerm}
                 onChange={handleInputChange}
-                className="searchBox w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md shadow-sm focus:border-transparent"
+                className="searchBox w-full pl-10 pr-4 py-2 border border-[#D4AF37]/30 rounded-md shadow-sm bg-white/10 text-white placeholder-white/70 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
               />
-              <button className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+              <button className="absolute inset-y-0 left-0 pl-3 flex items-center text-white/70">
                 <svg
                   className="h-5 w-5"
                   fill="currentColor"
@@ -381,12 +359,12 @@ const Sidebar = ({ items, sidebarHidden }) => {
           {/* Dashboard Item */}
           <li
             id="dashboard"
-            className={`rounded-sm w-full flex p-0 m-0 items-center space-x-2 cursor-pointer ${activeIndex === 1 ? 'bg-gray-100' : 'hover:bg-gray-100 w-full'
+            className={`rounded-sm w-full flex p-0 m-0 items-center space-x-2 cursor-pointer ${activeIndex === 1 ? 'bg-[#D4AF37]/20' : 'hover:bg-[#D4AF37]/10 w-full'
               }`}
             onClick={() => handleClick(1, '/dashboard')}
           >
-            <Link to="/dashboard" className="text-black p-0 m-0 w-full flex items-center space-x-2">
-              <HomeIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
+            <Link to="/dashboard" className="text-white p-0 m-0 w-full flex items-center space-x-2 hover:text-[#D4AF37]">
+              <HomeIcon className="h-6 w-6 text-[#D4AF37] mr-4" aria-hidden="true" />
               Dashboard
             </Link>
           </li>
@@ -396,16 +374,16 @@ const Sidebar = ({ items, sidebarHidden }) => {
             <li id="products" className="dropdown rounded-sm flex items-center w-full p-0 m-0 cursor-pointer">
               <button
                 onClick={ProductToggleDropdown}
-                className="dropdown-toggle text-gray hover:text-gray-700 flex items-center w-full"
+                className="dropdown-toggle text-white hover:text-[#D4AF37] flex items-center w-full"
               >
-                <span className="flex items-center text-black w-full">
-                  <ShoppingBagIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
+                <span className="flex items-center text-white w-full hover:text-[#D4AF37]">
+                  <ShoppingBagIcon className="h-6 w-6 text-[#D4AF37] mr-4" aria-hidden="true" />
                   Products
                 </span>
                 <span className="ml-auto" style={{ transformOrigin: 'center' }}>
                   <img
                     src={ArrowIcon}
-                    className={`h-3 w-3 transition-transform duration-500 transform text-gray-500 ${isProductDropdownOpen ? 'rotate-90' : ''
+                    className={`h-3 w-3 transition-transform duration-500 transform invert ${isProductDropdownOpen ? 'rotate-90' : ''
                       }`}
                     alt="arrow icon"
                     aria-hidden="true"
@@ -752,72 +730,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
             </li>
           )}
 
-          {/* Currency */}
-          {permissionData.manageCurrency && (
-            <li id="currencies" className="rounded-sm flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
-              <Link
-                to="/viewCurrency"
-                className={`w-full text-black hover:text-[#2a9d34] flex items-center ${activeIndex === 19 ? 'bg-gray-100' : 'hover:bg-gray-100'
-                  }`}
-                onClick={() => handleClick(19, '/viewCurrency')}
-              >
-                <CurrencyDollarIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
-                Currencies
-              </Link>
-            </li>
-          )}
 
-          {/* Expenses Dropdown */}
-          {permissionData.manageExpenses && (
-            <li id="expenses" className="rounded-sm flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
-              <button
-                onClick={ExpensestoggleDropdown}
-                className="dropdown-toggle w-full flex items-center justify-between text-gray-500 hover:text-[#2a9d34]"
-              >
-                <span className="flex items-center space-x-2 text-gray-500">
-                  <ReceiptRefundIcon className="h-6 w-6 text-gray-500 mr-4 transition-colors duration-300" aria-hidden="true" />
-                  Expenses
-                </span>
-                <span className={`ml-auto transform transition-transform duration-300 ${isExpensesDropdownOpen ? 'rotate-90' : ''}`}>
-                  <img
-                    src={ArrowIcon}
-                    className="h-3 w-3 text-gray-500 transition-transform duration-500 hover:text-[#2a9d34]"
-                    alt="arrow icon"
-                    aria-hidden="true"
-                  />
-                </span>
-              </button>
-            </li>
-          )}
-
-          <ul className={`rounded-sm dropdown-menu ${isExpensesDropdownOpen || expensesDropdownSearchOpen ? 'open' : ''}`} id="expensesDropdownMenu">
-            {permissionData.manageExpenses && (
-              <li id="expenses" className="flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
-                <Link
-                  to="/viewExpenses"
-                  className={`w-full text-black hover:text-[#2a9d34] flex items-center ${activeIndex === 29 ? 'bg-gray-100' : 'hover:bg-gray-100'
-                    }`}
-                  onClick={() => handleClick(29, '/viewExpenses')}
-                >
-                  <ReceiptRefundIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
-                  Expenses
-                </Link>
-              </li>
-            )}
-            {permissionData.manageExpensesCategory && (
-              <li id="expenses" className="rounded-sm flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
-                <Link
-                  to="/viewExpensesCategory"
-                  className={`w-full text-black hover:text-[#2a9d34] flex items-center ${activeIndex === 20 ? 'bg-gray-100' : 'hover:bg-gray-100'
-                    }`}
-                  onClick={() => handleClick(20, '/viewExpensesCategory')}
-                >
-                  <ChartPieIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
-                  Exp Category
-                </Link>
-              </li>
-            )}
-          </ul>
 
           {/* Roles/Permissions */}
           {permissionData.manageRolesAndPermissions && (
@@ -834,20 +747,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
             </li>
           )}
 
-          {/* Special Offers */}
-          {permissionData.manageRolesAndPermissions && (
-            <li id="offers" className="rounded-sm flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
-              <Link
-                to="/viewOffers"
-                className={`text-black hover:text-[#2a9d34] flex items-center w-full ${activeIndex === 45 ? 'bg-gray-100' : 'hover:bg-gray-100'
-                  }`}
-                onClick={() => handleClick(45, '/viewOffers')}
-              >
-                <GiftIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
-                Special Offers
-              </Link>
-            </li>
-          )}
+
 
           {/* Reports */}
           {permissionData.manageReports && (
@@ -864,24 +764,11 @@ const Sidebar = ({ items, sidebarHidden }) => {
             </li>
           )}
 
-          {/* Adjustment */}
-          {permissionData.manageAdjustments && (
-            <li id="adjustment" className="rounded-sm flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
-              <Link
-                to="/viewAdjustment"
-                className={`text-black hover:text-[#2a9d34] flex items-center w-full ${activeIndex === 23 ? 'bg-gray-100' : 'hover:bg-gray-100'
-                  }`}
-                onClick={() => handleClick(23, '/viewAdjustment')}
-              >
-                <AdjustmentsVerticalIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
-                Adjustment
-              </Link>
-            </li>
-          )}
+
 
           {/* Z Bill */}
           {permissionData.manageZbill && (
-            <li id="adjustment" className="rounded-sm flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
+            <li id="zBill" className="rounded-sm flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
               <Link
                 to="/zBillRecords"
                 className={`text-black hover:text-[#2a9d34] flex items-center w-full ${activeIndex === 60 ? 'bg-gray-100' : 'hover:bg-gray-100'

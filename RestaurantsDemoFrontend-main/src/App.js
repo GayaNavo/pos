@@ -1,14 +1,3 @@
-/*
- * Copyright (c) 2025 Ideazone (Pvt) Ltd
- * Proprietary and Confidential
- *
- * This source code is part of a proprietary Point-of-Sale (POS) system developed by Ideazone (Pvt) Ltd.
- * Use of this code is governed by a license agreement and an NDA.
- * Unauthorized use, modification, distribution, or reverse engineering is strictly prohibited.
- *
- * Contact info@ideazone.lk for more information.
- */
-
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./component/auth/Login";
@@ -78,14 +67,8 @@ import CreateQuatationBody from "./component/quotation/CreateQuatation";
 import ViewQuatationBody from "./component/quotation/ViewQuatation";
 import EditQuatationBody from "./component/quotation/EditQuatation";
 import CreateSaleFromQuatationBody from "./component/quotation/CreateSaleFromQuatation";
-import CreateAdjustmentBody from "./component/adjustment/CreateAdjustment";
-import ViewAdjustmentBody from "./component/adjustment/ViewAdjustment";
-import EditAdjustmentBody from "./component/adjustment/EditAdjustment";
-import ViewCurrencyBody from "./component/currency/ViewCurrency";
-import ViewExpensesCategoryBody from "./component/expenses/CreateExpensesCategory";
-import CreateExpensesBody from "./component/expenses/CreateExpenses";
-import ViewExpensesBody from "./component/expenses/ViewExpenses";
-import EditExpensesBody from "./component/expenses/EditExpenses";
+
+
 import ViewReportBody from "./component/reports/ViewReports";
 import CustomerReportBody from "./component/reports/CustomerReportBody";
 import ClickedCustomerReport from "./component/reports/ClickedCustomerReport";
@@ -108,9 +91,7 @@ import { ToastContainer } from "react-toastify";
 import Languages from "./component/utill/sidebarLanguage";
 import Team from "./component/utill/navBar/team";
 import Products from "./component/utill/navBar/products";
-import ViewOffers from "./component/offers/ViewOffers";
-import CreateOffers from "./component/offers/CreateOffers";
-import EditOffer from "./component/offers/EditOffer";
+
 import BotSettingsBody from "./component/settings/BotSettingsBody";
 import ZBill from "./component/zBill/zBill";
 import RestaurantMenuView from "./component/pos/components/RestaurantMenuView.jsx";
@@ -467,45 +448,10 @@ function App() {
                   <CurrencyProvider><CreateSaleFromQuatationBody /></CurrencyProvider>
                 </PermissionGuard>} />
 
-              {/*Create adjustment*/}
-              <Route path="/createAdjustment" element={
-                <PermissionGuard requiredPermissions={['create_adjustment']}>
-                  <CurrencyProvider><CreateAdjustmentBody /></CurrencyProvider>
-                </PermissionGuard>} />
-              <Route path="/viewAdjustment" element={
-                <PermissionGuard requiredPermissions={['view_adjustment']}>
-                  <CurrencyProvider><ViewAdjustmentBody /></CurrencyProvider>
-                </PermissionGuard>} />
-              <Route path="/editAdjustment/:id" element={
-                <PermissionGuard requiredPermissions={['edit_adjustment']}>
-                  <CurrencyProvider><EditAdjustmentBody /></CurrencyProvider>
-                </PermissionGuard>} />
 
-              {/*Create currency*/}
-              <Route path="/viewCurrency" element={
-                <PermissionGuard requiredPermissions={['view_currency']}>
-                  <ViewCurrencyBody />
-                </PermissionGuard>} />
 
-              {/*Create expenses category*/}
-              <Route path="/viewExpensesCategory" element={
-                <PermissionGuard requiredPermissions={['view_exp_category']}>
-                  <ViewExpensesCategoryBody />
-                </PermissionGuard>} />
 
-              {/*Create expenses*/}
-              <Route path="/createExpenses" element={
-                <PermissionGuard requiredPermissions={['create_expense']}>
-                  <CurrencyProvider><CreateExpensesBody /></CurrencyProvider>
-                </PermissionGuard>} />
-              <Route path="/viewExpenses" element={
-                <PermissionGuard requiredPermissions={['view_expense']}>
-                  <CurrencyProvider><ViewExpensesBody /></CurrencyProvider>
-                </PermissionGuard>} />
-              <Route path="/editExpenses/:id" element={
-                <PermissionGuard requiredPermissions={['edit_expense']}>
-                  <CurrencyProvider><EditExpensesBody /></CurrencyProvider>
-                </PermissionGuard>} />
+
               {/* 
             View Reports */}
               <Route path="/viewReport" element={<CurrencyProvider><ViewReportBody /></CurrencyProvider>} />
@@ -519,18 +465,7 @@ function App() {
               <Route path="/clickedStokeRep/:id" element={<CurrencyProvider><ClickedStokeReport /></CurrencyProvider>} />
               {/* <Route path="/profitAndLostReport" element={<CurrencyProvider><ProfitAndLost /></CurrencyProvider>} /> */}
 
-              {/* offers managing */}
-              <Route path="/viewOffers" element={
-                <PermissionGuard requiredPermissions={['view_offer']}><ViewOffers />
-                </PermissionGuard>} />
 
-              <Route path="/createOffers" element={
-                <PermissionGuard requiredPermissions={['create_offer']}><CreateOffers />
-                </PermissionGuard>} />
-
-              <Route path="/editOffers/:id" element={
-                <PermissionGuard requiredPermissions={['edit_offer']}><EditOffer />
-                </PermissionGuard>} />
 
 
               <Route path="/mailSettings" element={<MailSettingsBody />} />
@@ -567,3 +502,4 @@ function App() {
 }
 
 export default App;
+

@@ -12,11 +12,10 @@
 const express = require('express');
 const router = express.Router();
 
-const adjustmentController = require('../controllers/adjustmentController/adjustmentController');
+
 const currencyController = require('../controllers/currencyController/currencyController');
 const customersController = require('../controllers/customerController/customerController');
-const expensesController = require('../controllers/expensesController/expensesController');
-const expensesCatController = require('../controllers/expensesController/expensesCatController');
+
 const purchaseReturnController = require('../controllers/purchaseController/purchaseReturnController');
 const purchaseController = require('../controllers/purchaseController/purchaseController');
 const quatationController = require('../controllers/quatationController/quatationController');
@@ -47,15 +46,11 @@ router.delete('/deleteHeldProduct/:id', posController.deleteHeldProduct);
 
 router.delete('/closeRegister/:id', cashController.closeRegister);
 
-router.delete('/DeleteAdjustment/:id', adjustmentController.deleteAdjustment);
+
 
 router.delete('/deleteCurrency/:id',currencyController.deleteCurrency);
 
 router.delete('/DeleteCustomer/:id',customersController.DeleteCustomer);
-
-router.delete('/deleteExpenses/:id', expensesController.deleteCExpenses);
-
-router.delete('/deleteExpensesCategory/:id',expensesCatController.deleteExpensesCatergory);
 
 router.delete('/DeletePurchaseReturn/:id' , purchaseReturnController.deletePurchaseReturn);
 
@@ -85,7 +80,7 @@ router.delete('/DeleteUser/:id', userController.deleteUser);
 
 router.delete('/DeleteWarehouse/:id',warehouseController.DeleteWarehouse);
 
-router.delete('/deleteProductFromAdjustment', adjustmentController.deleteProductFromAdjustment);
+
 
 router.delete('/deleteProductFromPurchase', purchaseController.deleteProductFromPurchase);
 

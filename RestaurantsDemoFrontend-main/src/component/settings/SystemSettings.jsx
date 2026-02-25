@@ -11,7 +11,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { fetchSaleData, } from '../currency/CurrencyController';
 import '../../styles/role.css';
 import { Link } from 'react-router-dom';
 import { isAllowedKey } from '../utill/MobileValidation';
@@ -24,7 +23,6 @@ import Loader from '../utill/Loader';
 
 function SystemSettingsBody() {
     // State management
-    const [currencyData, setCurrencyData] = useState([]);
     const [warehouseData, setWarehouseData] = useState([]);
     const [email, setEmail] = useState('');
     const [currency, setCurrency] = useState('LKR');
@@ -55,7 +53,7 @@ function SystemSettingsBody() {
             `${process.env.REACT_APP_BASE_URL}/api/fetchWarehouses`,
             (data) => setWarehouseData(data.warehouses || [])
         );
-        fetchSaleData(setCurrencyData, setLoading, setError);
+        
         fetchSettings();
     }, []);
 
@@ -315,7 +313,7 @@ function SystemSettingsBody() {
                                         id="file"
                                         name="logo"
                                         type="file"
-                                        accept="image/*"
+                                        accept=".jpg,.jpeg,.png"
                                         onChange={handleLogoChange}
                                         className="hidden"
                                         ref={inputRef}
@@ -374,11 +372,10 @@ function SystemSettingsBody() {
                                     className="searchBox w-full pl-4 pr-2 py-2 border border-gray-300 rounded-md shadow-sm focus:border-transparent"
                                 >
                                     <option value="">Select a Currency</option>
-                                    {currencyData.map((c) => (
-                                        <option key={c.currencyCode} value={c.currencyCode}>
-                                            {c.currencyCode}
-                                        </option>
-                                    ))}
+                                    <option value="LKR">LKR</option>
+                                    <option value="USD">USD</option>
+                                    <option value="EUR">EUR</option>
+                                    <option value="GBP">GBP</option>
                                 </select>
                             </div>
                         </div>

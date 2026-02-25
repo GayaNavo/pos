@@ -229,8 +229,9 @@ function CreateProductBody() {
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
 
-    if (file.type !== "image/jpeg" || !file.name.toLowerCase().endsWith(".jpg")) {
-      toast.error("Only JPG files are allowed. Please upload a valid JPG file.");
+    if (!['image/jpeg', 'image/jpg', 'image/png'].includes(file.type) || 
+        !/\.(jpe?g|png)$/i.test(file.name)) {
+      toast.error("Only JPG and PNG files are allowed. Please upload a valid image file.");
       inputRef.current.value = "";
       return;
     }
@@ -278,8 +279,11 @@ function CreateProductBody() {
       });
 
       const compressedBlob = await imageCompression(file, options);
-      const compressedFile = new File([compressedBlob], file.name.replace(/\.[^/.]+$/, ".jpg"), {
-        type: "image/jpeg",
+      // Determine the correct extension and type based on original file
+      const fileExtension = file.type === 'image/png' ? '.png' : '.jpg';
+      const fileType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+      const compressedFile = new File([compressedBlob], file.name.replace(/\.[^/.]+$/, fileExtension), {
+        type: fileType,
       });
 
       // Update state with the compressed image only if all validations pass
@@ -685,10 +689,11 @@ function CreateProductBody() {
       return;
     }
 
-    // Check file type (strictly allow only JPG files)
-    if (file.type !== "image/jpeg" || !file.name.toLowerCase().endsWith(".jpg")) {
-      setError("Only JPG files are allowed. Please upload a valid JPG file.");
-      alert("Only JPG files are allowed. Please upload a valid JPG file.");
+    // Check file type (allow JPG and PNG files)
+    if (!['image/jpeg', 'image/jpg', 'image/png'].includes(file.type) || 
+        !/\.(jpe?g|png)$/i.test(file.name)) {
+      setError("Only JPG and PNG files are allowed. Please upload a valid image file.");
+      alert("Only JPG and PNG files are allowed. Please upload a valid image file.");
       inputRef.current.value = ""; // Clear the input field
       return;
     }
@@ -762,10 +767,11 @@ function CreateProductBody() {
       return;
     }
 
-    // Check file type (strictly allow only JPG files)
-    if (file.type !== "image/jpeg" || !file.name.toLowerCase().endsWith(".jpg")) {
-      setError("Only JPG files are allowed. Please upload a valid JPG file.");
-      alert("Only JPG files are allowed. Please upload a valid JPG file.");
+    // Check file type (allow JPG and PNG files)
+    if (!['image/jpeg', 'image/jpg', 'image/png'].includes(file.type) || 
+        !/\.(jpe?g|png)$/i.test(file.name)) {
+      setError("Only JPG and PNG files are allowed. Please upload a valid image file.");
+      alert("Only JPG and PNG files are allowed. Please upload a valid image file.");
       inputRef.current.value = ""; // Clear the input field
       return;
     }
@@ -1313,7 +1319,7 @@ function CreateProductBody() {
                     ref={inputRef}
                     onChange={handleImageChange}
                     className="hidden"
-                    accept="image/*"
+                    accept=".jpg,.jpeg,.png"
                   />
 
                   {/* Green Button - Shows "Add Image" or filename inside */}

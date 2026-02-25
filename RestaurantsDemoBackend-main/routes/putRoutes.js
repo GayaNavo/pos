@@ -17,11 +17,10 @@ const fs = require('fs');
 
 const {authenticateToken} = require('../middleware/authMiddleware');
 const adminController = require('../controllers/userController/adminController');
-const adjustmentController = require('../controllers/adjustmentController/adjustmentController');
+
 const currencyController = require('../controllers/currencyController/currencyController');
 const customersController = require('../controllers/customerController/customerController');
-const expensesController = require('../controllers/expensesController/expensesController');
-const expensesControllerCategory = require('../controllers/expensesController/expensesCatController');
+
 const purchaseReturnController = require('../controllers/purchaseController/purchaseReturnController');
 const reportController = require('../controllers/reportController/reportController');
 const customerReportController = require('../controllers/reportController/customerReportController');
@@ -93,22 +92,40 @@ const storage = multer.diskStorage({
     }
 });
 
+// File filter for image validation
+const fileFilter = (req, file, cb) => {
+  // Define allowed image types
+  const allowedMimes = [
+    'image/jpeg',
+    'image/jpg', 
+    'image/png',
+    'image/gif',
+    'image/webp',
+    'image/svg+xml'
+  ];
+  
+  if (allowedMimes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error('Only image files are allowed!'), false);
+  }
+};
+
 // Initialize multer
-const upload = multer({ storage });
+const upload = multer({ 
+  storage,
+  fileFilter
+});
 
 
 
 router.put('/updateProductQty', posController.updateProductQuantities);
 
-router.put('/updateAdjustment/:id' , adjustmentController.updateAdjustment);
+
 
 router.put('/updateCurrency/:id', currencyController.updateCurrency);
 
 router.put('/editCustomerProfileByAdmin' , customersController.UpdateCustomer);
-
-router.put('/updateExpenses/:id', expensesController.updateExpenses);
-
-router.put('/updateExpensesCategory/:id', expensesControllerCategory.updateExpensesCategory);
 
 router.put('/updatePurchaseReturn/:id' ,purchaseReturnController.updatePurchaseReturn);
 

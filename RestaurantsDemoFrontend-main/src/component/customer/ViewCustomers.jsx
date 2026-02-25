@@ -342,43 +342,39 @@ function ViewCustomersBody() {
                     )}
                 </div>
             ) : searchedCustomer.length > 0 ? (
-                <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white border border-gray-200">
-                        <thead className="bg-gray-50">
+                <div className="overflow-x-auto rounded-xl shadow-sm border border-[#D4AF37]/20">
+                    <table className="min-w-full bg-white">
+                        <thead className="bg-[#1F5F3B]">
                             <tr>
-                                {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th> */}
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer name</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mobile</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created on</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider rounded-tl-xl">Customer Name</th>
+                                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Mobile</th>
+                                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Address</th>
+                                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Created On</th>
+                                <th className="px-6 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider rounded-tr-xl">Action</th>
                             </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
+                        <tbody className="bg-white divide-y divide-gray-100">
                             {searchedCustomer.map((searchedCustomer) => (
-                                <tr key={searchedCustomer._id}>
-                                    {/* <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 text-left">{searchedCustomer.username}</td> */}
-                                    <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 text-left">{searchedCustomer.name}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 text-left">{searchedCustomer.mobile}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 text-left">{searchedCustomer.address}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 text-left justify-end">{new Date(searchedCustomer.createdAt).toLocaleDateString()}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 justify-end">
-                                        <div className='flex items-center'>
+                                <tr key={searchedCustomer._id} className="hover:bg-[#FFF6E5]/50 transition-colors">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#4A2C1D]">{searchedCustomer.name}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#4A2C1D]">{searchedCustomer.mobile}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#4A2C1D]">{searchedCustomer.address}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#4A2C1D]">{new Date(searchedCustomer.createdAt).toLocaleDateString()}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className='flex items-center justify-end gap-1'>
                                             {permissionData.edit_customer && (
                                                 <Link to={`/editCustomerDetails/${searchedCustomer._id}`}
-                                                    className="text-blue-500 hover:text-blue-700 font-bold py-1 px-2 mr-2 flex items-center"
-                                                    style={{ background: 'transparent' }}
+                                                    className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#1F5F3B]/10 text-[#1F5F3B] hover:bg-[#1F5F3B] hover:text-white transition-all"
                                                 >
-                                                    <i className="fas fa-edit mr-1"></i>
+                                                    <i className="fas fa-edit text-xs"></i>
                                                 </Link>
                                             )}
                                             {permissionData.delete_customer && (
                                                 <button
                                                     onClick={() => showConfirmationModal(searchedCustomer._id)}
-                                                    className="text-red-500 hover:text-red-700 font-bold py-1 px-2 flex items-center"
-                                                    style={{ background: 'transparent' }}
+                                                    className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-600 hover:text-white transition-all"
                                                 >
-                                                    <i className="fas fa-trash mr-1"></i>
+                                                    <i className="fas fa-trash text-xs"></i>
                                                 </button>
                                             )}
                                         </div>
@@ -389,41 +385,37 @@ function ViewCustomersBody() {
                     </table>
                 </div>
             ) : customerData.length > 0 ? (
-                <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white border border-gray-200">
-                        <thead className="bg-gray-50">
+                <div className="overflow-x-auto rounded-xl shadow-sm border border-[#D4AF37]/20">
+                    <table className="min-w-full bg-white">
+                        <thead className="bg-[#1F5F3B]">
                             <tr>
-                                {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th> */}
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer name</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mobile</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created on</th>
-                                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider rounded-tl-xl">Customer Name</th>
+                                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Mobile</th>
+                                <th className="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Created On</th>
+                                <th className="px-6 py-4 text-right text-xs font-semibold text-white uppercase tracking-wider rounded-tr-xl">Action</th>
                             </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
+                        <tbody className="bg-white divide-y divide-gray-100">
                             {customerData.map((user) => (
-                                <tr key={user._id}>
-                                    {/* <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 text-left">{user.username}</td> */}
-                                    <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 text-left">{user.name}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 text-left">{user.mobile}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 text-left">{new Date(user.createdAt).toLocaleDateString()}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-m text-gray-900 text-right justify-end">
-                                        <div className='flex items-center justify-end'>
+                                <tr key={user._id} className="hover:bg-[#FFF6E5]/50 transition-colors">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-[#4A2C1D]">{user.name}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#4A2C1D]">{user.mobile}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#4A2C1D]">{new Date(user.createdAt).toLocaleDateString()}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <div className='flex items-center justify-end gap-1'>
                                             {permissionData.edit_customer && (
                                                 <Link to={`/editCustomerDetails/${user._id}`}
-                                                    className="text-blue-500 hover:text-blue-700 font-bold py-1 px-2 mr-2 flex items-center"
-                                                    style={{ background: 'transparent' }}
+                                                    className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#1F5F3B]/10 text-[#1F5F3B] hover:bg-[#1F5F3B] hover:text-white transition-all"
                                                 >
-                                                    <i className="fas fa-edit mr-1"></i>
+                                                    <i className="fas fa-edit text-xs"></i>
                                                 </Link>
                                             )}
                                             {permissionData.delete_customer && (
                                                 <button
                                                     onClick={() => showConfirmationModal(user._id)}
-                                                    className="text-red-500 hover:text-red-700 font-bold py-1 px-2 flex items-center"
-                                                    style={{ background: 'transparent' }}
+                                                    className="w-8 h-8 flex items-center justify-center rounded-lg bg-red-100 text-red-600 hover:bg-red-600 hover:text-white transition-all"
                                                 >
-                                                    <i className="fas fa-trash mr-1"></i>
+                                                    <i className="fas fa-trash text-xs"></i>
                                                 </button>
                                             )}
                                         </div>

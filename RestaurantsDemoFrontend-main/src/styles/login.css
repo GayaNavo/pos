@@ -20,10 +20,17 @@ input[type="number"] {
 }
 
 :root {
-    --primary-color: #35AF87;
-    --secondary-color: #16796E;
-    --background-color: #F9FAFB;
-    --button-dark-color: #1A5B63;
+    --primary-color: #1F5F3B;
+    --secondary-color: #4CAF50;
+    --accent-color: #D4AF37;
+    --background-color: #FFF6E5;
+    --text-color: #4A2C1D;
+    --button-dark-color: #1F5F3B;
+    --cream: #FFF6E5;
+    --deepgreen: #1F5F3B;
+    --leafgreen: #4CAF50;
+    --gold: #D4AF37;
+    --brown: #4A2C1D;
 }
 
 .pass {
@@ -31,23 +38,23 @@ input[type="number"] {
 }
 
 .submit {
-    background-color: #2D8D79;
+    background-color: #1F5F3B;
 }
 
 .submit:hover {
-    background-color: #35AF87;
+    background-color: #4CAF50;
 }
 
 .custom {
-    background-color: #35AF87;
+    background-color: #1F5F3B;
 }
 
 .custom:hover {
-    background-color: #16796E;
+    background-color: #4CAF50;
 }
 
 .text-color{
-    color: #35AF87;
+    color: #1F5F3B;
 }
 
 @keyframes ping {
@@ -91,7 +98,7 @@ input[type="number"] {
 }
 
 .background-white {
-    background-color: #F9FAFB;
+    background-color: #FFF6E5;
 }
 
 .button-bg-color {

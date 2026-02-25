@@ -1,14 +1,3 @@
-/*
- * Copyright (c) 2025 Ideazone (Pvt) Ltd
- * Proprietary and Confidential
- *
- * This source code is part of a proprietary Point-of-Sale (POS) system developed by Ideazone (Pvt) Ltd.
- * Use of this code is governed by a license agreement and an NDA.
- * Unauthorized use, modification, distribution, or reverse engineering is strictly prohibited.
- *
- * Contact info@ideazone.lk for more information.
- */
-
 import { useState, useEffect } from 'react';
 import { Link, useParams,useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -55,9 +44,10 @@ function EditBrandBody() {
             return;
         }
 
-        // Check file type (strictly allow only JPG files)
-        if (file.type !== "image/jpeg" || !file.name.toLowerCase().endsWith(".jpg")) {
-            toast.error("Only JPG files are allowed. Please upload a valid JPG file.");
+        // Check file type (allow JPG and PNG files)
+        if (!['image/jpeg', 'image/jpg', 'image/png'].includes(file.type) || 
+            !/\.(jpe?g|png)$/i.test(file.name)) {
+            toast.error("Only JPG and PNG files are allowed. Please upload a valid image file.");
             return;
         }
 
@@ -107,9 +97,11 @@ function EditBrandBody() {
 
             // Compress the image asynchronously
             const compressedBlob = await imageCompression(file, options);
-            // Convert compressed Blob to File with .jpg extension
-            const compressedFile = new File([compressedBlob], file.name.replace(/\.[^/.]+$/, ".jpg"), {
-                type: "image/jpeg",
+            // Determine the correct extension and type based on original file
+            const fileExtension = file.type === 'image/png' ? '.png' : '.jpg';
+            const fileType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+            const compressedFile = new File([compressedBlob], file.name.replace(/\.[^/.]+$/, fileExtension), {
+                type: fileType,
             });
 
             // Update state with the compressed image and its preview
@@ -225,7 +217,7 @@ function EditBrandBody() {
                                     id="logo"
                                     name="logo"
                                     type="file"
-                                    accept="image/*"
+                                    accept=".jpg,.jpeg,.png"
                                     onChange={handleLogoChange}
                                     className="hidden"
                                 />
@@ -276,3 +268,4 @@ function EditBrandBody() {
 }
 
 export default EditBrandBody;
+

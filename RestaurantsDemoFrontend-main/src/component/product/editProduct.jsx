@@ -363,8 +363,9 @@ function EditProductBody() {
             toast.error("No file selected.");
             return;
         }
-        if (file.type !== "image/jpeg" || !file.name.toLowerCase().endsWith(".jpg")) {
-            toast.error("Only JPG files are allowed. Please upload a valid JPG file.");
+        if (!['image/jpeg', 'image/jpg', 'image/png'].includes(file.type) || 
+            !/\.(jpe?g|png)$/i.test(file.name)) {
+            toast.error("Only JPG and PNG files are allowed. Please upload a valid image file.");
             inputRef.current.value = "";
             return;
         }
@@ -409,8 +410,11 @@ function EditProductBody() {
             });
 
             const compressedBlob = await imageCompression(file, options);
-            const compressedFile = new File([compressedBlob], file.name.replace(/\.[^/.]+$/, ".jpg"), {
-                type: "image/jpeg",
+            // Determine the correct extension and type based on original file
+            const fileExtension = file.type === 'image/png' ? '.png' : '.jpg';
+            const fileType = file.type === 'image/png' ? 'image/png' : 'image/jpeg';
+            const compressedFile = new File([compressedBlob], file.name.replace(/\.[^/.]+$/, fileExtension), {
+                type: fileType,
             });
 
             setImage(compressedFile);
@@ -853,7 +857,7 @@ function EditProductBody() {
                                         ref={inputRef}
                                         onChange={handleImageChange}
                                         className="hidden"
-                                        accept="image/*"
+                                        accept=".jpg,.jpeg,.png"
                                     />
 
                                     {/* Image Preview with ONLY camera icon in top-right */}

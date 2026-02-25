@@ -10,7 +10,7 @@
 .sidebar {
   width: 18%;
   height: 100vh;
-  background-color: #ffffff;
+  background-color: #1F5F3B;
   position: fixed;
   top: 81px;
   left: 0;
@@ -83,7 +83,7 @@
 
 .sidebar li a {
   text-decoration: none;
-  color: #333;
+  color: #FFFFFF;
   display: flex;
   align-items: center;
   padding: 8px;
@@ -91,16 +91,16 @@
 }
 
 .sidebar li span {
-  color: #333;
+  color: #FFFFFF;
 }
 
 .sidebar li :hover {
-  background-color: #e9ecef;
-  color: #007bff;
+  background-color: rgba(212, 175, 55, 0.2);
+  color: #D4AF37;
 }
 .sidebar button :hover {
-  background-color: #e9ecef;
-  color: #007bff;
+  background-color: rgba(212, 175, 55, 0.2);
+  color: #D4AF37;
 }
 .sidebar button{
   border-radius: 2px;
@@ -139,8 +139,8 @@
 }
 
 .sidebar .dropdown-toggle:hover {
-  background-color: #e9ecef;
-  color: #007bff;
+  background-color: rgba(212, 175, 55, 0.2);
+  color: #D4AF37;
 }
 
 /* Tablet view: sidebar and content layout adjustments */

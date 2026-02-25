@@ -28,7 +28,7 @@ import { useOrderChannel } from '../../../context/OrderChannelContext';
 import { Monitor, Trash2, RefreshCw } from 'lucide-react';
 import { silentPrint } from '../utils/silentPrint';
 
-const BillingSection = ({ productBillingHandling, setProductBillingHandling, setProductData, selectedCustomer, setSelectedCustomer, warehouse, setReloadStatus, reloadStatus, setHeldProductReloading, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setError, setFetchRegData, setOrderId, orderId, setPalcedStatus, palcedStatus, handleOpenCustomerDisplay }) => {
+const BillingSection = ({ productBillingHandling, setProductBillingHandling, setProductData, selectedCustomer, setSelectedCustomer, setReloadStatus, reloadStatus, setHeldProductReloading, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setError, setFetchRegData, setOrderId, orderId, setPalcedStatus, palcedStatus, handleOpenCustomerDisplay }) => {
     const { currency } = useCurrency();
     const [permissionData, setPermissionData] = useState({});
     const { userData } = useContext(UserContext);
@@ -56,10 +56,7 @@ const BillingSection = ({ productBillingHandling, setProductBillingHandling, set
     const [specialDiscount, setSpecialDiscount] = useState(0);
     const [responseMessage, setResponseMessage] = useState('');
     const [selectedProductIndex, setSelectedProductIndex] = useState(null);
-    const [offersData, setOffers] = useState([]);
-    const [openOffersModel, setOpenOffersModel] = useState(false);
-    const [selectedOffer, setSelectedOffer] = useState('');
-    const [offerPercentage, setOfferPercentage] = useState(0);
+
     const [serviceChargeValue, setServiceChargeValue] = useState(0);
     const [progress, setProgress] = useState(false);
     const adminPasswordRef = useRef(null);
@@ -255,7 +252,7 @@ const BillingSection = ({ productBillingHandling, setProductBillingHandling, set
         return () => {
             customerDisplayChannel.current.removeEventListener('message', handleSyncRequest);
         };
-    }, [productBillingHandling, discount, tax, shipping, serviceCharge, serviceChargeType, offerPercentage, currency]);
+    }, [productBillingHandling, discount, tax, shipping, serviceCharge, serviceChargeType, currency]);
 
     const broadcastBillingUpdate = () => {
         const products = productBillingHandling.map(product => {
@@ -291,7 +288,7 @@ const BillingSection = ({ productBillingHandling, setProductBillingHandling, set
         if (productBillingHandling.length > 0) {
             broadcastBillingUpdate();
         }
-    }, [productBillingHandling, discount, tax, shipping, serviceCharge, serviceChargeType, offerPercentage, currency, serviceChargeValue]);
+    }, [productBillingHandling, discount, tax, shipping, serviceCharge, serviceChargeType, currency, serviceChargeValue]);
 
     const handleManualResetDisplay = () => {
         customerDisplayChannel.current.postMessage({ type: 'RESET_BILLING' });
@@ -428,44 +425,7 @@ const BillingSection = ({ productBillingHandling, setProductBillingHandling, set
         }
     };
 
-    const fetchOfferData = async () => {
-        try {
-            const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/fetchOffers`, {
-                params: {
-                    sort: '-createdAt'
-                },
-            });
-            setOffers(response.data.offers);
-        } catch (error) {
-            setOffers([]);
-        } finally {
-            //setLoading(false);
-        }
-    };
 
-    useEffect(() => {
-        fetchOfferData();
-    }, []);
-
-    const handleOfferChange = (e) => {
-        const selectedOfferId = e.target.value;
-        setSelectedOffer(selectedOfferId);
-
-        if (selectedOfferId === '') {
-            setSelectedOffer('');
-            setOfferPercentage(0);
-            setOpenOffersModel(false)
-        }
-        else {
-            const selectedOfferObj = offersData.find(offer => offer.offerName === selectedOfferId);
-            if (selectedOfferObj) {
-                const percentage = selectedOfferObj.percentage;
-                console.log(percentage)
-                setOfferPercentage(selectedOfferObj.percentage);
-                setOpenOffersModel(false)
-            }
-        }
-    };
 
     useEffect(() => {
         const fetchReferenceNumber = async () => {
@@ -639,10 +599,7 @@ const BillingSection = ({ productBillingHandling, setProductBillingHandling, set
             serviceChargeCost = (total * (parseFloat(serviceCharge) || 0) / 100);
         }
 
-        // Apply the offer percentage
-        const offerPercentageDecimal = parseFloat(offerPercentage) / 100;
-        const offerDiscountAmount = total * offerPercentageDecimal;
-        total = total - discountAmount - offerDiscountAmount + taxAmount + shippingCost + serviceChargeCost;
+        total = total - discountAmount + taxAmount + shippingCost + serviceChargeCost;
 
         return isNaN(total) ? "0.00" : total.toFixed(2);
     };
@@ -730,8 +687,7 @@ const BillingSection = ({ productBillingHandling, setProductBillingHandling, set
         } else if (discountType === 'percentage') {
             discountAmount = (totalPrice * (parseFloat(discount) || 0) / 100);
         }
-        const offerDiscountAmount = totalPrice * (parseFloat(offerPercentage) / 100);
-        const totalProfit = subtotal - discountAmount - offerDiscountAmount;
+        const totalProfit = subtotal - discountAmount;
 
         return totalProfit;
     };
@@ -739,7 +695,7 @@ const BillingSection = ({ productBillingHandling, setProductBillingHandling, set
     useEffect(() => {
         const calculatedProfit = calculateProfit();
         setProfit(calculatedProfit);
-    }, [productBillingHandling, discountType, discount, offerPercentage, calculateTaxLessTotal]);
+    }, [productBillingHandling, discountType, discount, calculateTaxLessTotal]);
 
     const calculateTotalItemsAndPcs = () => {
         let itemsCount = 0;
@@ -764,9 +720,7 @@ const BillingSection = ({ productBillingHandling, setProductBillingHandling, set
     const handleBillReset = () => {
         setProductBillingHandling([]);
         setDiscount('');
-        setSelectedOffer('');
         setDiscountType('percentage');
-        setOfferPercentage(0);
         setShipping('');
         setServiceCharge('');
         setServiceChargeValue(0);
@@ -1416,19 +1370,6 @@ const BillingSection = ({ productBillingHandling, setProductBillingHandling, set
                 </div>
 
                 <div className='flex flex-col lg:landscape:flex-row xl:flex-row w-full gap-2 px-1.5 py-1 mt-0'>
-                    {permissionData.assign_offer && (
-                        <div className="flex gap-4 w-full lg:landscape:w-auto xl:w-auto">
-                            <button
-                                onClick={(e) => setOpenOffersModel(true)}
-                                className={`flex w-full lg:landscape:w-[145px] xl:w-[145px] items-center justify-center text-white px-4 lg:portrait:px-6 py-1.5 lg:portrait:py-3 xl:py-2 rounded-md hover:opacity-90 text-sm lg:portrait:text-base ${selectedOffer ? 'bg-red-600' : 'bg-[#35AF87]'
-                                    }`}
-                            >
-                                <img className='w-5 h-5 mr-2' src={GiftIcon} alt='GiftIcon' />
-                                Offers
-                            </button>
-                        </div>
-
-                    )}
                     <div className="relative flex-1">
                         <input
                             onChange={handleTax}
@@ -1543,36 +1484,6 @@ const BillingSection = ({ productBillingHandling, setProductBillingHandling, set
                     </div>
                 )}
 
-                {openOffersModel && (
-                    <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center backdrop-blur-xs z-[1000]">
-                        <div className="bg-white w-[350px] sm:w-[460px] p-6 rounded-2xl shadow-2xl">
-                            <button
-                                onClick={(e) => setOpenOffersModel(false)}
-                                className="flex justify-last bold text-gray-500 hover:text-gray-700"
-                            >
-                                ✕
-                            </button>
-                            <h2 className="text-xl font-semibold text-gray-700 text-center mb-4">
-                                Select the Offer
-                            </h2>
-                            <div className="relative mb-4">
-                                <label className="block text-left text-sm font-medium text-gray-700">Offer: </label>
-                                <select
-                                    value={selectedOffer}
-                                    onChange={handleOfferChange}
-                                    className="w-full border border-gray-300 p-3 pl-5 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#35AF87]"
-                                >
-                                    <option value="">Select the Offer</option>
-                                    {offersData.map((offer, index) => (
-                                        <option key={index} value={offer.id}>
-                                            {offer.offerName}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                )}
 
                 {/* Buttons Section */}
                 <div className="flex flex-col lg:landscape:flex-row xl:flex-row gap-2 px-1.5 py-1 mt-0 w-[100%]">
@@ -1805,15 +1716,12 @@ const BillingSection = ({ productBillingHandling, setProductBillingHandling, set
                         setProductData={setProductData}
                         selectedCustomer={selectedCustomer}
                         discountType={discountType}
-                        warehouse={warehouse}
                         responseMessage={responseMessage}
                         setResponseMessage={setResponseMessage}
                         setReloadStatus={setReloadStatus}
-                        offerPercentage={offerPercentage}
                         calculateTotalPrice={calculateTotalPrice}
                         setError={setError}
                         setProgress={setProgress}
-                        setSelectedOffer={setSelectedOffer}
                         setFetchRegData={setFetchRegData}
                         orderId={orderId || activeOrderId}
                         setOrderId={setOrderId}

@@ -40,11 +40,8 @@ const CreateRoleBody = () => {
         manageQuotations: ["create_quotation", "edit_quotation", "view_quotation", "delete_quotation", "create_sl_quotation", "view_quotation_popup"],
         manageCurrency: ["create_currency", "edit_currency", "delete_currency", "view_currency"],
         manageOffers: ["create_offer", "edit_offer", "delete_offer", "view_offer", "assign_offer"],
-        manageExpenses: ["create_expense", "edit_expense", "delete_expense", "view_expense"],
-        manageExpensesCategory: ["create_exp_category", "edit_exp_category", "delete_exp_category", "view_exp_category"],
         manageRolesAndPermissions: ["create_role", "edit_role", "delete_role", "view_role"],
         manageReports: ["view_reports"],
-        manageAdjustments: ["create_adjustment", "edit_adjustment", "view_adjustment", "delete_adjustment", "view_adjustment_popup"],
         manageLanguage: ["view_language"],
         manageSettings: ["view_settings"],
         manageMailSettings: ["view_mail_settings"],
@@ -296,19 +293,7 @@ const CreateRoleBody = () => {
                         { key: 'view_transfer_popup', label: 'View Transfer Details' },
                     ]
                 },
-                {
-                    name: 'Manage Adjustments',
-                    category: 'manageAdjustments',
-                    permissions: [
-                        { key: 'create_adjustment', label: 'Create Adjustment' },
-                        { key: 'edit_adjustment', label: 'Edit Adjustment' },
-                        { key: 'delete_adjustment', label: 'Delete Adjustment' },
-                        { key: 'view_adjustment', label: 'View Adjustment' },
-                    ],
-                    additionalPermissions: [
-                        { key: 'view_adjustment_popup', label: 'View Adjustment Details' },
-                    ]
-                },
+
             ]
         },
         {
@@ -316,26 +301,6 @@ const CreateRoleBody = () => {
             title: 'Financial Management',
             icon: FaDollarSign,
             groups: [
-                {
-                    name: 'Manage Expenses',
-                    category: 'manageExpenses',
-                    permissions: [
-                        { key: 'create_expense', label: 'Create Expense' },
-                        { key: 'edit_expense', label: 'Edit Expense' },
-                        { key: 'delete_expense', label: 'Delete Expense' },
-                        { key: 'view_expense', label: 'View Expense' },
-                    ]
-                },
-                {
-                    name: 'Manage Expenses Categories',
-                    category: 'manageExpensesCategory',
-                    permissions: [
-                        { key: 'create_exp_category', label: 'Create Expenses Category' },
-                        { key: 'edit_exp_category', label: 'Edit Expenses Category' },
-                        { key: 'delete_exp_category', label: 'Delete Expenses Category' },
-                        { key: 'view_exp_category', label: 'View Expenses Category' },
-                    ]
-                },
             ]
         },
         {

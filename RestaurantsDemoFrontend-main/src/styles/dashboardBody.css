@@ -1,5 +1,5 @@
 .dashBody {
-    background-color: #F9FAFB;
+    background-color: #FFF6E5;
     position: absolute;
     top: 80px;
     left: 18%;
@@ -23,12 +23,12 @@
 }
 
 .saveBtn {
-    background-color: #35AF87;
+    background-color: #1F5F3B;
     color: white;
 }
 
 .saveBtn:hover {
-    background-color: #16796E;
+    background-color: #4CAF50;
 }
 
 .searchBox {

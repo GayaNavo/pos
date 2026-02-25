@@ -1022,15 +1022,8 @@ const getAdminPasswordForDiscount = async (req, res) => {
             return res.status(500).send('Server error. Please try again later.');
         }
 
-        const manageOffers = permissions.get('manageOffers');
-        console.log('Manage Offers:', manageOffers);
-
-        if (manageOffers && manageOffers.assign_offer) {
-            console.log('Assign Offer:', manageOffers.assign_offer);
-            return res.status(200).send({ status: 'success' });
-        } else {
-            return res.status(403).send('Insufficient permissions.');
-        }
+        // Removed offer functionality
+        return res.status(403).send('Feature not available.');
     } catch (error) {
         console.error('Error in getAdminPasswordForDiscount:', error);
         res.status(500).send('Server error. Please try again later.');

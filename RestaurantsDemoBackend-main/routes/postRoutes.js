@@ -17,11 +17,10 @@ const fs = require('fs');
 const { uploadLogo } = require('../middleware/multerMiddleware'); //
 
 const adminController = require('../controllers/userController/adminController');
-const adjustmentController = require('../controllers/adjustmentController/adjustmentController');
+
 const currencyController = require('../controllers/currencyController/currencyController');
 const customersController = require('../controllers/customerController/customerController');
-const expensesController = require('../controllers/expensesController/expensesController');
-const expensesCategoryController = require('../controllers/expensesController/expensesCatController');
+
 const purchaseReturnController = require('../controllers/purchaseController/purchaseReturnController');
 const sendPurchaseReturnToSupplier = require('../controllers/saleReturnController/saleReturnSendToSupplier');
 const purchaseController = require('../controllers/purchaseController/purchaseController');
@@ -102,8 +101,30 @@ const storage = multer.diskStorage({
     }
 });
 
+// File filter for image validation
+const fileFilter = (req, file, cb) => {
+  // Define allowed image types
+  const allowedMimes = [
+    'image/jpeg',
+    'image/jpg', 
+    'image/png',
+    'image/gif',
+    'image/webp',
+    'image/svg+xml'
+  ];
+  
+  if (allowedMimes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error('Only image files are allowed!'), false);
+  }
+};
+
 // Initialize multer
-const upload = multer({ storage });
+const upload = multer({ 
+  storage,
+  fileFilter
+});
 
 const receiptLogoStorage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -140,7 +161,7 @@ router.post('/holdProducts',posController.holdProducts);
 
 router.post('/getingHoldProductsQty', posController.getProductsByIds);
 
-router.post('/createAdjustment', adjustmentController.createAdjustment);
+
 
 router.post('/initialRunning', adminController.initialRunning);
 
@@ -151,10 +172,6 @@ router.post('/createCustomer', customersController.createCustomer);
 router.post('/walkInCustomer', customersController.walkInCustomer);
 
 router.post('/importCustomers', customersController.ImportCustomer);
-
-router.post('/createExpenses', expensesController.createExpenses);
-
-router.post('/createExpensesCategory', expensesCategoryController.createExpensesCategory);
 
 router.post('/returnPurchase', purchaseReturnController.returnPurchase);
 

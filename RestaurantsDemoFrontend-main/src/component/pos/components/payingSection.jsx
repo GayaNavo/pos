@@ -21,7 +21,7 @@ import { useReactToPrint } from 'react-to-print';
 import CircularProgress from '@mui/material/CircularProgress';
 import { toast } from "react-toastify";
 
-const PayingSection = ({ handlePopupClose, totalItems, totalPcs, profit, tax, shipping, serviceCharge, serviceChargeType, discount, discountValue, deliveryNote, productDetails, handleBillReset, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setProductData, selectedCustomer, discountType, warehouse, responseMessage, setResponseMessage, setReloadStatus, offerPercentage, calculateTotalPrice, setError, setProgress, setSelectedOffer, setFetchRegData, orderId, setOrderId, serviceChargeValue, customerDisplayChannel }) => {
+const PayingSection = ({ handlePopupClose, totalItems, totalPcs, profit, tax, shipping, serviceCharge, serviceChargeType, discount, discountValue, deliveryNote, productDetails, handleBillReset, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setProductData, selectedCustomer, discountType, responseMessage, setResponseMessage, setReloadStatus, calculateTotalPrice, setError, setProgress, setFetchRegData, orderId, setOrderId, serviceChargeValue, customerDisplayChannel }) => {
     const [receivedAmount, setReceivedAmount] = useState('');
     const [returnAmount, setReturnAmount] = useState('');
     const [paymentType, setPaymentType] = useState('cash');
@@ -183,7 +183,6 @@ const PayingSection = ({ handlePopupClose, totalItems, totalPcs, profit, tax, sh
 
     const updateProductQuantities = async (productDetails, shouldPrint = false, shouldPrintKOT = false, kotNoteText = '') => {
         try {
-            setSelectedOffer('');
             const reStructuredProductDetails = productDetails.map(product => {
                 const name = product.name;
                 const isInventory = product.isInventory;
@@ -240,11 +239,11 @@ const PayingSection = ({ handlePopupClose, totalItems, totalPcs, profit, tax, sh
                 discountValue,
                 deliveryNote,
                 tax,
-                warehouse ? warehouse : 'Unknown',
+                'All Warehouses', // Since we're allowing cross-warehouse billing
                 selectedCustomer ? selectedCustomer : 'Walk-in Customer',
                 selectedProduct,
                 preFix,
-                offerPercentage,
+                0, // Removed offer percentage
                 setInvoiceNumber,
                 setResponseMessage,
                 setError,
@@ -297,8 +296,7 @@ const PayingSection = ({ handlePopupClose, totalItems, totalPcs, profit, tax, sh
                     setError
                 );
             }
-
-            setSelectedOffer('');
+        
         } catch (error) {
             console.error('Error updating product quantities:', error);
         }

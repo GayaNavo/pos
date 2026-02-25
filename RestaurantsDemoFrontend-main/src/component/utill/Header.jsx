@@ -120,11 +120,8 @@ export default function Header({ userData, grandTotal, orderStatus, paymentStatu
         managePurchaseReturns: hasAnyPermission("managePurchaseReturns"),
         manageQuotations: hasAnyPermission("manageQuotations"),
         manageCurrency: hasAnyPermission("manageCurrency"),
-        manageExpenses: hasAnyPermission("manageExpenses"),
-        manageExpensesCategory: hasAnyPermission("manageExpensesCategory"),
         manageRolesAndPermissions: hasAnyPermission("manageRolesAndPermissions"),
         manageReports: hasAnyPermission("manageReports"),
-        manageAdjustments: hasAnyPermission("manageAdjustments"),
         manageLanguage: hasAnyPermission("manageLanguage"),
         manageSettings: hasAnyPermission("manageSettings"),
         manageMailSettings: hasAnyPermission("manageMailSettings"),
@@ -139,7 +136,6 @@ export default function Header({ userData, grandTotal, orderStatus, paymentStatu
         create_purchase: permissions.managePurchases?.create_purchase || false,
         create_customer: permissions.manageCustomers?.create_customer || false,
         create_supplier: permissions.manageSuppliers?.create_supplier || false,
-        create_expense: permissions.manageExpenses?.create_expense || false,
       });
 
     }
@@ -367,7 +363,6 @@ export default function Header({ userData, grandTotal, orderStatus, paymentStatu
     { name: 'Create Purchase', href: '/createPurchase' },
     { name: 'Create Customer', href: '/createCustomer' },
     { name: 'Create Supplier', href: '/createSuplier' },
-    { name: 'Create Expense', href: '/createExpenses' },
   ];
 
   const toggleDropdown = () => {
@@ -428,8 +423,8 @@ export default function Header({ userData, grandTotal, orderStatus, paymentStatu
                           href={item.href}
                           className={classNames(
                             item.current
-                              ? 'bg-[#35AF87] text-white items-center'
-                              : 'text-black border-none outline-white hover:bg-gray-200 hover:text-black',
+                              ? 'bg-[#1F5F3B] text-white items-center'
+                              : 'text-[#4A2C1D] border-none outline-white hover:bg-[#D4AF37]/20 hover:text-[#1F5F3B]',
                             'rounded-md px-1.5 sm:px-2 lg:px-3 py-1 sm:py-1.5 lg:py-2 text-[10px] sm:text-xs lg:text-sm font-medium items-center whitespace-nowrap'
                           )}
                           aria-current={item.current ? 'page' : undefined}
@@ -448,7 +443,7 @@ export default function Header({ userData, grandTotal, orderStatus, paymentStatu
                           <div className="relative">
                             <button
                               onClick={toggleDropdown}
-                              className="flex items-center space-x-1 bg-[#35AF87] text-white text-xs font-medium rounded-md px-1 sm:px-1.5 lg:px-2 py-1 sm:py-1.5 lg:py-2 border border-[#35AF87] transition-colors duration-300 hover:bg-[#2e9873]"
+                              className="flex items-center space-x-1 bg-[#1F5F3B] text-white text-xs font-medium rounded-md px-1 sm:px-1.5 lg:px-2 py-1 sm:py-1.5 lg:py-2 border border-[#1F5F3B] transition-colors duration-300 hover:bg-[#4CAF50]"
                             >
                               <PlusIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-white transition-colors duration-300" />
                             </button>
@@ -479,7 +474,7 @@ export default function Header({ userData, grandTotal, orderStatus, paymentStatu
                 {/* Right Section - Action Buttons */}
                 <div className="flex items-center flex-shrink-0 ml-1 sm:ml-2">
 
-                  <div className="hidden lg:flex p-1.5 m-1 w-[32px] h-[32px] lg:w-[40px] lg:h-[40px] mr-1 lg:mr-3 border bg-[#44BC8D] button-hover-color rounded-[10px] lg:rounded-[14px] items-center justify-center">
+                  <div className="hidden lg:flex p-1.5 m-1 w-[32px] h-[32px] lg:w-[40px] lg:h-[40px] mr-1 lg:mr-3 border bg-[#1F5F3B] button-hover-color rounded-[10px] lg:rounded-[14px] items-center justify-center hover:bg-[#4CAF50] transition-colors">
                     <button className='' onClick={handleFullScreen}>
                       <img className="w-[18px] h-[16px] lg:w-[25px] lg:h-[23px]" src={Full} alt="" />
                     </button>

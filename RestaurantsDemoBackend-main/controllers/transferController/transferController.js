@@ -201,7 +201,7 @@ const createTransfer = async (req, res) => {
 
 //         await session.commitTransaction();
 
-//         res.status(201).json({ message: 'Transfer saved successfully!', adjustment: newTransfer });
+//         res.status(201).json({ message: 'Transfer saved successfully!', transfer: newTransfer });
 
 //     } catch (error) {
 //         await session.abortTransaction();
@@ -213,7 +213,7 @@ const createTransfer = async (req, res) => {
 //VIEW TRAnSFER
 const getTransfer = async (req, res) => {
     try {
-        const transfer = await Transfer.find(); // Fetch all adjustment from the database
+        const transfer = await Transfer.find(); // Fetch all transfers from the database
         res.status(200).json(transfer); // Send the transfer data back to the client
     } catch (error) {
         console.error('Error fetching transfer:', error);
