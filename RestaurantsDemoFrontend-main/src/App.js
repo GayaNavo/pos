@@ -5,7 +5,7 @@ import "./App.css";
 import "./styles/sidebar.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
-// Importing components
+
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import ForgetPassword from "./component/auth/ForgetPassword";
 import SendOTP from "./component/auth/SendOTP";
@@ -502,4 +502,5 @@ function App() {
 }
 
 export default App;
+
 
