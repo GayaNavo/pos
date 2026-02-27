@@ -1,7 +1,3 @@
-/**
- * Copyright (c) 2025 Ideazone (Pvt) Ltd
- * Proprietary and Confidential
- */
 
 const Handlebars = require('handlebars');
 

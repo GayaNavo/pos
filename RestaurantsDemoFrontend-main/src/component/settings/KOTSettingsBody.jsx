@@ -1,7 +1,3 @@
-/**
- * Copyright (c) 2025 Ideazone (Pvt) Ltd
- * Proprietary and Confidential
- */
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';

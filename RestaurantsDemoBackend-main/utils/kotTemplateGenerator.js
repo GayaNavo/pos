@@ -1,7 +1,4 @@
-/**
- * Copyright (c) 2025 Ideazone (Pvt) Ltd
- * Proprietary and Confidential
- */
+
 
 const path = require('path');
 const Handlebars = require('handlebars');

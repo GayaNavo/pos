@@ -1,7 +1,4 @@
-/**
- * Copyright (c) 2025 Ideazone (Pvt) Ltd
- * Proprietary and Confidential
- */
+
 
 const BOTSettings = require('../../models/botSettingsModel');
 const multer = require('multer');
