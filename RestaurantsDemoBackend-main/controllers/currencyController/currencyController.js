@@ -25,11 +25,7 @@ const createCurrency = async (req, res) => {
             currencyCode,
             currencySymbole,
         });
-        const testCurrency = new Currency({
-            currencyName,
-            currencyCode,
-            currencySymbole,
-        });
+        
         await newCurrency.save();
         res.status(201).json({ message: 'Currency created successfully', data: newCurrency });
     } catch (error) {
