@@ -16,6 +16,8 @@ const createCustomer = async (req, res) => {
         });
     }
 
+    
+
     try {
         const normalizedName = name.trim().toLowerCase();
         const existingCustomer = await Customer.findOne({
