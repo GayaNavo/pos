@@ -68,7 +68,7 @@ function CreateUserBody() {
             return;
         }
 
-        // Role validation
+        
         if (role === "#" || !role) {
             toast.error('Please select a valid role.');
             return;

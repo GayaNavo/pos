@@ -155,7 +155,7 @@ const Login = () => {
             }
         }
 
-        // Clear the timer on component unmount
+        
         return () => {
             if (logoutTimer) {
                 clearTimeout(logoutTimer);
