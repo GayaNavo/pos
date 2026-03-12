@@ -41,7 +41,7 @@ function ForgetPassword() {
                     const expiresAt = result.data.expiresAt;
                     sessionStorage.setItem('otpExpiresAt', expiresAt.toString());
 
-                    // Encrypting password reset code
+                    
                     const resetCodeSecret = 'zxcvb';
                     const encryptedOTP = CryptoJS.AES.encrypt(code, resetCodeSecret).toString();
                     navigate('/sendOTP', { state: { encryptedOTP, encryptedUsername, expiresAt } });
