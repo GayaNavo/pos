@@ -29,7 +29,7 @@ const posController = require('../controllers/posController/posController');
 const settingsController = require('../controllers/settingsController/settingsController');
 const mailsettingsController = require('../controllers/settingsController/mailSettingsController');
 const receiptettingsController = require('../controllers/settingsController/receiptSettingsController');
-const prefixSettingsController = require('../controllers/settingsController/prefixSettingsController');
+
 const suplierController = require('../controllers/suplierController/suplierController');
 const transferController = require('../controllers/transferController/transferController');
 const userController = require('../controllers/userController/userController');
@@ -55,10 +55,7 @@ const {
   upload: kotUpload,
 } = require('../controllers/settingsController/kotSettingsController');
 
-const {
-  getBOTSettings,
-  upload: botUpload,
-} = require('../controllers/settingsController/botSettingsController');
+
 
 
 router.get('/receipt-logo/:filename', (req, res) => {
@@ -164,7 +161,7 @@ router.get('/getPaymentOfPurchaseById/:purchaseId', purchaseController.fetchPaym
 router.get('/getSettings', settingsController.getSettings);
 router.get('/getMailSettings', mailsettingsController.getMailSettings);
 router.get('/getReceiptSettings', receiptettingsController.getReceiptSettings);
-router.get('/getPrefixSettings', prefixSettingsController.getPrefixSettings);
+
 
 //Making routes for transfer
 router.get('/viewTransfer' , transferController.getTransfer);
@@ -504,15 +501,6 @@ router.get('/kot-logo/:filename', (req, res) => {
 });
 
 router.get('/getKOTSettings', getKOTSettings);
-
-// Serve BOT logo
-router.get('/bot-logo/:filename', (req, res) => {
-  const filename = req.params.filename;
-  const filepath = path.join(__dirname, '../uploads/bot-logos', filename);
-  res.sendFile(filepath);
-});
-
-router.get('/getBOTSettings', getBOTSettings);
 
 module.exports=router;
 

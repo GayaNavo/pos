@@ -117,7 +117,7 @@ export default function Header({ userData, grandTotal, orderStatus, paymentStatu
         manageSettings: hasAnyPermission("manageSettings"),
         manageMailSettings: hasAnyPermission("manageMailSettings"),
         manageReceiptSettings: hasAnyPermission("manageReceiptSettings"),
-        managePrefixesSettings: hasAnyPermission("managePrefixesSettings"),
+
         managePOS: hasAnyPermission("managePOS"),
 
         // Extract specific "create" permissions from parent manage permissions

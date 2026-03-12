@@ -40,7 +40,7 @@ const EditPermissionsBody = () => {
         manageSettings: ["view_settings"],
         manageMailSettings: ["view_mail_settings"],
         manageReceiptSettings: ["view_receipt_settings"],
-        managePrefixesSettings: ["view_prefixes_settings"],
+
         managePOS: ["view_pos", "add_discount"],
         manageZbill: ["delete_zbill", "view_zbills"]
     };
@@ -415,13 +415,7 @@ const EditPermissionsBody = () => {
                         { key: 'view_receipt_settings', label: 'View Receipt Settings' },
                     ]
                 },
-                {
-                    name: 'Manage Prefixes Settings',
-                    category: 'managePrefixesSettings',
-                    permissions: [
-                        { key: 'view_prefixes_settings', label: 'View Prefixes Settings' },
-                    ]
-                },
+
             ]
         },
     ];

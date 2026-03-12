@@ -23,7 +23,7 @@ const posController = require('../controllers/posController/posController');
 const settingsController = require('../controllers/settingsController/settingsController');
 const mailsettingsController = require('../controllers/settingsController/mailSettingsController');
 const receiptettingsController = require('../controllers/settingsController/receiptSettingsController');
-const prefixSettingsController = require('../controllers/settingsController/prefixSettingsController');
+
 const suplierController = require('../controllers/suplierController/suplierController');
 const transferController = require('../controllers/transferController/transferController');
 const userController = require('../controllers/userController/userController');
@@ -50,12 +50,7 @@ const {
   upload: kotUpload
 } = require('../controllers/settingsController/kotSettingsController');
 
-const {
-  createOrUpdateBOTSettings,
-  uploadBOTLogo,
-  removeBOTLogo,
-  upload: botUpload
-} = require('../controllers/settingsController/botSettingsController');
+
 
 
 //MULTER MIDDLEWARE
@@ -215,7 +210,7 @@ router.post('/createOrUpdateMailSettings', mailsettingsController.createOrUpdate
 
 router.post('/createOrUpdateReceiptSettings', receiptettingsController.createOrUpdateReceiptSettings);
 
-router.post('/createOrUpdatePrefixSettings', prefixSettingsController.createOrUpdatePrefixSettings);
+
 
 router.post('/importSuplier', suplierController.ImportSuplier);
 
@@ -265,10 +260,5 @@ router.post('/markOrderAsReady', orderController.markOrderAsReady);
 router.post('/createOrUpdateKOTSettings', createOrUpdateKOTSettings);
 router.post('/uploadKOTLogo', kotUpload.single('logo'), uploadKOTLogo);
 router.post('/removeKOTLogo', removeKOTLogo);
-
-// BOT Settings routes
-router.post('/createOrUpdateBOTSettings', createOrUpdateBOTSettings);
-router.post('/uploadBOTLogo', botUpload.single('logo'), uploadBOTLogo);
-router.post('/removeBOTLogo', removeBOTLogo);
 
 module.exports = router;

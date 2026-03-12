@@ -26,7 +26,7 @@ const posController = require('../controllers/posController/posController');
 const settingsController = require('../controllers/settingsController/settingsController');
 const mailsettingsController = require('../controllers/settingsController/mailSettingsController');
 const receiptettingsController = require('../controllers/settingsController/receiptSettingsController');
-const prefixSettingsController = require('../controllers/settingsController/prefixSettingsController');
+
 const suplierController = require('../controllers/suplierController/suplierController');
 const transferController = require('../controllers/transferController/transferController');
 const userController = require('../controllers/userController/userController');

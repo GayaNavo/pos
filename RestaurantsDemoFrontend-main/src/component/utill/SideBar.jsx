@@ -58,8 +58,8 @@ const Sidebar = ({ items, sidebarHidden }) => {
     '/mailSettings': { index: 26, dropdown: 'settings' },
     '/receiptSettings': { index: 27, dropdown: 'settings' },
     '/kotSettings': { index: 30, dropdown: 'settings' },
-    '/botSettings': { index: 61, dropdown: 'settings' },
-    '/prefixSettings': { index: 28, dropdown: 'settings' },
+
+
     '/saleReturnsToSupplier': { index: 32, dropdown: 'sale' },
     '/zBillRecords': { index: 60, dropdown: null },
   };
@@ -99,7 +99,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
         manageSettings: hasAnyPermission('manageSettings'),
         manageMailSettings: hasAnyPermission('manageMailSettings'),
         manageReceiptSettings: hasAnyPermission('manageReceiptSettings'),
-        managePrefixesSettings: hasAnyPermission('managePrefixesSettings'),
+
         managePOS: hasAnyPermission('managePOS'),
         manageZbill: hasAnyPermission('manageZbill'),
       });
@@ -866,38 +866,9 @@ const Sidebar = ({ items, sidebarHidden }) => {
               </li>
             )}
 
-            {permissionData.manageReceiptSettings && (
-              <li id="settings" className="rounded-sm flex items-center space-x-2">
-                <Link
-                  to="/botSettings"
-                  className="text-black w-full hover:text-2a9d34 flex items-center cursor-pointer"
-                  style={{
-                    backgroundColor: activeIndex === 61 ? '#bg-gray-100' : '',
-                  }}
-                  onClick={() => handleClick(61, '/botSettings')}
-                >
-                  <CogIcon
-                    className="h-6 w-6 text-gray-500 mr-4"
-                    aria-hidden="true"
-                  />
-                  BOT settings
-                </Link>
-              </li>
-            )}
 
-            {permissionData.managePrefixesSettings && (
-              <li id="settings" className="rounded-sm flex w-full items-center space-x-2">
-                <Link
-                  to="/prefixSettings"
-                  className={`text-black w-full hover:text-[#2a9d34] flex items-center cursor-pointer ${activeIndex === 28 ? 'bg-gray-100' : 'hover:bg-gray-100'
-                    }`}
-                  onClick={() => handleClick(28, '/prefixSettings')}
-                >
-                  <CogIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
-                  Prefixes settings
-                </Link>
-              </li>
-            )}
+
+
           </ul>
 
           {/* Logout */}
