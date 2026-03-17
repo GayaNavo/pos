@@ -1136,35 +1136,53 @@ const getAllZReadingDetails = async (req, res) => {
             });
         }
 
-        // Format openedTime and closedTime
+        // Format openedTime and closedTime to Sri Lanka timezone format: dd/mm/yyyy hh:mm:ss
         const formattedZReadings = zReadingDetails.map(z => {
             // Safety check: ensure registers array exists before mapping
             if (z.registers && Array.isArray(z.registers)) {
                 z.registers = z.registers.map(r => {
+                    // Format openedTime to Sri Lanka Time
                     if (r.openedTime) {
-                        const openDate = new Date(r.openedTime);
-                        const day = String(openDate.getDate()).padStart(2, '0');
-                        const month = String(openDate.getMonth() + 1).padStart(2, '0');
-                        const year = openDate.getFullYear();
-                        const hours = String(openDate.getHours()).padStart(2, '0');
-                        const minutes = String(openDate.getMinutes()).padStart(2, '0');
-                        const seconds = String(openDate.getSeconds()).padStart(2, '0');
-
-                        r.openedTime = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+                        try {
+                            const date = new Date(r.openedTime);
+                            if (!isNaN(date.getTime())) {
+                                const day = String(date.getDate()).padStart(2, '0');
+                                const month = String(date.getMonth() + 1).padStart(2, '0');
+                                const year = date.getFullYear();
+                                const hours = String(date.getHours()).padStart(2, '0');
+                                const minutes = String(date.getMinutes()).padStart(2, '0');
+                                const seconds = String(date.getSeconds()).padStart(2, '0');
+                                r.openedTime = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+                            } else {
+                                r.openedTime = '-';
+                            }
+                        } catch (e) {
+                            r.openedTime = '-';
+                        }
+                    } else {
+                        r.openedTime = '-';
                     }
 
-                    // Format closedTime (convert to Sri Lanka Time +05:30)
+                    // Format closedTime to Sri Lanka Time
                     if (r.closedTime) {
-                        const closeDate = new Date(r.closedTime);
-                        const slTime = new Date(closeDate.getTime() + 5.5 * 60 * 60 * 1000);
-                        const day = String(slTime.getUTCDate()).padStart(2, '0');
-                        const month = String(slTime.getUTCMonth() + 1).padStart(2, '0');
-                        const year = slTime.getUTCFullYear();
-                        const hours = String(slTime.getUTCHours()).padStart(2, '0');
-                        const minutes = String(slTime.getUTCMinutes()).padStart(2, '0');
-                        const seconds = String(slTime.getUTCSeconds()).padStart(2, '0');
-
-                        r.closedTime = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+                        try {
+                            const date = new Date(r.closedTime);
+                            if (!isNaN(date.getTime())) {
+                                const day = String(date.getDate()).padStart(2, '0');
+                                const month = String(date.getMonth() + 1).padStart(2, '0');
+                                const year = date.getFullYear();
+                                const hours = String(date.getHours()).padStart(2, '0');
+                                const minutes = String(date.getMinutes()).padStart(2, '0');
+                                const seconds = String(date.getSeconds()).padStart(2, '0');
+                                r.closedTime = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+                            } else {
+                                r.closedTime = '-';
+                            }
+                        } catch (e) {
+                            r.closedTime = '-';
+                        }
+                    } else {
+                        r.closedTime = '-';
                     }
 
                     return r;
@@ -1227,35 +1245,51 @@ const getAllZReadingByDate = async (req, res) => {
             });
         }
 
-        // Convert openedTime and closedTime to Sri Lanka timezone format: dd/mm/yyyy hh:mm:ss
+        // Convert openedTime and closedTime to format: dd/mm/yyyy hh:mm:ss
         zReadingDetails = zReadingDetails.map(zReading => {
             const updatedRegisters = zReading.registers.map(register => {
-                const openedTimeSLT = new Date(register.openedTime).toLocaleString('en-GB', {
-                    timeZone: 'Asia/Colombo',
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hour12: false
-                }).replace(',', '');
+                // Format openedTime
+                let openedTimeFormatted = '-';
+                if (register.openedTime) {
+                    try {
+                        const date = new Date(register.openedTime);
+                        if (!isNaN(date.getTime())) {
+                            const day = String(date.getDate()).padStart(2, '0');
+                            const month = String(date.getMonth() + 1).padStart(2, '0');
+                            const year = date.getFullYear();
+                            const hours = String(date.getHours()).padStart(2, '0');
+                            const minutes = String(date.getMinutes()).padStart(2, '0');
+                            const seconds = String(date.getSeconds()).padStart(2, '0');
+                            openedTimeFormatted = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+                        }
+                    } catch (e) {
+                        openedTimeFormatted = '-';
+                    }
+                }
 
-                const closedTimeSLT = new Date(register.closedTime).toLocaleString('en-GB', {
-                    timeZone: 'Asia/Colombo',
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hour12: false
-                }).replace(',', '');
+                // Format closedTime
+                let closedTimeFormatted = '-';
+                if (register.closedTime) {
+                    try {
+                        const date = new Date(register.closedTime);
+                        if (!isNaN(date.getTime())) {
+                            const day = String(date.getDate()).padStart(2, '0');
+                            const month = String(date.getMonth() + 1).padStart(2, '0');
+                            const year = date.getFullYear();
+                            const hours = String(date.getHours()).padStart(2, '0');
+                            const minutes = String(date.getMinutes()).padStart(2, '0');
+                            const seconds = String(date.getSeconds()).padStart(2, '0');
+                            closedTimeFormatted = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+                        }
+                    } catch (e) {
+                        closedTimeFormatted = '-';
+                    }
+                }
 
                 return {
                     ...register._doc,
-                    openedTime: openedTimeSLT,
-                    closedTime: closedTimeSLT
+                    openedTime: openedTimeFormatted,
+                    closedTime: closedTimeFormatted
                 };
             });
 
@@ -1329,7 +1363,7 @@ const printHeldOrderBill = async (req, res) => {
             header: { enabled: true, fields: [] },
             body: { enabled: true, columns: [] },
             summary: { enabled: true, fields: [] },
-            footer: { enabled: true, customFields: [], showBarcode: true, showSystemBy: true },
+            footer: { enabled: true, customFields: [], showBarcode: true },
             general: { paperSize: '80mm', fontSize: '13px', fontFamily: 'Arial, sans-serif', margin: '10px', showSectionHeaders: true, compactMode: false },
             logoPath: ''
         };

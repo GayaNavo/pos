@@ -309,63 +309,133 @@ const Sidebar = ({ items, sidebarHidden }) => {
     <aside
       className="sidebar-wrapper"
     >
-      <div className="overflow-y-auto scroll-container">
-        <button
-          onClick={toggleSidebar}
-          className="text-gray-500 bg-white absolute top-24 left-2 w-10 items-center text-center flex justify-center h-10 right-0 border border-white rounded-md z-50 sm:hidden"
-          style={{ boxShadow: '0 10px 20px rgba(0, 0, 0, 0.4)' }}
+      {/* Mobile Overlay */}
+      <div 
+        className={`sidebar-overlay ${isSidebarOpen ? 'active' : ''}`}
+        onClick={() => setIsSidebarOpen(false)}
+      />
+      {/* Mobile Hamburger Toggle Button */}
+      <button
+        onClick={toggleSidebar}
+        className="fixed top-20 left-4 z-50 sm:hidden bg-[#1F5F3B] text-white p-3 rounded-lg shadow-lg hover:bg-[#16452a] transition-colors"
+        aria-label="Toggle Menu"
+      >
+        <svg 
+          className="w-6 h-6" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
         >
-          {/* <img src={Icon} alt="app icon" className="w-[30px] h-[30px] m-4" /> */}
-        </button>
-      </div>
+          {isSidebarOpen ? (
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M6 18L18 6M6 6l12 12" 
+            />
+          ) : (
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M4 6h16M4 12h16M4 18h16" 
+            />
+          )}
+        </svg>
+      </button>
       <div
         ref={sidebarRef}
-        className={`sidebar overflow-y-auto scroll-container p-0 m-0 flex flex-col fixed left-0 top-0 h-full bg-[#1F5F3B] border-r border-[#1F5F3B]/20 transition-transform duration-300 transform ${isSidebarOpen ? 'translate-x-0 sidebar-open' : '-translate-x-full'
+        className={`sidebar overflow-y-auto scroll-container p-0 m-0 flex flex-col fixed left-0 bg-[#1F5F3B] border-r border-[#1F5F3B]/20 transition-transform duration-300 transform ${isSidebarOpen ? 'translate-x-0 sidebar-open mobile-open' : '-translate-x-full'
           } sm:translate-x-0 ${sidebarHidden ? 'md:translate-x-0' : ''}`}
       >
-        <h2 className="mb-5 text-xl text-left text-white font-semibold">Menu</h2>
-        <ul className="list-none p-0 pb-20 m-0">
-          <div className="flex items-center space-x-2 mb-5">
-            <div className="w-full max-w-lg relative">
-              <input
-                type="text"
-                placeholder="Search ..."
-                value={searchTerm}
-                onChange={handleInputChange}
-                className="searchBox w-full pl-10 pr-4 py-2 border border-[#D4AF37]/30 rounded-md shadow-sm bg-white/10 text-white placeholder-white/70 focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
-              />
-              <button className="absolute inset-y-0 left-0 pl-3 flex items-center text-white/70">
-                <svg
-                  className="h-5 w-5"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M9 3a6 6 0 100 12A6 6 0 009 3zm0-1a7 7 0 110 14A7 7 0 019 2z"
-                    clipRule="evenodd"
-                  />
-                  <path
-                    fillRule="evenodd"
-                    d="M12.9 12.9a1 1 0 011.41 0l3 3a1 1 0 01-1.41 1.41l-3-3a1 1 0 010-1.41z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-            </div>
+        {/* Sidebar Header with Hamburger and Title */}
+        <div className="sidebar-header flex items-center justify-between px-6 py-5 border-b border-white/10">
+          <div className="flex items-center gap-3">
+            {/* Hamburger Icon for Desktop */}
+            <button 
+              onClick={toggleSidebar}
+              className="hidden sm:flex items-center justify-center w-10 h-10 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+              aria-label="Toggle Menu"
+            >
+              <svg 
+                className="w-5 h-5 text-white" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M4 6h16M4 12h16M4 18h16" 
+                />
+              </svg>
+            </button>
+            <h2 className="text-xl text-white font-bold tracking-wide">Menu</h2>
           </div>
+          {/* Close button for mobile */}
+          <button 
+            onClick={() => setIsSidebarOpen(false)}
+            className="sm:hidden flex items-center justify-center w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+          >
+            <svg 
+              className="w-5 h-5 text-white" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M6 18L18 6M6 6l12 12" 
+              />
+            </svg>
+          </button>
+        </div>
+
+        {/* Search Bar - More Visible */}
+        <div className="px-4 py-4">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <svg
+                className="h-5 w-5 text-[#D4AF37]"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
+            <input
+              type="text"
+              placeholder="Search menu..."
+              value={searchTerm}
+              onChange={handleInputChange}
+              className="w-full pl-12 pr-4 py-3 bg-white/10 border-2 border-[#D4AF37]/40 rounded-xl text-white placeholder-white/60 focus:outline-none focus:border-[#D4AF37] focus:bg-white/15 focus:ring-2 focus:ring-[#D4AF37]/30 transition-all"
+            />
+          </div>
+        </div>
+
+        <ul className="list-none p-0 pb-20 m-0 px-2">
 
           {/* Dashboard Item */}
           <li
             id="dashboard"
-            className={`rounded-sm w-full flex p-0 m-0 items-center space-x-2 cursor-pointer ${activeIndex === 1 ? 'bg-[#D4AF37]/20' : 'hover:bg-[#D4AF37]/10 w-full'
-              }`}
+            className="w-full flex p-0 m-0 items-center"
             onClick={() => handleClick(1, '/dashboard')}
           >
-            <Link to="/dashboard" className="text-white p-0 m-0 w-full flex items-center space-x-2 hover:text-[#D4AF37]">
-              <HomeIcon className="h-6 w-6 text-[#D4AF37] mr-4" aria-hidden="true" />
-              Dashboard
+            <Link 
+              to="/dashboard" 
+              className={`w-full flex items-center px-4 py-3 rounded-xl transition-all ${activeIndex === 1 ? 'active text-[#1F5F3B]' : 'hover:bg-white/10'}`}
+            >
+              <HomeIcon className={`h-5 w-5 mr-3 flex-shrink-0 ${activeIndex === 1 ? 'text-[#1F5F3B]' : 'text-[#D4AF37]'}`} aria-hidden="true" />
+              <span className="font-medium">Dashboard</span>
             </Link>
           </li>
 
@@ -401,7 +471,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
               <li id="products" className="rounded-sm w-full flex items-center space-x-2">
                 <Link
                   to="/viewProducts"
-                  className={`w-full text-black hover:text-[#2a9d34] flex items-center cursor-pointer space-x-2 p-2 ${activeIndex === 2 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                  className={`w-full flex items-center cursor-pointer space-x-2 p-2 rounded-lg transition-all ${activeIndex === 2 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'}
                     }`}
                   onClick={() => handleClick(2, '/viewProducts')}
                 >
@@ -414,7 +484,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
               <li id="products" className="rounded-sm w-full flex items-center space-x-2">
                 <Link
                   to="/viewBaseUnit"
-                  className={`w-full text-black hover:text-[#2a9d34] flex items-center cursor-pointer space-x-2 p-2 ${activeIndex === 3 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                  className={`w-full flex items-center cursor-pointer space-x-2 p-2 rounded-lg transition-all ${activeIndex === 3 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'}
                     }`}
                   onClick={() => handleClick(3, '/viewBaseUnit')}
                 >
@@ -427,7 +497,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
               <li id="products" className="rounded-sm w-full flex items-center space-x-2">
                 <Link
                   to="/viewUnit"
-                  className={`w-full text-black hover:text-[#2a9d34] flex items-center cursor-pointer space-x-2 p-2 ${activeIndex === 4 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                  className={`w-full flex items-center cursor-pointer space-x-2 p-2 rounded-lg transition-all ${activeIndex === 4 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'}
                     }`}
                   onClick={() => handleClick(4, '/viewUnit')}
                 >
@@ -440,7 +510,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
               <li id="products" className="rounded-sm flex items-center space-x-2 w-full">
                 <Link
                   to="/viewVariation"
-                  className={`w-full text-black hover:text-[#2a9d34] flex items-center cursor-pointer ${activeIndex === 5 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                  className={`w-full flex items-center cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 5 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'}
                     }`}
                   onClick={() => handleClick(5, '/viewVariation')}
                 >
@@ -453,7 +523,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
               <li id="products" className="rounded-sm flex items-center space-x-2 w-full">
                 <Link
                   to="/viewBrands"
-                  className={`w-full text-black hover:text-[#2a9d34] flex items-center cursor-pointer ${activeIndex === 6 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                  className={`w-full flex items-center cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 6 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'}
                     }`}
                   onClick={() => handleClick(6, '/viewBrands')}
                 >
@@ -466,7 +536,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
               <li id="products" className="rounded-sm flex items-center space-x-2 w-full">
                 <Link
                   to="/viewCategory"
-                  className={`w-full text-black hover:text-[#2a9d34] flex items-center cursor-pointer ${activeIndex === 7 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                  className={`w-full flex items-center cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 7 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'}
                     }`}
                   onClick={() => handleClick(7, '/viewCategory')}
                 >
@@ -479,7 +549,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
               <li id="products" className="rounded-sm flex items-center space-x-2 w-full">
                 <Link
                   to="/barcodePrint"
-                  className={`w-full text-black hover:text-[#2a9d34] flex items-center cursor-pointer ${activeIndex === 8 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                  className={`w-full flex items-center cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 8 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'}
                     }`}
                   onClick={() => handleClick(8, '/barcodePrint')}
                 >
@@ -497,7 +567,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
                 onClick={PeopletoggleDropdown}
                 className="dropdown-toggle text-gray hover:text-gray-700 w-full flex items-center p-2 space-x-2 cursor-pointer"
               >
-                <span className="text-black hover:text-gray-700 flex items-center w-full">
+                <span className="text-white flex items-center w-full">
                   <UserGroupIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
                   People
                 </span>
@@ -522,7 +592,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
               <li id="users" className="flex items-center w-full cursor-pointer rounded-sm">
                 <Link
                   to="/viewCustomers"
-                  className={`w-full text-black hover:text-[#2a9d34] flex items-center cursor-pointer ${activeIndex === 17 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                  className={`w-full flex items-center cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 17 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'}
                     }`}
                   onClick={() => handleClick(17, '/viewCustomers')}
                 >
@@ -535,7 +605,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
               <li id="users" className="flex items-center w-full cursor-pointer">
                 <Link
                   to="/users"
-                  className={`w-full text-black hover:text-[#2a9d34] flex items-center cursor-pointer ${activeIndex === 9 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                  className={`w-full flex items-center cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 9 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'}
                     }`}
                   onClick={() => handleClick(9, '/users')}
                 >
@@ -548,7 +618,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
               <li id="users" className="flex items-center w-full cursor-pointer rounded-sm">
                 <Link
                   to="/viewSuplier"
-                  className={`w-full text-black hover:text-[#2a9d34] flex items-center cursor-pointer ${activeIndex === 10 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                  className={`w-full flex items-center cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 10 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'}
                     }`}
                   onClick={() => handleClick(10, '/viewSuplier')}
                 >
@@ -564,7 +634,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
             <li id="warehouse" className="flex items-center w-full p-0 m-0 rounded-sm">
               <Link
                 to="/viewWarehouse"
-                className={`w-full text-black hover:text-[#2a9d34] flex items-center space-x-2 cursor-pointer ${activeIndex === 11 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                className={`w-full flex items-center space-x-2 cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 11 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'}
                   }`}
                 onClick={() => handleClick(11, '/viewWarehouse')}
               >
@@ -579,8 +649,8 @@ const Sidebar = ({ items, sidebarHidden }) => {
             <li id="transfer" className="flex items-center w-full p-0 m-0 rounded-sm">
               <Link
                 to="/viewTransfer"
-                className={`w-full text-black hover:text-[#2a9d34] flex items-center space-x-2 cursor-pointer ${
-                  activeIndex === 12 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                className={`w-full flex items-center space-x-2 cursor-pointer p-2 rounded-lg transition-all ${
+                  activeIndex === 12 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'
                 }`}
                 onClick={() => handleClick(12, '/viewTransfer')}
               >
@@ -597,7 +667,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
                 onClick={SaletoggleDropdown}
                 className="dropdown-toggle text-gray hover:text-gray-700 w-full flex items-center justify-between"
               >
-                <span className="flex items-center text-black w-full">
+                <span className="flex items-center text-white w-full">
                   <ShoppingCartIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
                   Sale
                 </span>
@@ -622,7 +692,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
               <li id="sale" className="flex items-center w-full p-0 m-0">
                 <Link
                   to="/viewSale"
-                  className={`w-full text-black hover:text-[#2a9d34] flex items-center cursor-pointer ${activeIndex === 13 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                  className={`w-full flex items-center cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 13 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'
                     }`}
                   onClick={() => handleClick(13, '/viewSale')}
                 >
@@ -635,7 +705,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
               <li id="sale" className="rounded-sm flex items-center w-full p-0 m-0">
                 <Link
                   to="/viewSaleReturns"
-                  className={`w-full text-black hover:text-[#2a9d34] flex items-center cursor-pointer ${activeIndex === 14 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                  className={`w-full flex items-center cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 14 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'
                     }`}
                   onClick={() => handleClick(14, '/viewSaleReturns')}
                 >
@@ -648,7 +718,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
               <li id="sale" className="rounded-sm flex items-center w-full p-0 m-0">
                 <Link
                   to="/saleReturnsToSupplier"
-                  className={`w-full text-black hover:text-[#2a9d34] flex items-center cursor-pointer ${activeIndex === 32 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                  className={`w-full flex items-center cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 32 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'
                     }`}
                   onClick={() => handleClick(32, '/saleReturnsToSupplier')}
                 >
@@ -666,7 +736,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
                 onClick={PurchasetoggleDropdown}
                 className="dropdown-toggle text-gray hover:text-gray-700 w-full flex items-center justify-between"
               >
-                <span className="flex items-center text-black w-full">
+                <span className="flex items-center text-white w-full">
                   <ShoppingCartIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
                   Purchase
                 </span>
@@ -691,7 +761,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
               <li id="purchase" className="flex items-center w-full p-0 m-0">
                 <Link
                   to="/viewPurchase"
-                  className={`w-full text-black hover:text-[#2a9d34] flex items-center cursor-pointer ${activeIndex === 15 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                  className={`w-full flex items-center cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 15 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'
                     }`}
                   onClick={() => handleClick(15, '/viewPurchase')}
                 >
@@ -704,7 +774,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
               <li id="purchase" className="rounded-sm flex items-center w-full p-0 m-0">
                 <Link
                   to="/viewPurchaseReturns"
-                  className={`w-full text-black hover:text-[#2a9d34] flex items-center cursor-pointer ${activeIndex === 16 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                  className={`w-full flex items-center cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 16 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'
                     }`}
                   onClick={() => handleClick(16, '/viewPurchaseReturns')}
                 >
@@ -720,7 +790,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
             <li id="quotation" className="rounded-sm flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
               <Link
                 to="/viewQuotation"
-                className={`w-full text-black hover:text-[#2a9d34] flex items-center ${activeIndex === 18 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                className={`w-full flex items-center cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 18 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'
                   }`}
                 onClick={() => handleClick(18, '/viewQuotation')}
               >
@@ -737,7 +807,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
             <li id="roles" className="rounded-sm flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
               <Link
                 to="/viewRoleAndPermissions"
-                className={`text-black hover:text-[#2a9d34] flex items-center w-full ${activeIndex === 21 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                className={`flex items-center w-full cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 21 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'
                   }`}
                 onClick={() => handleClick(21, '/viewRoleAndPermissions')}
               >
@@ -754,7 +824,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
             <li id="reports" className="rounded-sm flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
               <Link
                 to="/viewReport"
-                className={`text-black hover:text-[#2a9d34] flex items-center w-full ${activeIndex === 22 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                className={`flex items-center w-full cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 22 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'
                   }`}
                 onClick={() => handleClick(22, '/viewReport')}
               >
@@ -771,7 +841,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
             <li id="zBill" className="rounded-sm flex items-center space-x-2 w-full p-0 m-0 cursor-pointer">
               <Link
                 to="/zBillRecords"
-                className={`text-black hover:text-[#2a9d34] flex items-center w-full ${activeIndex === 60 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                className={`flex items-center w-full cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 60 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'
                   }`}
                 onClick={() => handleClick(60, '/zBillRecords')}
               >
@@ -788,7 +858,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
                 onClick={SettingsDropdown}
                 className="dropdown-toggle text-gray hover:text-gray-700 flex items-center w-full justify-between"
               >
-                <span className="text-black hover:text-gray-700 flex items-center space-x-2">
+                <span className="text-white flex items-center space-x-2">
                   <CogIcon className="h-6 w-6 text-gray-500 mr-2" aria-hidden="true" />
                   <span>Settings</span>
                 </span>
@@ -810,7 +880,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
               <li className="flex items-center space-x-2">
                 <Link
                   to="/settings"
-                  className={`text-black w-full hover:text-[#2a9d34] flex items-center cursor-pointer ${activeIndex === 25 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                  className={`w-full flex items-center cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 25 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'
                     }`}
                   onClick={() => handleClick(25, '/settings')}
                 >
@@ -823,7 +893,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
               <li id="settings" className="rounded-sm flex items-center space-x-2">
                 <Link
                   to="/mailSettings"
-                  className={`text-black w-full hover:text-[#2a9d34] flex items-center cursor-pointer ${activeIndex === 26 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                  className={`w-full flex items-center cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 26 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'
                     }`}
                   onClick={() => handleClick(26, '/mailSettings')}
                 >
@@ -836,7 +906,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
               <li id="settings" className="rounded-sm flex items-center space-x-2">
                 <Link
                   to="/receiptSettings"
-                  className={`text-black w-full hover:text-[#2a9d34] flex items-center cursor-pointer ${activeIndex === 27 ? 'bg-gray-100' : 'hover:bg-gray-100'
+                  className={`w-full flex items-center cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 27 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'
                     }`}
                   onClick={() => handleClick(27, '/receiptSettings')}
                 >
@@ -851,10 +921,8 @@ const Sidebar = ({ items, sidebarHidden }) => {
               <li id="settings" className="rounded-sm flex items-center space-x-2">
                 <Link
                   to="/kotSettings"
-                  className="text-black w-full hover:text-2a9d34 flex items-center cursor-pointer"
-                  style={{
-                    backgroundColor: activeIndex === 30 ? '#bg-gray-100' : '',
-                  }}
+                  className={`w-full flex items-center cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 30 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'
+                  }`}
                   onClick={() => handleClick(30, '/kotSettings')}
                 >
                   <CogIcon
@@ -875,7 +943,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
           <p id="logout" className="rounded-sm flex items-center space-x-2 w-full p-0 ml-2 cursor-pointer">
             <span
               onClick={handleLogout}
-              className="text-black hover:text-[red] flex items-center w-full"
+              className="text-white hover:text-[#D4AF37] flex items-center w-full cursor-pointer p-2 rounded-lg hover:bg-white/10 transition-all"
             >
               <ArrowRightOnRectangleIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
               Logout

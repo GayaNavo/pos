@@ -159,8 +159,7 @@ useEffect(() => {
         footer: {
           enabled: data.footer?.enabled ?? true,
           customFields: data.footer?.customFields?.length ? data.footer.customFields : defaultFooterFields,
-          showBarcode: data.footer?.showBarcode ?? true,
-          showSystemBy: data.footer?.showSystemBy ?? true
+          showBarcode: data.footer?.showBarcode ?? true
         },
         general: data.general || {
           paperSize: '80mm',
@@ -377,17 +376,6 @@ const handleRemoveLogo = async () => {
       footer: {
         ...prev.footer,
         showBarcode: !prev.footer.showBarcode
-      }
-    }));
-  };
-
-  // Toggle "System by IDEAZONE" display
-  const toggleSystemBy = () => {
-    setSettings(prev => ({
-      ...prev,
-      footer: {
-        ...prev.footer,
-        showSystemBy: !prev.footer.showSystemBy
       }
     }));
   };
@@ -793,9 +781,8 @@ const handleRemoveLogo = async () => {
               enabled={settings.footer.enabled}
               onToggle={() => toggleSection('footer')}
               fieldCount={settings.footer.customFields.filter(f => f.enabled).length + 
-                         (settings.footer.showBarcode ? 1 : 0) + 
-                         (settings.footer.showSystemBy ? 1 : 0)}
-              totalFields={settings.footer.customFields.length + 2}
+                         (settings.footer.showBarcode ? 1 : 0)}
+              totalFields={settings.footer.customFields.length + 1}
             >
               <div className="space-y-6">
                 {/* Standard Footer Elements */}
@@ -816,19 +803,7 @@ const handleRemoveLogo = async () => {
                       />
                     </div>
                     
-                    <div className="flex items-center justify-between p-3 bg-white rounded-lg border">
-                      <div className="flex items-center gap-3">
-                        <span className="text-xl">💻</span>
-                        <div>
-                          <div className="font-medium text-gray-800">System by IDEAZONE</div>
-                          <div className="text-sm text-gray-600">Show system credit line</div>
-                        </div>
-                      </div>
-                      <ToggleSwitch 
-                        enabled={settings.footer.showSystemBy} 
-                        onChange={toggleSystemBy} 
-                      />
-                    </div>
+
                   </div>
                 </div>
 

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, } from "react";
 import { fetchAllData } from "../utils/fetchAllData";
+import { fetchProductDataByWarehouse } from "../utils/fetchByWarehose";
 import axios from "axios";
 import '../../../styles/login.css';
 import { handleSave } from '../../sales/SaleController'
@@ -12,7 +13,7 @@ import { useReactToPrint } from 'react-to-print';
 import CircularProgress from '@mui/material/CircularProgress';
 import { toast } from "react-toastify";
 
-const PayingSection = ({ handlePopupClose, totalItems, totalPcs, profit, tax, shipping, serviceCharge, serviceChargeType, discount, discountValue, deliveryNote, productDetails, handleBillReset, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setProductData, selectedCustomer, discountType, responseMessage, setResponseMessage, setReloadStatus, calculateTotalPrice, setError, setProgress, setFetchRegData, orderId, setOrderId, serviceChargeValue, customerDisplayChannel }) => {
+const PayingSection = ({ handlePopupClose, totalItems, totalPcs, profit, tax, shipping, serviceCharge, serviceChargeType, discount, discountValue, deliveryNote, productDetails, handleBillReset, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setProductData, selectedCustomer, discountType, responseMessage, setResponseMessage, setReloadStatus, calculateTotalPrice, setError, setProgress, setFetchRegData, orderId, setOrderId, serviceChargeValue, customerDisplayChannel, selectedWarehouse }) => {
     const [receivedAmount, setReceivedAmount] = useState('');
     const [returnAmount, setReturnAmount] = useState('');
     const [paymentType, setPaymentType] = useState('cash');
@@ -253,7 +254,19 @@ const PayingSection = ({ handlePopupClose, totalItems, totalPcs, profit, tax, sh
                 orderType,
                 kotNoteText
             );
-            await fetchAllData(setProductData, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setLoading, setError);
+            // Refresh products based on selected warehouse
+            if (selectedWarehouse) {
+                await fetchProductDataByWarehouse(
+                    selectedWarehouse,
+                    setProductData,
+                    setSelectedCategoryProducts,
+                    setSelectedBrandProducts,
+                    setSearchedProductData,
+                    setLoading
+                );
+            } else {
+                await fetchAllData(setProductData, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setLoading, setError);
+            }
             return;
         } catch (error) {
             console.error('Error updating product quantities:', error);
@@ -278,14 +291,26 @@ const PayingSection = ({ handlePopupClose, totalItems, totalPcs, profit, tax, sh
                 // The printing (silent or fallback) is handled inside handleSave (called via updateProductQuantities)
             } else {
                 handlePopupClose();
-                await fetchAllData(
-                    setProductData,
-                    setSelectedCategoryProducts,
-                    setSelectedBrandProducts,
-                    setSearchedProductData,
-                    setLoading,
-                    setError
-                );
+                // Refresh products based on selected warehouse
+                if (selectedWarehouse) {
+                    await fetchProductDataByWarehouse(
+                        selectedWarehouse,
+                        setProductData,
+                        setSelectedCategoryProducts,
+                        setSelectedBrandProducts,
+                        setSearchedProductData,
+                        setLoading
+                    );
+                } else {
+                    await fetchAllData(
+                        setProductData,
+                        setSelectedCategoryProducts,
+                        setSelectedBrandProducts,
+                        setSearchedProductData,
+                        setLoading,
+                        setError
+                    );
+                }
             }
         
         } catch (error) {

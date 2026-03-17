@@ -1,4 +1,4 @@
-/* sidebar.css */
+/* sidebar.css - Modern Design */
 
 /* Sidebar wrapper - should not take layout space since sidebar is fixed */
 .sidebar-wrapper {
@@ -7,18 +7,84 @@
   overflow: visible;
 }
 
+/* Ensure all text in sidebar is white */
+.sidebar,
+.sidebar * {
+  color: #ffffff;
+}
+
+/* Mobile Sidebar - Full screen overlay */
+@media (max-width: 639px) {
+  .sidebar {
+    width: 280px;
+    height: 100vh;
+    top: 0 !important;
+    left: 0;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .sidebar.mobile-open {
+    transform: translateX(0);
+  }
+  
+  /* Overlay when sidebar is open on mobile */
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Hide the sidebar toggle button on mobile when sidebar is from SideBar component */
+  .sidebar-wrapper > .scroll-container > button {
+    display: none;
+  }
+}
+
 .sidebar {
-  width: 18%;
-  height: 100vh;
-  background-color: #1F5F3B;
+  width: 280px;
+  height: calc(100vh - 70px);
+  background: linear-gradient(180deg, #1F5F3B 0%, #16452a 50%, #0d2e1a 100%);
   position: fixed;
-  top: 81px;
+  top: 70px;
   left: 0;
-  padding: 20px 12px 20px 10px;
-  box-shadow: 1px 0 2px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.25);
   overflow-y: auto;
+  overflow-x: hidden;
   z-index: 40;
-  transition: transform 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom Scrollbar for Sidebar */
+.sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.5);
 }
 
 /* Content area default - NO margin since child pages handle their own positioning */
@@ -31,6 +97,8 @@
 .product-page-container {
   left: 0;
   width: 100%;
+  top: 70px;
+  min-height: calc(100vh - 70px);
 }
 
 /* Mobile view - full width, no sidebar offset */
@@ -38,6 +106,7 @@
   .product-page-container {
     left: 0 !important;
     width: 100% !important;
+    top: 70px;
   }
 }
 
@@ -46,6 +115,7 @@
   .product-page-container {
     left: 220px !important;
     width: calc(100% - 220px) !important;
+    top: 70px;
   }
   
   /* When sidebar is hidden on tablets */
@@ -58,8 +128,9 @@
 /* Desktop view - sidebar at 18% */
 @media (min-width: 1536px) {
   .product-page-container {
-    left: 18% !important;
-    width: 82% !important;
+    left: 280px !important;
+    width: calc(100% - 280px) !important;
+    top: 70px;
   }
 }
 
@@ -77,76 +148,628 @@
   padding-bottom: 10px;
 }
 
-.sidebar li {
-  margin-bottom: 10px;
+/* Sidebar Navigation Container */
+.sidebar-nav {
+  padding: 20px 16px;
 }
 
+/* Menu Section Headers */
+.menu-section-header {
+  color: rgba(212, 175, 55, 0.8);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 20px 20px 10px;
+  margin-top: 10px;
+}
+
+.sidebar li {
+  margin-bottom: 6px;
+  list-style: none;
+}
+
+/* Modern Menu Item */
 .sidebar li a {
   text-decoration: none;
-  color: #FFFFFF;
+  color: #ffffff !important;
   display: flex;
   align-items: center;
-  padding: 8px;
-  border-radius: 2px;
+  padding: 14px 20px;
+  margin: 0 12px;
+  border-radius: 14px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
 }
 
-.sidebar li span {
-  color: #FFFFFF;
+/* Glassmorphism Background Effect */
+.sidebar li a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 14px;
 }
 
-.sidebar li :hover {
+/* Active Indicator Line */
+.sidebar li a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #D4AF37 0%, #F4D03F 100%);
+  border-radius: 0 4px 4px 0;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+/* Icon Styling */
+.sidebar li a .menu-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+  font-size: 18px;
+}
+
+.sidebar li a:hover .menu-icon {
+  background: rgba(212, 175, 55, 0.2);
+  transform: scale(1.1) rotate(5deg);
+}
+
+.sidebar li a.active .menu-icon {
+  background: rgba(212, 175, 55, 0.25);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+/* Menu Text */
+.sidebar li a .menu-text {
+  flex: 1;
+  letter-spacing: 0.3px;
+}
+
+/* Badge/Counter */
+.sidebar li a .menu-badge {
+  background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+  color: #1F5F3B;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  min-width: 24px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+}
+
+/* Hover Effects */
+.sidebar li a:hover {
+  color: #ffffff !important;
+  transform: translateX(6px);
+}
+
+.sidebar li a:hover::after {
+  opacity: 1;
+}
+
+.sidebar li a:hover::before {
+  opacity: 1;
+  height: 60%;
+}
+
+/* Active State */
+.sidebar li a.active {
+  background: linear-gradient(135deg, #D4AF37 0%, #C4A030 100%);
+  color: #1F5F3B !important;
+  font-weight: 700;
+  box-shadow: 
+    0 4px 15px rgba(212, 175, 55, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border: 1px solid #D4AF37;
+}
+
+.sidebar li a.active::before {
+  opacity: 1;
+  height: 70%;
+}
+
+/* Subtle Glow Animation for Active Item */
+@keyframes menuGlow {
+  0%, 100% {
+    box-shadow: 
+      0 4px 15px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 0 20px rgba(212, 175, 55, 0.1);
+  }
+  50% {
+    box-shadow: 
+      0 4px 15px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 0 30px rgba(212, 175, 55, 0.2);
+  }
+}
+
+.sidebar li a.active {
+  animation: menuGlow 3s ease-in-out infinite;
+}
+
+/* Ripple Effect on Click */
+.sidebar li a {
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar li a::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.sidebar li a:active::after {
+  width: 300px;
+  height: 300px;
+}
+
+/* Floating Particles Background Effect */
+.sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(76, 175, 80, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(212, 175, 55, 0.02) 0%, transparent 30%);
+  pointer-events: none;
+}
+
+/* Shimmer Effect for Active Menu */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.sidebar li a.active::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+  opacity: 1;
+}
+
+/* Menu Item Entrance Animation */
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.sidebar li {
+  animation: slideInFromLeft 0.5s ease-out forwards;
+}
+
+.sidebar li:nth-child(1) { animation-delay: 0.05s; }
+.sidebar li:nth-child(2) { animation-delay: 0.1s; }
+.sidebar li:nth-child(3) { animation-delay: 0.15s; }
+.sidebar li:nth-child(4) { animation-delay: 0.2s; }
+.sidebar li:nth-child(5) { animation-delay: 0.25s; }
+.sidebar li:nth-child(6) { animation-delay: 0.3s; }
+.sidebar li:nth-child(7) { animation-delay: 0.35s; }
+.sidebar li:nth-child(8) { animation-delay: 0.4s; }
+.sidebar li:nth-child(9) { animation-delay: 0.45s; }
+.sidebar li:nth-child(10) { animation-delay: 0.5s; }
+
+/* Icon Pulse Animation on Hover */
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+.sidebar li a:hover .menu-icon {
+  animation: iconPulse 0.6s ease-in-out;
+}
+
+/* Tooltip Style for Menu Items */
+.sidebar li a[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  white-space: nowrap;
+  margin-left: 10px;
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+  z-index: 100;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Bottom Action Buttons Area */
+.sidebar-actions {
+  margin-top: auto;
+  padding: 20px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-action-btn {
+  width: 100%;
+  padding: 14px 20px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-action-btn:hover {
+  background: rgba(212, 175, 55, 0.1);
+  border-color: rgba(212, 175, 55, 0.3);
+  color: #F4D03F;
+  transform: translateX(4px);
+}
+
+.sidebar-action-btn.danger:hover {
+  background: rgba(244, 67, 54, 0.1);
+  border-color: rgba(244, 67, 54, 0.3);
+  color: #f44336;
+}
+
+/* Status Indicator Dot */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4CAF50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}
+.sidebar button:hover {
   background-color: rgba(212, 175, 55, 0.2);
   color: #D4AF37;
 }
-.sidebar button :hover {
-  background-color: rgba(212, 175, 55, 0.2);
-  color: #D4AF37;
-}
-.sidebar button{
-  border-radius: 2px;
+
+.sidebar button {
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  color: #ffffff !important;
 }
 
+/* Modern Dropdown Menu */
 .sidebar .dropdown-menu {
   list-style-type: none;
   padding: 0;
-  width: 100%;
-  margin: 0;
-  padding-left: 20px;
+  width: calc(100% - 24px);
+  margin: 8px 12px 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.05) 100%);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar .dropdown-menu li {
   display: flex;
   align-items: center;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
+  animation: none;
 }
 
 .sidebar .dropdown-menu li a {
   display: flex;
   align-items: center;
-  padding-left: 15px;
+  padding: 12px 18px;
+  font-size: 13px;
+  border-radius: 10px;
+  margin: 3px 6px;
+  color: #ffffff !important;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
 }
 
+.sidebar .dropdown-menu li a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 0;
+  background: linear-gradient(180deg, #D4AF37 0%, #F4D03F 100%);
+  border-radius: 0 3px 3px 0;
+  transition: height 0.3s ease;
+}
+
+.sidebar .dropdown-menu li a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff !important;
+  transform: translateX(4px);
+}
+
+.sidebar .dropdown-menu li a:hover::before {
+  height: 50%;
+}
+
+.sidebar .dropdown-menu li a.active {
+  background: linear-gradient(135deg, #D4AF37 0%, #C4A030 100%);
+  color: #1F5F3B !important;
+  font-weight: 700;
+  border: 1px solid #D4AF37;
+}
+
+/* Dropdown Arrow Animation */
+.dropdown-arrow {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-left: auto;
+  opacity: 0.6;
+}
+
+.dropdown-open .dropdown-arrow {
+  transform: rotate(180deg);
+  opacity: 1;
+  color: #F4D03F;
+}
+
+/* Modern Dropdown Toggle */
 .sidebar .dropdown-toggle {
-  background: none;
-  border: none;
-  color: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #ffffff !important;
   font: inherit;
   cursor: pointer;
   display: flex;
   align-items: center;
-  padding: 8px;
-  border-radius: 4px;
+  padding: 14px 20px;
+  margin: 0 12px;
+  border-radius: 14px;
+  width: calc(100% - 24px);
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar .dropdown-toggle::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.2) 0%, transparent 100%);
+  transition: width 0.3s ease;
 }
 
 .sidebar .dropdown-toggle:hover {
-  background-color: rgba(212, 175, 55, 0.2);
-  color: #D4AF37;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+  color: #ffffff !important;
+  border-color: rgba(212, 175, 55, 0.2);
+  transform: translateX(4px);
+}
+
+.sidebar .dropdown-toggle:hover::before {
+  width: 100%;
+}
+
+.sidebar .dropdown-toggle .menu-icon {
+  background: rgba(212, 175, 55, 0.15);
+}
+
+/* Expand/Collapse Animation for Dropdown */
+.dropdown-menu {
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dropdown-menu.open {
+  max-height: 500px;
+  opacity: 1;
+  transform: translateY(0);
+  padding: 10px 0;
+}
+
+/* Modern Sidebar Header */
+.sidebar-header {
+  padding: 20px 24px;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.1) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Search Bar Styling */
+.sidebar input[type="text"] {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.sidebar input[type="text"]::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Old Logo Area - Keep for compatibility */
+.sidebar-logo-area {
+  padding: 28px 24px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.sidebar-logo-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 
+    0 8px 20px rgba(212, 175, 55, 0.3),
+    0 0 0 4px rgba(212, 175, 55, 0.1);
+}
+
+.sidebar-logo-text {
+  flex: 1;
+}
+
+.sidebar-logo h2 {
+  color: white;
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-logo p {
+  color: rgba(212, 175, 55, 0.9);
+  font-size: 11px;
+  margin: 4px 0 0 0;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* User Profile Section in Sidebar */
+.sidebar-user {
+  padding: 20px 24px;
+  margin: 16px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-user-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1F5F3B;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.sidebar-user-info {
+  flex: 1;
+}
+
+.sidebar-user-name {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.sidebar-user-role {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  margin: 2px 0 0 0;
 }
 
 /* Tablet view: sidebar and content layout adjustments */
 @media (min-width: 640px) and (max-width: 1535px) {
   .sidebar {
     width: 220px !important;
+    height: calc(100vh - 70px);
+    top: 70px;
     z-index: 45;
     transform: translateX(0);
   }
