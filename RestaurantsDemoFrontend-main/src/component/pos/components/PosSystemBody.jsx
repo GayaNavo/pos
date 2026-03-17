@@ -14,7 +14,6 @@ import formatWithCustomCommas from '../../utill/NumberFormate';
 import Menu from '../../../img/held POS 1.png';
 import pro from '../../../img/Main Close POS 1.png';
 import Full from '../../../img/Full Screen POS 1.png';
-import Cal from '../../../img/Cal POS 1.png';
 import Back from '../../../img/Back POS 1.png';
 import Plced_Order from '../../../img/shopping-bag.png';
 import SL_R from '../../../img/saleReturn.png';
@@ -25,7 +24,6 @@ import BillingSection from './posBillCalculation';
 import popSound from '../../../../src/audio/b.mp3';
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
-import Calculator from './posCalCulator';
 import ProductVariationModal from './productVariationEdit';
 import { handleProductSubmit } from '../utils/searchProduct';
 import { getHeldProducts, handleDeleteHoldProduct } from '../utils/holdProductControll';
@@ -37,11 +35,10 @@ import { handleFullScreen } from '../utils/fullScreenView';
 import { handlePopupOpen } from '../utils/registerHandling';
 
 import { getPriceRange, getQty, getTax, getDiscount, getProductCost, getTaxHandler } from '../utils/qtyAndPriceCalculation';
-import { X, Calculator as GripHorizontal, Plus } from "lucide-react";
+import { X, Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { UserContext } from '../../../context/UserContext';
-import Draggable from 'react-draggable';
 import { silentPrint } from '../utils/silentPrint';
 
 function PosSystemBody({ defaultWarehouse }) {
@@ -65,7 +62,6 @@ function PosSystemBody({ defaultWarehouse }) {
     const [productBillingHandling, setProductBillingHandling] = useState([])
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [selectVariation, setSelectVariation] = useState(false);
-    const [showCalculator, setShowCalculator] = useState(false);
     const [isHoldList, setIsHoldList] = useState(false)
     const [heldProducts, setHeldProducts] = useState([])
     const [isExitingPopupOpen, setIsExitingPopupOpen] = useState(false);
@@ -297,10 +293,6 @@ function PosSystemBody({ defaultWarehouse }) {
 
     useEffect(() => {
     }, [productBillingHandling]);
-
-    const toggleCalculator = () => {
-        setShowCalculator((prev) => !prev);
-    };
 
     useEffect(() => {
         const fetchSystemSettings = async () => {
@@ -2040,14 +2032,6 @@ function PosSystemBody({ defaultWarehouse }) {
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div className='ml-0 lg:ml-3 xl:ml-4 mt-3 lg:mt-0 hidden xl:block'>
-                                                <div className="p-2 m-2 w-[55px] h-[55px] md:w-[60px] md:h-[60px] lg:w-[65px] lg:h-[63px] pb-2 border bg-[#1A5B63] rounded-[10px] flex items-center justify-center">
-                                                    <button onClick={toggleCalculator}>
-                                                        <img className="w-[35px] h-[35px] md:w-[40px] md:h-[40px] lg:w-[45px] lg:h-[45px]" src={Cal} alt="Calculator" />
-                                                    </button>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
 
@@ -2080,13 +2064,6 @@ function PosSystemBody({ defaultWarehouse }) {
                         <div className="p-1 md:p-2 xl:p-2 m-1 md:m-2 xl:m-2 w-[55px] h-[55px] md:w-[60px] md:h-[60px] xl:w-[65px] xl:h-[65px] border bg-[#1A5B63] rounded-[10px] flex items-center justify-center flex-shrink-0">
                             <button className='' onClick={handleFullScreen}>
                                 <img className="w-[35px] h-[35px] md:w-[40px] md:h-[40px] xl:w-[45px] xl:h-[45px]" src={Full} alt="" />
-                            </button>
-                        </div>
-
-
-                        <div className="p-1 md:p-2 xl:p-2 m-1 md:m-2 xl:m-2 w-[55px] h-[55px] md:w-[60px] md:h-[60px] xl:w-[65px] xl:h-[65px] border bg-[#1A5B63] rounded-[10px] flex items-center justify-center flex-shrink-0">
-                            <button onClick={toggleCalculator}>
-                                <img className="w-[35px] h-[35px] md:w-[40px] md:h-[40px] xl:w-[45px] xl:h-[45px]" src={Cal} alt="Calculator" />
                             </button>
                         </div>
 
@@ -2497,54 +2474,6 @@ function PosSystemBody({ defaultWarehouse }) {
                             />
                         )}
                     </div>
-
-                    {showCalculator && (
-                        <>
-                            <div
-                                className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40"
-                                onClick={toggleCalculator}
-                            />
-
-                            {/* Draggable Calculator */}
-                            <Draggable handle=".drag-handle" cancel=".no-drag">
-                                <div className="fixed top-4 right-8 z-50 w-[500px] md:w-[500px] select-none">
-
-                                    {/* Main Container */}
-                                    <div className="rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-b from-[#E6F4F1] to-[#A7D4C2]">
-
-                                        {/* Header (Drag Handle) */}
-                                        <div className="drag-handle flex items-center justify-between bg-gradient-to-r from-[#1F5F3B] to-[#4CAF50] text-white px-4 py-2 cursor-move">
-                                            <div className="flex items-center gap-2 text-sm font-semibold tracking-wide">
-                                                <GripHorizontal className="w-4 h-4 opacity-80" />
-                                                Calculator
-                                            </div>
-
-                                            <button
-                                                type="button"
-                                                className="no-drag p-1.5 hover:bg-white/20 rounded-full transition"
-                                                title="Close"
-                                                onMouseDown={(e) => {
-                                                    e.preventDefault();
-                                                    e.stopPropagation();
-                                                }}
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    toggleCalculator();
-                                                }}
-                                            >
-                                                <X className="w-4 h-4" />
-                                            </button>
-                                        </div>
-
-                                        {/* Calculator Body */}
-                                        <div className="p-4">
-                                            <Calculator />
-                                        </div>
-                                    </div>
-                                </div>
-                            </Draggable>
-                        </>
-                    )}
 
                     {showAddProductModal && (
                         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">

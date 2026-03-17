@@ -3,34 +3,31 @@
 const express = require('express');
 const router = express.Router();
 
+const {
+    currencyController,
+    customersController,
+    purchaseReturnController,
+    purchaseController,
+    quatationController,
+    saleController,
+    saleReturnController,
+    permissionsController,
+    posController,
+    suplierController,
+    transferController,
+    userController,
+    warehouseController,
+    productController,
+    brandsController,
+    categoryController,
+    unitController,
+    productVariationController,
+    cashController,
+    OffersController,
+    orderController
+} = require('../controllers/index');
 
-const currencyController = require('../controllers/currencyController/currencyController');
-const customersController = require('../controllers/customerController/customerController');
-
-const purchaseReturnController = require('../controllers/purchaseController/purchaseReturnController');
-const purchaseController = require('../controllers/purchaseController/purchaseController');
-const quatationController = require('../controllers/quatationController/quatationController');
-const saleController = require('../controllers/saleController/saleController');
-const saleReturnController = require('../controllers/saleReturnController/saleReturnController');
-const permissionsController = require('../controllers/permissionsController/permissionsController');
-const posController = require('../controllers/posController/posController');
-const settingsController = require('../controllers/settingsController/settingsController');
-const suplierController = require('../controllers/suplierController/suplierController');
-const transferController = require('../controllers/transferController/transferController');
-const userController = require('../controllers/userController/userController');
-const loginController = require('../controllers/userController/loginController'); 
-const {sendResetCode} = require('../controllers/userController/forgetPasswordcontroller');
-const {changePassword} = require('../controllers/userController/changePasswordController');
-const warehouseController = require('../controllers/wherehouseController/warehouseController');
-const productController = require('../controllers/productController/productController');
-const barcodeController = require('../controllers/productController/barcodeController');
-const brandsController = require('../controllers/productController/brandController');
-const categoryController= require('../controllers/productController/categoryController');
-const unitController = require('../controllers/productController/unitController');
-const productVariationController = require('../controllers/productController/variationController');
-const cashController = require('../controllers/posController/cashController');
-const OffersController = require('../controllers/OffersController/OffersController')
-const orderController = require('../controllers/orderController/orderController');
+// Routes
 
 
 router.delete('/deleteHeldProduct/:id', posController.deleteHeldProduct);

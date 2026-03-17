@@ -902,4 +902,37 @@ const findProducts = async (req, res) => {
 };
 
 
-module.exports = { createOrder, deleteOrder, deleteAllOrders, updateOrder, markOrderAsPlaced, markOrderAsReady, placeOrderAndPrintKOT, getPlacedOrderCount, deleteAllPlceOrders, findProducts };
+// Get all pending orders (for Live Orders sidebar)
+const getPendingOrders = async (req, res) => {
+    try {
+        const pendingOrders = await Order.find({ status: 'pending' })
+            .sort({ timestamp: -1 })
+            .lean();
+
+        res.json({
+            success: true,
+            data: pendingOrders,
+            count: pendingOrders.length
+        });
+    } catch (err) {
+        console.error('Error fetching pending orders:', err);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch pending orders'
+        });
+    }
+};
+
+module.exports = { 
+    createOrder, 
+    deleteOrder, 
+    deleteAllOrders, 
+    updateOrder, 
+    markOrderAsPlaced, 
+    markOrderAsReady, 
+    placeOrderAndPrintKOT, 
+    getPlacedOrderCount, 
+    deleteAllPlceOrders, 
+    findProducts,
+    getPendingOrders
+};
