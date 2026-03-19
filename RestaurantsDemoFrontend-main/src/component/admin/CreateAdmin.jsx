@@ -102,7 +102,7 @@ function CreateAdminBody() {
     };
 
     return (
-        <div className='bg-[#eff3f7] absolute top-[80px] left-[18%] w-[82%] h-[800px] p-5'>
+        <div className='product-page-container bg-[#eff3f7] absolute top-[80px] min-h-full p-3 sm:p-5'>
             <div className='flex justify-between items-center'>
                 <div>
                     <h2 className="text-lightgray-300 ml-4 m-0 p-0 text-2xl">Create Admin</h2>

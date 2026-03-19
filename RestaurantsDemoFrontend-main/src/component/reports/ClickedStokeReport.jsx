@@ -155,7 +155,7 @@ function ClickedStokeReport() {
   );
 
   return (
-    <div className="relative bg-white absolute top-[80px] left-[18%] w-[82%] min-h-screen px-5">
+    <div className="product-page-container relative bg-white absolute top-[80px] min-h-screen px-3 sm:px-5">
       {/* Header row: Title, Tabs, Range, Export */}
       <div className="mt-5">
 

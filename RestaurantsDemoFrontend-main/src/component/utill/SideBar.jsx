@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBarcode } from '@fortawesome/free-solid-svg-icons';
 import { UserContext } from '../../context/UserContext';
 
-const Sidebar = ({ items, sidebarHidden }) => {
+const Sidebar = ({ items, sidebarHidden, onToggleSidebar }) => {
   const { userData } = useContext(UserContext);
   const [isPeopleDropdownOpen, setPeopleDropdownOpen] = useState(false);
   const [peopleDropdownSearchOpen, setPeopleDropdownSearchOpen] = useState(false);
@@ -21,6 +21,7 @@ const Sidebar = ({ items, sidebarHidden }) => {
   const [settingsDropdownSearchOpen, setSettingsDropdownSearchOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isDesktopCollapsed, setIsDesktopCollapsed] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const sidebarRef = useRef(null);
@@ -260,7 +261,18 @@ const Sidebar = ({ items, sidebarHidden }) => {
   };
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+    // On mobile, toggle the mobile sidebar
+    if (window.innerWidth < 640) {
+      setIsSidebarOpen(!isSidebarOpen);
+    } else {
+      // On desktop, toggle the collapsed state
+      const newCollapsedState = !isDesktopCollapsed;
+      setIsDesktopCollapsed(newCollapsedState);
+      // Notify parent component about the toggle
+      if (onToggleSidebar) {
+        onToggleSidebar(newCollapsedState);
+      }
+    }
   };
 
   useEffect(() => {
@@ -345,8 +357,8 @@ const Sidebar = ({ items, sidebarHidden }) => {
       </button>
       <div
         ref={sidebarRef}
-        className={`sidebar overflow-y-auto scroll-container p-0 m-0 flex flex-col fixed left-0 bg-[#1F5F3B] border-r border-[#1F5F3B]/20 transition-transform duration-300 transform ${isSidebarOpen ? 'translate-x-0 sidebar-open mobile-open' : '-translate-x-full'
-          } sm:translate-x-0 ${sidebarHidden ? 'md:translate-x-0' : ''}`}
+        className={`sidebar overflow-y-auto scroll-container p-0 m-0 flex flex-col fixed left-0 bg-[#1F5F3B] border-r border-[#1F5F3B]/20 transition-all duration-300 transform ${isSidebarOpen ? 'translate-x-0 sidebar-open mobile-open' : '-translate-x-full'
+          } sm:translate-x-0 ${sidebarHidden ? 'md:translate-x-0' : ''} ${isDesktopCollapsed ? 'sidebar-collapsed' : ''}`}
       >
         {/* Sidebar Header with Hamburger and Title */}
         <div className="sidebar-header flex items-center justify-between px-6 py-5 border-b border-white/10">
@@ -363,15 +375,24 @@ const Sidebar = ({ items, sidebarHidden }) => {
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
               >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M4 6h16M4 12h16M4 18h16" 
-                />
+                {isDesktopCollapsed ? (
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M4 6h16M4 12h16M4 18h16" 
+                  />
+                ) : (
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M6 18L18 6M6 6l12 12" 
+                  />
+                )}
               </svg>
             </button>
-            <h2 className="text-xl text-white font-bold tracking-wide">Menu</h2>
+            <h2 className={`text-xl text-white font-bold tracking-wide transition-opacity duration-300 ${isDesktopCollapsed ? 'opacity-0 w-0 overflow-hidden' : 'opacity-100'}`}>Menu</h2>
           </div>
           {/* Close button for mobile */}
           <button 

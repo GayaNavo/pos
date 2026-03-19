@@ -222,7 +222,7 @@ function CreateSaleReturnBody() {
     };
 
     return (
-        <div className='background-white relative left-[18%] w-[82%] min-h-[100vh] p-5'>
+        <div className='product-page-container background-white relative min-h-[100vh] p-3 sm:p-5'>
             {progress && (
   <Box className="fullscreen-loader">
     <Loader />

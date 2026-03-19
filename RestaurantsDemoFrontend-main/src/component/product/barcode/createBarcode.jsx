@@ -249,7 +249,7 @@ function CreateBarcodeBody() {
   };
 
   return (
-    <div className="background-white relative left-[18%] w-[82%] min-h-[100vh]  p-5">
+    <div className="product-page-container background-white relative min-h-[100vh] p-3 sm:p-5">
       <div className="flex justify-between items-center mt-20 ">
         <h2 className="text-lightgray-300 text-2xl">Create Barcode</h2>
         <Link

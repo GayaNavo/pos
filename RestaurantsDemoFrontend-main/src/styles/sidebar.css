@@ -606,6 +606,53 @@
     transform: translateX(0);
   }
 
+  .sidebar.sidebar-collapsed {
+    width: 70px !important;
+  }
+
+  .sidebar.sidebar-collapsed .sidebar-header {
+    padding: 20px 10px;
+    justify-content: center;
+  }
+
+  .sidebar.sidebar-collapsed .sidebar-header > div {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .sidebar.sidebar-collapsed .menu-text,
+  .sidebar.sidebar-collapsed .dropdown-toggle span:not(.menu-icon),
+  .sidebar.sidebar-collapsed .ml-auto,
+  .sidebar.sidebar-collapsed input[type="text"],
+  .sidebar.sidebar-collapsed .search-container,
+  .sidebar.sidebar-collapsed .px-4.py-4 {
+    display: none !important;
+  }
+
+  .sidebar.sidebar-collapsed li a {
+    padding: 14px 10px;
+    margin: 0 6px;
+    justify-content: center;
+  }
+
+  .sidebar.sidebar-collapsed li a .menu-icon {
+    margin-right: 0;
+  }
+
+  .sidebar.sidebar-collapsed .dropdown-menu {
+    display: none !important;
+  }
+
+  .sidebar.sidebar-collapsed .dropdown-toggle {
+    padding: 14px 10px;
+    margin: 0 6px;
+    justify-content: center;
+  }
+
+  .sidebar.sidebar-collapsed .dropdown-toggle .menu-icon {
+    margin-right: 0;
+  }
+
   .sidebar-hidden .sidebar {
     transform: translateX(-100%) !important;
   }
@@ -614,6 +661,12 @@
     left: var(--sidebar-tablet-width) !important;
     width: calc(100% - var(--sidebar-tablet-width)) !important;
     top: var(--header-height);
+  }
+
+  .sidebar.sidebar-collapsed ~ .product-page-container,
+  body:has(.sidebar.sidebar-collapsed) .product-page-container {
+    left: 70px !important;
+    width: calc(100% - 70px) !important;
   }
 
   .sidebar-hidden .product-page-container {
@@ -642,6 +695,21 @@
     width: calc(100% - var(--sidebar-tablet-width)) !important;
   }
 
+  /* Collapsed sidebar adjustments for hardcoded classes */
+  .sidebar-collapsed .content [class*="left-[18%]"],
+  .sidebar-collapsed [class*="left-[18%]"],
+  .sidebar-collapsed [class*="sm:left-[220px]"],
+  body:has(.sidebar.sidebar-collapsed) [class*="left-[18%]"] {
+    left: 70px !important;
+  }
+
+  .sidebar-collapsed .content [class*="w-[82%]"],
+  .sidebar-collapsed [class*="w-[82%]"],
+  .sidebar-collapsed [class*="sm:w-[calc(100%-220px)]"],
+  body:has(.sidebar.sidebar-collapsed) [class*="w-[82%]"] {
+    width: calc(100% - 70px) !important;
+  }
+
   .sidebar-hidden .content [class*="left-[18%]"],
   .sidebar-hidden [class*="left-[18%]"],
   .sidebar-hidden [class*="sm:left-[220px]"] {
@@ -658,13 +726,103 @@
 /* Desktop - Sidebar at 18% */
 @media (min-width: 1536px) {
   .sidebar {
-    width: 18%;
+    width: var(--sidebar-width);
+  }
+
+  .sidebar.sidebar-collapsed {
+    width: 70px;
+  }
+
+  .sidebar.sidebar-collapsed .sidebar-header {
+    padding: 20px 10px;
+    justify-content: center;
+  }
+
+  .sidebar.sidebar-collapsed .sidebar-header > div {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .sidebar.sidebar-collapsed .menu-text,
+  .sidebar.sidebar-collapsed .dropdown-toggle span:not(.menu-icon),
+  .sidebar.sidebar-collapsed .ml-auto,
+  .sidebar.sidebar-collapsed input[type="text"],
+  .sidebar.sidebar-collapsed .search-container,
+  .sidebar.sidebar-collapsed .px-4.py-4 {
+    display: none !important;
+  }
+
+  .sidebar.sidebar-collapsed li a {
+    padding: 14px 10px;
+    margin: 0 6px;
+    justify-content: center;
+  }
+
+  .sidebar.sidebar-collapsed li a .menu-icon {
+    margin-right: 0;
+  }
+
+  .sidebar.sidebar-collapsed .dropdown-menu {
+    display: none !important;
+  }
+
+  .sidebar.sidebar-collapsed .dropdown-toggle {
+    padding: 14px 10px;
+    margin: 0 6px;
+    justify-content: center;
+  }
+
+  .sidebar.sidebar-collapsed .dropdown-toggle .menu-icon {
+    margin-right: 0;
   }
 
   .product-page-container {
     left: var(--sidebar-width) !important;
     width: calc(100% - var(--sidebar-width)) !important;
     top: var(--header-height);
+  }
+
+  .sidebar-collapsed ~ .product-page-container,
+  body:has(.sidebar.sidebar-collapsed) .product-page-container {
+    left: 70px !important;
+    width: calc(100% - 70px) !important;
+  }
+
+  /* Desktop: Adjust hardcoded left-[18%] and w-[82%] classes */
+  .content [class*="left-[18%]"],
+  div [class*="left-[18%]"],
+  [class*="left-[18%]"] {
+    left: var(--sidebar-width) !important;
+  }
+
+  .content [class*="w-[82%]"],
+  div [class*="w-[82%]"],
+  [class*="w-[82%]"] {
+    width: calc(100% - var(--sidebar-width)) !important;
+  }
+
+  /* Collapsed sidebar adjustments for hardcoded classes - Desktop */
+  .sidebar-collapsed .content [class*="left-[18%]"],
+  .sidebar-collapsed [class*="left-[18%]"],
+  body:has(.sidebar.sidebar-collapsed) [class*="left-[18%]"] {
+    left: 70px !important;
+  }
+
+  .sidebar-collapsed .content [class*="w-[82%]"],
+  .sidebar-collapsed [class*="w-[82%]"],
+  body:has(.sidebar.sidebar-collapsed) [class*="w-[82%]"] {
+    width: calc(100% - 70px) !important;
+  }
+
+  /* Sidebar hidden state */
+  .sidebar-hidden .content [class*="left-[18%]"],
+  .sidebar-hidden [class*="left-[18%]"] {
+    left: 0 !important;
+  }
+
+  .sidebar-hidden .content [class*="w-[82%]"],
+  .sidebar-hidden [class*="w-[82%]"] {
+    width: 100% !important;
   }
 
   div.content {

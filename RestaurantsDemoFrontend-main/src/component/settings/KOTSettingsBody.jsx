@@ -295,7 +295,7 @@ function KOTSettingsBody() {
       </div>
 
       {/* Main Content - Styles fixed to match Receipt Settings */}
-      <div className="relative left-[18%] w-[82%] px-8 py-8">
+      <div className="product-page-container relative px-8 py-8">
         <form onSubmit={handleSubmit}>
           {/* General Settings Tab */}
           {activeTab === 'general' && (
