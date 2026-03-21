@@ -29,8 +29,6 @@ const suplierController = require('../controllers/suplierController/suplierContr
 const transferController = require('../controllers/transferController/transferController');
 const userController = require('../controllers/userController/userController');
 const loginController = require('../controllers/userController/loginController'); 
-const {sendResetCode} = require('../controllers/userController/forgetPasswordcontroller');
-const changePasswordController = require('../controllers/userController/changePasswordController');
 const warehouseController = require('../controllers/wherehouseController/warehouseController');
 const productControll = require('../controllers/productController/productController');
 const brandsControll = require('../controllers/productController/brandController');
@@ -64,8 +62,6 @@ router.put('/updateSale/:id' , saleController.updateSale);
 router.put('/editSuplierProfileByAdmin' , suplierController.UpdateSuplier);
 
 router.put('/updateTransfer/:id' , transferController.updateTransfer);
-
-router.put('/changepassword/:id', changePasswordController.changePassword);
 
 router.put('/editWarehouseByAdmin' , warehouseController.UpdateWarehouse);
 

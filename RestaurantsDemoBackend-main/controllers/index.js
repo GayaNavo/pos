@@ -4,9 +4,6 @@
 const adminController = require('../controllers/userController/adminController');
 const userController = require('../controllers/userController/userController');
 const loginController = require('../controllers/userController/loginController');
-const { sendResetCode } = require('../controllers/userController/forgetPasswordcontroller');
-const changePasswordController = require('../controllers/userController/changePasswordController');
-const otpController = require('../controllers/userController/veryfyResetOTP');
 
 // Product controllers
 const productController = require('../controllers/productController/productController');
@@ -65,9 +62,6 @@ module.exports = {
     adminController,
     userController,
     loginController,
-    sendResetCode,
-    changePasswordController,
-    otpController,
     
     // Product
     productController,

@@ -29,8 +29,6 @@ const suplierController = require('../controllers/suplierController/suplierContr
 const transferController = require('../controllers/transferController/transferController');
 const userController = require('../controllers/userController/userController');
 const loginController = require('../controllers/userController/loginController'); 
-const otpController = require('../controllers/userController/veryfyResetOTP');
-const {sendResetCode} = require('../controllers/userController/forgetPasswordcontroller');
 const warehouseController = require('../controllers/wherehouseController/warehouseController');
 const productControll = require('../controllers/productController/productController');
 const brandsControll = require('../controllers/productController/brandController');
@@ -139,10 +137,6 @@ router.post('/addUser', userController.addUser);
 router.post('/createWherehouse', warehouseController.createWarehouse);
 
 router.post('/login', loginController.loginUser);
-
-router.post('/forgetpassword',sendResetCode );
-
-router.post('/verifyOtp', otpController.verifyResetOTP);
 
 router.post('/createProduct', uploadProduct.single('image'), productControll.createProduct);
 

@@ -6,7 +6,7 @@ async function unlockAdmin() {
     console.log('Connected to MongoDB');
 
     const result = await mongoose.connection.collection('users').updateOne(
-        { username: 'pos.ideazone@gmail.com' },
+        { username: 'pos@gmail.com' },
         {
             $set: { accountStatus: 'active', loginAttempts: 0, lockCount: 0 },
             $unset: { lockUntil: '' }
