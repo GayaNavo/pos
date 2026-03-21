@@ -89,7 +89,7 @@ function CreateCustomerBody() {
         }
     };
 
-    // Handle clear operations
+    // Handle clear operatiiom
     const handleClear = () => {
         setName('');
         setMobile('');
