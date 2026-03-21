@@ -66,8 +66,6 @@ import CreateSaleFromQuatationBody from "./component/quotation/CreateSaleFromQua
 
 
 import ViewReportBody from "./component/reports/ViewReports";
-import CustomerReportBody from "./component/reports/CustomerReportBody";
-import ClickedCustomerReport from "./component/reports/ClickedCustomerReport";
 import SuplierReportBody from "./component/reports/SuplierReportBody";
 import ClickedSuplierReport from "./component/reports/ClickedSuplierRep";
 import QuantityAlertReportBody from "./component/reports/QuantityAlertReportBody";
@@ -91,7 +89,6 @@ import Products from "./component/utill/navBar/products";
 
 import ZBill from "./component/zBill/zBill";
 import RestaurantMenuView from "./component/pos/components/RestaurantMenuView.jsx";
-import CustomerDisplay from "./component/pos/components/CustomerDisplay.jsx";
 import AccessDenied from "./component/utill/AccessDenied";
 import LogoutPopup from "./component/utill/LogoutPopup";
 import KitchenDisplay from "./component/kitchen/KitchenDisplay";
@@ -441,8 +438,6 @@ function App() {
               {/* 
             View Reports */}
               <Route path="/viewReport" element={<CurrencyProvider><ViewReportBody /></CurrencyProvider>} />
-              <Route path="/customerReport" element={<CurrencyProvider><CustomerReportBody /></CurrencyProvider>} />
-              <Route path="/viewCustomerRep/:sale" element={<CurrencyProvider><ClickedCustomerReport /></CurrencyProvider>} />
               <Route path="/suplierReport" element={<CurrencyProvider><SuplierReportBody /></CurrencyProvider>} />
               <Route path="/viewSuplierRep/:sale" element={<CurrencyProvider><ClickedSuplierReport /></CurrencyProvider>} />
               <Route path="/viewStokeRep" element={<CurrencyProvider><StokeReportBody /></CurrencyProvider>} />
@@ -472,7 +467,6 @@ function App() {
 
             <Route path="/posSystem" element={<PosPrivateRoute><CurrencyProvider><PosSystemBody /></CurrencyProvider></PosPrivateRoute>} />
             <Route path="/menu" element={<CurrencyProvider><RestaurantMenuView /></CurrencyProvider>} />
-            <Route path="/customer-display" element={<CurrencyProvider><CustomerDisplay /></CurrencyProvider>} />
             <Route path="/kitchen" element={<PrivateRoute><CurrencyProvider><KitchenDisplay /></CurrencyProvider></PrivateRoute>} />
             <Route path="/access-denied" element={<AccessDenied />} />
           </Routes>

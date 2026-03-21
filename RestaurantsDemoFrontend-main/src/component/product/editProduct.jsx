@@ -285,7 +285,6 @@ function EditProductBody() {
                 productCost: '',
                 taxType: 'Exclusive',
                 productPrice: '',
-                foreignPrice: '',
                 productQty: '',
                 variationValues: {},
             };
@@ -1226,24 +1225,6 @@ function EditProductBody() {
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div>
-                                                        <label className="block text-sm font-medium text-left leading-6 text-gray-900">
-                                                            Foreign Price
-                                                        </label>
-                                                        <div className="relative">
-                                                            <input
-                                                                value={warehouse.foreignPrice || ''}
-                                                                name="foreignPrice"
-                                                                type="number"
-                                                                placeholder="Foreign Price"
-                                                                onChange={(e) => handleSingleProductInputChange(warehouseName, 'foreignPrice', e.target.value)}
-                                                                className="block w-[100%] rounded-md border-0 py-2.5 px-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-400 placeholder:text-gray-400 focus:outline-none sm:text-sm"
-                                                            />
-                                                            <span className="absolute inset-y-0 right-0 pl-2 pr-2 m-[1px] flex items-center bg-gray-100 text-gray-500 rounded-r-md">
-                                                                {currency}
-                                                            </span>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1412,27 +1393,6 @@ function EditProductBody() {
                                                                                 onChange={(e) => handleVariationProductInputChange(warehouseName, variationType, 'stockAlert', e.target.value)}
                                                                                 className="block w-[90%] rounded-md border-0 py-2.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-400 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6"
                                                                             />
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div className="flex space-x-1 items-center mt-5 w-full">
-                                                                        <div className="relative w-1/4">
-                                                                            <label className="block text-sm text-left font-medium leading-6 text-gray-900">
-                                                                                Foreign Price
-                                                                            </label>
-                                                                            <div className="relative w-[86%]">
-                                                                                <input
-                                                                                    value={variationDetails?.foreignPrice || ''}
-                                                                                    type="number"
-                                                                                    name='foreignPrice'
-                                                                                    placeholder="0.00"
-                                                                                    onChange={(e) => handleVariationProductInputChange(warehouseName, variationType, 'foreignPrice', e.target.value)}
-                                                                                    className="block w-[100%] rounded-md border-0 py-2.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-400 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6"
-                                                                                />
-                                                                                <span className="m-[1px] w-[44px] justify-center absolute top-0 bottom-0 right-0 flex items-center px-2 bg-gray-100 text-gray-500 rounded-r-[5px]">
-                                                                                    {currency}
-                                                                                </span>
-                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>

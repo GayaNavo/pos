@@ -15,15 +15,10 @@ const settingsSchema = new mongoose.Schema({
     postalCode: { type: String },
     address: { type: String },
     defaultWarehouse: { type: String },
-    menuType: { type: String , enum: ['local', 'foreign'] , default: 'local' },
     logo: String,
     barCategories: { 
         type: [String], 
         default: ['Bar', 'Beverages', 'Drinks'] 
-    },
-    dualScreenMode: {
-        type: Boolean,
-        default: false
     }
 });
 

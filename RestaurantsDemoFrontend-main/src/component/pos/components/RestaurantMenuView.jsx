@@ -27,8 +27,6 @@ function RestaurantMenuView() {
     const [parcelNo, setParcelNo] = useState("");
     const [kotNote, setKotNote] = useState("");
     const [showVariationModal, setShowVariationModal] = useState(false);
-    const [menuType, setMenuType] = useState("");
-    const isForeign = menuType === "foreign";
     const [selectedProduct, setSelectedProduct] = useState(null);
     const debounceTimeout = useRef(null);
     const ITEMS_PER_PAGE = 20;
@@ -66,21 +64,6 @@ function RestaurantMenuView() {
         };
 
         fetchFilters();
-    }, []);
-
-    useEffect(() => {
-        const fetchSettings = async () => {
-            try {
-                const { data } = await axios.get(
-                    `${process.env.REACT_APP_BASE_URL}/api/getSettings`
-                );
-                setMenuType(data.menuType || "local");
-            } catch (error) {
-                console.error("[DEBUG] Error fetching settings:", error);
-            }
-        };
-
-        fetchSettings();
     }, []);
 
     const getItemPrice = (product) => {
@@ -218,11 +201,11 @@ function RestaurantMenuView() {
     useEffect(() => {
         setPage(1);
         fetchMenuItems(1);
-    }, [menuType]);
+    }, []);
 
     useEffect(() => {
         fetchMenuItems(page);
-    }, [page, keyword, selectedBrandId, selectedCategoryId, menuType]);
+    }, [page, keyword, selectedBrandId, selectedCategoryId]);
 
     useEffect(() => {
         setPage(1);
@@ -534,76 +517,19 @@ function RestaurantMenuView() {
         return false;
     };
 
-    useEffect(() => {
-        if (!menuType) return;
-        const updateMenuType = async () => {
-            try {
-                await axios.post(`${process.env.REACT_APP_BASE_URL}/api/createOrUpdateSettings`,
-                    { menuType }
-                );
-            } catch (error) {
-                console.error('Error saving data:', error);
-                if (error.response) {
-                    if (error.response.data && error.response.data.message) {
-                        toast.error(
-                            error.response.data.message,
-                            { autoClose: 2000 },
-                            { className: "custom-toast" }
-                        );
-
-                    } else {
-                        toast.error(
-                            `Server responded with status: ${error.response.status}`,
-                            { autoClose: 2000 },
-                            { className: "custom-toast" }
-                        );
-                    }
-                } else if (error.request) {
-                    toast.error(
-                        'No response from the server. Please check your internet connection.',
-                        { autoClose: 2000 },
-                        { className: "custom-toast" }
-                    );
-                } else {
-                    toast.error(
-                        'An unexpected error occurred while setting up the request.',
-                        { autoClose: 2000 },
-                        { className: "custom-toast" }
-                    );
-                }
-            }
-        };
-
-        updateMenuType();
-    }, [menuType]);
-
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Header */}
             <div className="bg-white shadow-lg sticky top-0 z-50">
                 <div className="max-w-7xl mx-auto px-4 py-4 space-y-4">
                     <div className="flex justify-between items-center">
-                        {/* LEFT SIDE (Back + Toggle) */}
-                        <div className="flex items-center gap-3">
-                            <Link
-                                to="/dashboard"
-                                className="bg-[#35AF87] text-white w-[40px] h-[40px] shadow-xl flex items-center justify-center rounded-[20px] font-medium hover:shadow-2xl"
-                            >
-                                &lt;
-                            </Link>
-
-                            <button
-                                type="button"
-                                onClick={() =>
-                                    setMenuType(isForeign ? "local" : "foreign")
-                                }
-                                className={`relative inline-flex h-7 w-12 rounded-full transition-colors ${isForeign ? "bg-[#35AF87]" : "bg-gray-300"}`}
-                            >
-                                <span
-                                    className={`absolute top-1 left-1 h-5 w-5 rounded-full bg-white transition-transform ${isForeign ? "translate-x-5" : "translate-x-0"} `}
-                                />
-                            </button>
-                        </div>
+                        {/* LEFT SIDE (Back Button) */}
+                        <Link
+                            to="/dashboard"
+                            className="bg-[#35AF87] text-white w-[40px] h-[40px] shadow-xl flex items-center justify-center rounded-[20px] font-medium hover:shadow-2xl"
+                        >
+                            &lt;
+                        </Link>
 
                         {/* RIGHT SIDE (Cart) */}
                         <button

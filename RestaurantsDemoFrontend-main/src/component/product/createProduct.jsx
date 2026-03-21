@@ -317,7 +317,6 @@ function CreateProductBody() {
           [selectedOption]: {
             productCost: '',
             productPrice: '',
-            foreignPrice: '',
             productQty: '',
             stockAlert: '',
             orderTax: '',
@@ -1598,32 +1597,7 @@ function CreateProductBody() {
                           </select>
                         </div>
 
-                        {/* Price/Quantity Column */}
-                        <div className="flex-1">
-                          <label className="block text-sm font-medium leading-6 text-gray-900 text-left">
-                            Foreign Price
-                          </label>
-                          <div className="relative">
-                            <input
-                              type="number"
-                              placeholder="Foreign Price"
-                              value={warehouseVariationValues[warehouseName]?.[type]?.foreignPrice || ""}
-                              onChange={(e) =>
-                                handleVariationValueChange(
-                                  warehouseName,
-                                  type,
-                                  "foreignPrice",
-                                  e.target.value
-                                )
-                              }
-                              className="block w-[90%] rounded-md border-0 py-2.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-400 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6"
-                            />
-                            <span className="absolute mr-[10.6%] rounded-r-[5px] bg-gray-100 text-gray-500 mt-[1px] mb-[1px]  inset-y-0 right-0 pr-3 flex items-center px-2 ">
-                              {currency}
-                            </span>
-                          </div>
-
-                          {isInventory && (
+                        {isInventory && (
                             <div>
                               <label className="block mt-5 text-sm font-medium leading-6 text-gray-900 text-left">
                                 Stock Alert <span className="text-red-500">*</span>
@@ -1644,7 +1618,6 @@ function CreateProductBody() {
                                 className="block w-[90%] rounded-md border-0 py-2.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-400 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6"
                               />
                             </div>)}
-                        </div>
                       </div>
                       <p className="mt-1 text-xs text-gray-400 text-left">
                         Ensure numeric input fields contain valid numbers
@@ -1786,24 +1759,6 @@ function CreateProductBody() {
 
                         {/* Column 3 */}
                         <div className="space-y-4">
-                          <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
-                              Foreign Price
-                            </label>
-                            <div className="relative">
-                              <input
-                                type="number"
-                                value={warehouseValues[warehouseName]?.foreignPrice || ""}
-                                onChange={(e) => handleWarehouseValueChange(warehouseName, 'foreignPrice', e.target.value)}
-                                className="block w-[100%] rounded-md border-0 py-2.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-400 placeholder:text-gray-400  focus:outline-none sm:text-sm"
-                                placeholder="0.00"
-                              />
-                              <span className="m-[1px] absolute top-0 bottom-0 right-0 flex items-center px-2 bg-gray-100 text-gray-500 rounded-r-[5px]">
-                                {currency}
-                              </span>
-                            </div>
-                          </div>
-
                           <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                               Tax Type

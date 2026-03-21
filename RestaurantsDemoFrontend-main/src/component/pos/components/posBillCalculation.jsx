@@ -16,10 +16,10 @@ import ViewOrder from '../../../img/checkout.png';
 import Pencil from '../../../img/pencil.png'
 import { toast } from 'react-toastify';
 import { useOrderChannel } from '../../../context/OrderChannelContext';
-import { Monitor, Trash2, RefreshCw } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 import { silentPrint } from '../utils/silentPrint';
 
-const BillingSection = ({ productBillingHandling, setProductBillingHandling, setProductData, selectedCustomer, setSelectedCustomer, setReloadStatus, reloadStatus, setHeldProductReloading, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setError, setFetchRegData, setOrderId, orderId, setPalcedStatus, palcedStatus, handleOpenCustomerDisplay, selectedWarehouse }) => {
+const BillingSection = ({ productBillingHandling, setProductBillingHandling, setProductData, selectedCustomer, setSelectedCustomer, setReloadStatus, reloadStatus, setHeldProductReloading, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setError, setFetchRegData, setOrderId, orderId, setPalcedStatus, palcedStatus, selectedWarehouse }) => {
     const { currency } = useCurrency();
     const [permissionData, setPermissionData] = useState({});
     const { userData } = useContext(UserContext);
@@ -68,7 +68,6 @@ const BillingSection = ({ productBillingHandling, setProductBillingHandling, set
     const prevOrdersRef = useRef([]);
     const tableNoInputRef = useRef(null);
     const { channel, sendDelete, sendClearAll } = useOrderChannel();
-    const customerDisplayChannel = useRef(new BroadcastChannel('pos-customer-display'));
 
     const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:4005';
 
@@ -232,59 +231,6 @@ const BillingSection = ({ productBillingHandling, setProductBillingHandling, set
             channel.removeEventListener('message', handleMessage);
         };
     }, [isSidebarOpen]);
-
-    useEffect(() => {
-        const handleSyncRequest = (event) => {
-            if (event.data.type === 'REQUEST_SYNC') {
-                broadcastBillingUpdate();
-            }
-        };
-        customerDisplayChannel.current.addEventListener('message', handleSyncRequest);
-        return () => {
-            customerDisplayChannel.current.removeEventListener('message', handleSyncRequest);
-        };
-    }, [productBillingHandling, discount, tax, shipping, serviceCharge, serviceChargeType, currency]);
-
-    const broadcastBillingUpdate = () => {
-        const products = productBillingHandling.map(product => {
-            const variation = product.selectedVariation
-                ? product.variationValues?.[product.selectedVariation]
-                : null;
-            return {
-                name: product.name,
-                variationName: variation ? product.selectedVariation : null,
-                qty: product.qty,
-                subtotal: getRowSubtotal(product)
-            };
-        });
-
-        customerDisplayChannel.current.postMessage({
-            type: 'UPDATE_BILLING',
-            payload: {
-                products,
-                subtotal: calculateBaseTotal(),
-                discount: calculateDiscountAmount(calculateBaseTotal()),
-                tax: (calculateBaseTotal() * (parseFloat(tax) || 0) / 100),
-                shipping: parseFloat(shipping) || 0,
-                serviceCharge: serviceChargeValue,
-                total: parseFloat(calculateTotalPrice()),
-                receivedAmount: 0,
-                balance: 0,
-                currencySymbol: currency
-            }
-        });
-    };
-
-    useEffect(() => {
-        if (productBillingHandling.length > 0) {
-            broadcastBillingUpdate();
-        }
-    }, [productBillingHandling, discount, tax, shipping, serviceCharge, serviceChargeType, currency, serviceChargeValue]);
-
-    const handleManualResetDisplay = () => {
-        customerDisplayChannel.current.postMessage({ type: 'RESET_BILLING' });
-        toast.info("Customer display cleared");
-    };
 
     useEffect(() => {
         const handleMessage = (event) => {
@@ -1097,23 +1043,6 @@ const BillingSection = ({ productBillingHandling, setProductBillingHandling, set
                     >
                         <img src={RestockOrder} className='w-[36px] h-[28px]' alt='view Order' />
                     </button>
-
-                    <div className="flex items-center space-x-1 border-l pl-4 border-gray-200">
-                        <button
-                            onClick={handleOpenCustomerDisplay}
-                            className="p-1.5 hover:bg-blue-50 text-blue-600 rounded-md transition-colors"
-                            title="Open Customer Display"
-                        >
-                            <Monitor className="w-4 h-4" />
-                        </button>
-                        <button
-                            onClick={handleManualResetDisplay}
-                            className="p-1.5 hover:bg-red-50 text-red-600 rounded-md transition-colors"
-                            title="Clear Customer Display"
-                        >
-                            <Trash2 className="w-4 h-4" />
-                        </button>
-                    </div>
                 </div>
 
                 <h2 className="text-lg flex items-center font-semibold text-sm text-gray-500"> {new Date().toLocaleDateString('en-GB')} - {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</h2>
@@ -1717,7 +1646,6 @@ const BillingSection = ({ productBillingHandling, setProductBillingHandling, set
                         orderId={orderId || activeOrderId}
                         setOrderId={setOrderId}
                         serviceChargeValue={serviceChargeValue}
-                        customerDisplayChannel={customerDisplayChannel}
                         selectedWarehouse={selectedWarehouse}
                     />
                 )}

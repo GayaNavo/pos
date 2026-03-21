@@ -21,8 +21,6 @@ const AccessDenied = () => {
   // Define report routes (same as MainLayout)
   const reportRoutes = [
     '/viewReport',
-    '/customerReport',
-    '/viewCustomerRep/',
     '/suplierReport',
     '/viewSuplierRep/',
     '/viewStokeRep',

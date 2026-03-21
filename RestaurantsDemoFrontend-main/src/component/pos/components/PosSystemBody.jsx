@@ -103,14 +103,9 @@ function PosSystemBody({ defaultWarehouse }) {
     const [placedOrders, setPlacedOrders] = useState([]);
     const [liveOrderCount, setLiveOrderCount] = useState(0);
     const [orderId, setOrderId] = useState(null);
-    const [menuType, setMenuType] = useState("");
-    const isForeign = menuType === "foreign";
-    const [isOpen, setIsOpen] = useState(false);
     const [searchedProductDataByName, setSearchedProductDataByName] = useState([]);
     const [showAddProductModal, setShowAddProductModal] = useState(false);
     const [palcedStatus, setPalcedStatus] = useState(false);
-    const [dualScreenMode, setDualScreenMode] = useState(false);
-    const customerWindowRef = useRef(null);
     const [showAllBrandsModal, setShowAllBrandsModal] = useState(false);
     const [showAllCategoriesModal, setShowAllCategoriesModal] = useState(false);
     const { currency } = useCurrency();
@@ -293,50 +288,6 @@ function PosSystemBody({ defaultWarehouse }) {
 
     useEffect(() => {
     }, [productBillingHandling]);
-
-    useEffect(() => {
-        const fetchSystemSettings = async () => {
-            try {
-                const { data } = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/getSettings`);
-                setDualScreenMode(data.dualScreenMode || false);
-                setMenuType(data.menuType || "");
-            } catch (error) {
-                console.error("Error fetching system settings in POS:", error);
-            }
-        };
-        fetchSystemSettings();
-    }, []);
-
-    useEffect(() => {
-        if (dualScreenMode) {
-            if (!customerWindowRef.current || customerWindowRef.current.closed) {
-                customerWindowRef.current = window.open('/customer-display', 'CustomerDisplay', 'width=1100,height=800,left=150,top=150,resizable=yes,scrollbars=yes,menubar=no,toolbar=no,location=no,status=no');
-            }
-        } else {
-            if (customerWindowRef.current && !customerWindowRef.current.closed) {
-                customerWindowRef.current.close();
-                customerWindowRef.current = null;
-            }
-        }
-    }, [dualScreenMode]);
-
-    useEffect(() => {
-        return () => {
-            if (customerWindowRef.current && !customerWindowRef.current.closed) {
-                customerWindowRef.current.close();
-            }
-        };
-    }, []);
-
-    const handleOpenCustomerDisplay = () => {
-        if (!customerWindowRef.current || customerWindowRef.current.closed) {
-            customerWindowRef.current = window.open('/customer-display', 'CustomerDisplay', 'width=1100,height=800,left=150,top=150,resizable=yes,scrollbars=yes,menubar=no,toolbar=no,location=no,status=no');
-            toast.success("Customer display opened");
-        } else {
-            customerWindowRef.current.focus();
-            toast.info("Customer display is already open");
-        }
-    };
 
     useEffect(() => {
         // Fetch all products from all warehouses since warehouse selection has been removed
@@ -1129,54 +1080,6 @@ function PosSystemBody({ defaultWarehouse }) {
         refreshPlacedOrders();
         setPalcedStatus(false);
     }, [palcedStatus]);
-
-
-    useEffect(() => {
-        fetchAllData(setProductData, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setProgress, setError);
-    }, [menuType]);
-
-    useEffect(() => {
-        if (!menuType) return;
-        const updateMenuType = async () => {
-            try {
-                await axios.post(`${process.env.REACT_APP_BASE_URL}/api/createOrUpdateSettings`,
-                    { menuType }
-                );
-            } catch (error) {
-                console.error('Error saving data:', error);
-                if (error.response) {
-                    if (error.response.data && error.response.data.message) {
-                        toast.error(
-                            error.response.data.message,
-                            { autoClose: 2000 },
-                            { className: "custom-toast" }
-                        );
-
-                    } else {
-                        toast.error(
-                            `Server responded with status: ${error.response.status}`,
-                            { autoClose: 2000 },
-                            { className: "custom-toast" }
-                        );
-                    }
-                } else if (error.request) {
-                    toast.error(
-                        'No response from the server. Please check your internet connection.',
-                        { autoClose: 2000 },
-                        { className: "custom-toast" }
-                    );
-                } else {
-                    toast.error(
-                        'An unexpected error occurred while setting up the request.',
-                        { autoClose: 2000 },
-                        { className: "custom-toast" }
-                    );
-                }
-            }
-        };
-
-        updateMenuType();
-    }, [menuType]);
 
     return (
         <div className="bg-[#FFF6E5] absolute w-full h-screen p-2 overflow-hidden">
@@ -2128,7 +2031,6 @@ function PosSystemBody({ defaultWarehouse }) {
                             orderId={orderId}
                             setPalcedStatus={setPalcedStatus}
                             palcedStatus={palcedStatus}
-                            handleOpenCustomerDisplay={handleOpenCustomerDisplay}
                             selectedWarehouse={selectedWarehouse}
                         />
                     </div>
@@ -2169,53 +2071,6 @@ function PosSystemBody({ defaultWarehouse }) {
                     )}
                     
                     <div className='flex-shrink-0'>
-                        <div className="absolute right-8 bottom-10">
-                            {/* Three Dots Button */}
-                            {/* <button
-                                onClick={() => setIsOpen(!isOpen)}
-                                className="flex items-center justify-center outline-none w-12 h-12 bg-white rounded-full shadow-[0_13px_30px_rgba(0,0,0,0.40)] hover:shadow-[0_15px_35px_rgba(0,0,0,0.50)]
-                                transition-all duration-200 focus:outline-none"
-                                aria-label="More options"
-                            >
-                                <div className="flex flex-col space-y-1">
-                                    <span className="block w-1 h-1 bg-gray-700 rounded-full"></span>
-                                    <span className="block w-1 h-1 bg-gray-700 rounded-full"></span>
-                                    <span className="block w-1 h-1 bg-gray-700 rounded-full"></span>
-                                </div>
-                            </button> */}
-
-
-                            {/* Popup Menu */}
-                            {isOpen && (
-                                <>
-                                    <div
-                                        className="fixed inset-0 z-40"
-                                        onClick={() => setIsOpen(false)}
-                                    />
-
-                                    <div className="absolute bottom-16 right-0 z-50 w-32 h-52 bg-white rounded-md shadow-2xl flex flex-col items-center justify-center">
-                                        {/* Your Toggle Switch */}
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                setMenuType(isForeign ? "local" : "foreign");
-                                                setIsOpen(false);
-                                            }}
-                                            className={`relative inline-flex h-7 w-12 rounded-full transition-colors ${isForeign ? "bg-[#35AF87]" : "bg-gray-300"
-                                                }`}
-                                        >
-                                            <span
-                                                className={`absolute top-1 left-1 h-5 w-5 rounded-full bg-white shadow-md transition-transform ${isForeign ? "translate-x-5" : "translate-x-0"
-                                                    }`}
-                                            />
-                                        </button>
-                                        <p className="mt-4 text-sm text-gray-600">
-                                            {isForeign ? "Foreign" : "Local"}
-                                        </p>
-                                    </div>
-                                </>
-                            )}
-                        </div>
                         {/* Brands selection section */}
                         <div id="brands-scroll-container" className="flex space-x-2 overflow-x-scroll scrollbar-hide smooth-scroll my-2 mx-2" onWheel={(e) => handleHorizontalScroll(e, 'brands-scroll-container')}>
                             <div className="flex space-x-2">

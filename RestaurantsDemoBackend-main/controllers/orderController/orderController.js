@@ -776,9 +776,6 @@ const getPlacedOrderCount = async (req, res) => {
 const findProducts = async (req, res) => {
     try {
         const { warehouse, brand, category, keyword, page = 1, limit = 20 } = req.query;
-        const settings = await Settings.findOne({});
-        const menuType = settings?.menuType || 'local';
-        const useForeignPrice = menuType === 'foreign';
 
         const query = {};
 
@@ -845,34 +842,9 @@ const findProducts = async (req, res) => {
                 Object.keys(productObj.warehouse).forEach(wName => {
                     const wh = productObj.warehouse[wName];
 
-                    if (useForeignPrice) {
-                        if (wh.foreignPrice != null && wh.foreignPrice > 0) {
-                            wh.productPrice = wh.foreignPrice;
-                        }
-                    }
-
                     if (wh?.variationValues instanceof Map) {
                         const variationsObj = Object.fromEntries(wh.variationValues);
-
-                        Object.keys(variationsObj).forEach(varKey => {
-                            const variation = variationsObj[varKey];
-                            if (useForeignPrice) {
-                                if (variation.foreignPrice != null && variation.foreignPrice > 0) {
-                                    variation.productPrice = variation.foreignPrice;
-                                }
-                            }
-                        });
-
                         wh.variationValues = variationsObj;
-                    } else if (wh?.variationValues && typeof wh.variationValues === 'object') {
-                        Object.keys(wh.variationValues).forEach(varKey => {
-                            const variation = wh.variationValues[varKey];
-                            if (useForeignPrice) {
-                                if (variation.foreignPrice != null && variation.foreignPrice > 0) {
-                                    variation.productPrice = variation.foreignPrice;
-                                }
-                            }
-                        });
                     }
                 });
             }

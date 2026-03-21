@@ -19,7 +19,6 @@ import Decrease from '../../img/down-arrow (1).png';
 const navigation = [
     { name: 'Warehouse Report', href: '/viewReport' },
     { name: 'Stock Report', href: '/viewStokeRep' },
-    { name: 'Customer Report', href: '/customerReport' },
     { name: 'Supplier Report', href: '/suplierReport' },
     { name: 'Register Report', href: '/viewRegisterRep' },
     { name: 'Quantity Report', href: '/quantityAlertRep' },

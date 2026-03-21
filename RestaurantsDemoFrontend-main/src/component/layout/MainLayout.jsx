@@ -24,8 +24,6 @@ const MainLayout = () => {
   // Defining the routes where ReportHeader should be shown
   const reportRoutes = [
     '/viewReport',
-    '/customerReport',
-    '/viewCustomerRep/',
     '/suplierReport',
     '/viewSuplierRep/',
     '/viewStokeRep',

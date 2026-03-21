@@ -13,7 +13,7 @@ import { useReactToPrint } from 'react-to-print';
 import CircularProgress from '@mui/material/CircularProgress';
 import { toast } from "react-toastify";
 
-const PayingSection = ({ handlePopupClose, totalItems, totalPcs, profit, tax, shipping, serviceCharge, serviceChargeType, discount, discountValue, deliveryNote, productDetails, handleBillReset, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setProductData, selectedCustomer, discountType, responseMessage, setResponseMessage, setReloadStatus, calculateTotalPrice, setError, setProgress, setFetchRegData, orderId, setOrderId, serviceChargeValue, customerDisplayChannel, selectedWarehouse }) => {
+const PayingSection = ({ handlePopupClose, totalItems, totalPcs, profit, tax, shipping, serviceCharge, serviceChargeType, discount, discountValue, deliveryNote, productDetails, handleBillReset, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setProductData, selectedCustomer, discountType, responseMessage, setResponseMessage, setReloadStatus, calculateTotalPrice, setError, setProgress, setFetchRegData, orderId, setOrderId, serviceChargeValue, selectedWarehouse }) => {
     const [receivedAmount, setReceivedAmount] = useState('');
     const [returnAmount, setReturnAmount] = useState('');
     const [paymentType, setPaymentType] = useState('cash');
@@ -112,18 +112,6 @@ const PayingSection = ({ handlePopupClose, totalItems, totalPcs, profit, tax, sh
         const calculatedReturnAmount = totalReceivedAmount - totalAmount;
         setReturnAmount(calculatedReturnAmount.toFixed(2));
     }, [totalReceivedAmount, calculateTotalPrice]);
-
-    useEffect(() => {
-        if (customerDisplayChannel?.current) {
-            customerDisplayChannel.current.postMessage({
-                type: 'UPDATE_BILLING',
-                payload: {
-                    receivedAmount: totalReceivedAmount,
-                    balance: parseFloat(returnAmount) || 0
-                }
-            });
-        }
-    }, [totalReceivedAmount, returnAmount, customerDisplayChannel]);
 
     const handlePrintAndClose = () => {
         setReloadStatus(true)

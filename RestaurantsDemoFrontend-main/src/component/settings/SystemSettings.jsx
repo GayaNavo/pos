@@ -25,10 +25,8 @@ function SystemSettingsBody() {
     const [city, setCity] = useState('');
     const [dateFormat, setDateFormat] = useState('');
     const [postalCode, setPostalCode] = useState('');
-    const [menuType, setMenuType] = useState('');
     const [address, setAddress] = useState('');
     const [defaultWarehouse, setDefaultWarehouse] = useState('');
-    const [dualScreenMode, setDualScreenMode] = useState(false);
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
@@ -84,8 +82,6 @@ function SystemSettingsBody() {
             setDateFormat(data.dateFormat || 'MM/DD/YYYY');
             setPostalCode(data.postalCode || '');
             setAddress(data.address || '');
-            setMenuType(data.menuType || '');
-            setDualScreenMode(data.dualScreenMode || false);
             if (data.defaultWarehouse) {
                 setDefaultWarehouse(data.defaultWarehouse);
                 sessionStorage.setItem("defaultWarehouse", data.defaultWarehouse);
@@ -195,8 +191,6 @@ function SystemSettingsBody() {
         formData.append("postalCode", postalCode);
         formData.append("address", address);
         formData.append("defaultWarehouse", defaultWarehouse);
-        formData.append("menuType", menuType);
-        formData.append("dualScreenMode", dualScreenMode);
         if (logo) {
             formData.append("logo", logo);
         } else {
@@ -518,34 +512,6 @@ function SystemSettingsBody() {
                             </div>
                         </div>
 
-                        <div className="flex w-1/2 mr-5 space-x-5 mt-10">
-                            <div className="flex-1 mr-3">
-                                <label className="block text-sm font-medium leading-6 text-gray-900 text-left">Menu Type</label>
-                                <select
-                                    id="menuType"
-                                    name="menuType"
-                                    value={menuType}
-                                    onChange={(e) => setMenuType(e.target.value)}
-                                    className="searchBox w-full pl-4 pr-2 py-2 border border-gray-300 rounded-md shadow-sm focus:border-transparent"
-                                >
-                                    <option value="">Select Menu Type</option>
-                                    <option value="local">Local Menu</option>
-                                    <option value="foreign">Foreign Menu</option>
-                                </select>
-                            </div>
-                            <div className="flex-1 ml-5 flex items-center">
-                                <label className="inline-flex items-center cursor-pointer mt-6">
-                                    <input
-                                        type="checkbox"
-                                        checked={dualScreenMode}
-                                        onChange={(e) => setDualScreenMode(e.target.checked)}
-                                        className="sr-only peer"
-                                    />
-                                    <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
-                                    <span className="ms-3 text-sm font-medium text-gray-900">Enable Dual Screen Mode</span>
-                                </label>
-                            </div>
-                        </div>
                         <div className="container mx-auto text-left">
                             <div className='mt-5 flex justify-start'>
                                 <button className='submit text-white rounded-md px-3.5 py-2.5 mt-5' type='submit'>
