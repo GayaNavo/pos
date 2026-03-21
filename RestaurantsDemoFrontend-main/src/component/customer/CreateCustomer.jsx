@@ -45,7 +45,7 @@ function CreateCustomerBody() {
                 return;
             }
 
-            // Customer data (no country, city, or nic)
+           
             const customerData = {
                 name,
                 mobile,
@@ -89,7 +89,7 @@ function CreateCustomerBody() {
         }
     };
 
-    // Handle clear operations
+    // Handle clear operatiion
     const handleClear = () => {
         setName('');
         setMobile('');
