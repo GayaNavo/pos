@@ -6,10 +6,6 @@ import "./styles/sidebar.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import ForgetPassword from "./component/auth/ForgetPassword";
-import SendOTP from "./component/auth/SendOTP";
-import NewPassword from "./component/auth/NewPassword";
 import PrivateRoute from "./component/routing/privateRoute";
 import ReceiptSettingsInitiate from "./component/settings/ReceiptSettingsInitiate";
 import KOTSettingsBody from "./component/settings/KOTSettingsBody";
@@ -134,9 +130,6 @@ function App() {
           <Routes>
             {/* public routes */}
             <Route path="/" element={<Login />} />
-            <Route path="/forgetpassword" element={<ForgetPassword />} />
-            <Route path="/newpassword" element={<NewPassword />} />
-            <Route path="/sendOTP" element={<SendOTP />} />
 
             {/* private routes without MainLayout */}
             <Route

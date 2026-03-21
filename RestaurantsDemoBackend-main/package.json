@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IdeaZonelk/ideazonePOS.git"
+    "url": ""
   },
-  "author": "ideaZone",
+  "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/IdeaZonelk/ideazonePOS/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/IdeaZonelk/ideazonePOS#readme",
+  "homepage": "",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "blob-to-buffer": "^1.2.9",

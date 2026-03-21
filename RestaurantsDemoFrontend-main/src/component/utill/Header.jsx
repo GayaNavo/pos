@@ -552,20 +552,6 @@ export default function Header({ userData, grandTotal, orderStatus, paymentStatu
                         <Menu.Item>
                           {({ active }) => (
                             <Link
-                              to={'/forgetpassword'}
-                              className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block w-full px-6 py-4 text-sm text-black flex items-center'
-                              )}
-                            >
-                              <img src={padlock} className="h-5 w-5" alt="Padlock Icon" aria-hidden="true" />
-                              <span className="ml-3">Change Password</span>
-                            </Link>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <Link
                               onClick={() => setIsModalOpen(true)}
                               className={classNames(
                                 active ? 'bg-gray-100' : '',
