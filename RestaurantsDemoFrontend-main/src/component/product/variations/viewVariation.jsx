@@ -161,7 +161,7 @@ function ViewVariationBody() {
     };
 
     return (
-        <div className='relative background-white absolute top-[80px] left-[18%] w-[82%] h-[100vh] p-5'>
+        <div className='product-page-container relative background-white absolute top-[80px] min-h-[100vh] p-3 sm:p-5'>
             <div className='flex justify-between mb-4'>
                 <div className="relative w-full max-w-md">
                     <form 

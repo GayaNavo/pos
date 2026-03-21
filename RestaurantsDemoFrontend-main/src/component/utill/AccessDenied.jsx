@@ -12,6 +12,11 @@ const AccessDenied = () => {
   const location = useLocation();
   const { userData } = useContext(UserContext);
   const [SidebarToggle, setSidebarToggle] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+
+  const handleSidebarToggle = (collapsed) => {
+    setIsSidebarCollapsed(collapsed);
+  };
 
   // Define report routes (same as MainLayout)
   const reportRoutes = [
@@ -31,9 +36,9 @@ const AccessDenied = () => {
   const isReportPage = reportRoutes.some(route => location.pathname.startsWith(route));
 
   return (
-    <div className="flex">
+    <div className={`flex ${isSidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
       {/* Sidebar */}
-      <Sidebar userData={userData} SidebarToggle={SidebarToggle} />
+      <Sidebar userData={userData} SidebarToggle={SidebarToggle} onToggleSidebar={handleSidebarToggle} />
 
       <div className={`${SidebarToggle ? "ml-64 sm:ml-0" : ""} content w-full transition-all duration-300`}>
         {/* Conditionally render Header or ReportHeader */}
@@ -48,7 +53,7 @@ const AccessDenied = () => {
         )}
 
         {/* Main content */}
-        <main className="flex items-center absolute justify-center top-[40px] left-[18%] w-[82%] h-[100vh] px-5 bg-gradient-to-br from-slate-50 via-white to-slate-100 ">
+        <main className="product-page-container flex items-center absolute justify-center top-[40px] min-h-[100vh] px-5 bg-gradient-to-br from-slate-50 via-white to-slate-100">
           <div className="max-w-md w-full text-center space-y-8">
             {/* Icon with glow effect */}
             <div className="flex justify-center">

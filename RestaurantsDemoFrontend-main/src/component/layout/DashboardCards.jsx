@@ -239,18 +239,18 @@ const DashboardBody = ({ }) => {
           <Loader />
         </div>
       ) : (
-        <div>
-          <div className=" p-4 ">
-            <div className="grid gap-4 sm:grid-cols-1 mt-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="w-full">
+          <div className="p-2 sm:p-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 mt-2">
               <Link
                 to={permissionData.view_sale ? "/viewSale" : "#"}
                 className={`${!permissionData.view_sale ? "cursor-not-allowed" : ""
                   }`}
               >
                 <div
-                  className="h-28 flex flex-col items-center justify-center rounded-[10px] shadow-lg relative"
+                  className="h-24 sm:h-28 flex flex-col items-center justify-center rounded-xl shadow-lg relative overflow-hidden"
                   style={{
-                    background: " #1F5F3B",
+                    background: "#1F5F3B",
                   }}
                   data-aos="fade-up"
                 >
@@ -258,15 +258,12 @@ const DashboardBody = ({ }) => {
                     className="absolute inset-0 bg-no-repeat bg-cover opacity-5"
                     style={{ backgroundImage: `url(${bgrndthree})` }}
                   ></div>
-                  <div className="flex flex-row items-start space-x-4">
-
-                    {/* Shopping Cart Icon */}
-                    <div className="flex flex-col items-start">
-                      <h1 className="text-white font-bold text-center text-[10px] sm:text-[20px] md:text-[20px] lg:text-[24px] xl:text-[28px]">
+                  <div className="flex flex-row items-center justify-center w-full px-2 sm:px-4">
+                    <div className="flex flex-col items-center text-center">
+                      <h1 className="text-white font-bold text-lg sm:text-xl md:text-2xl lg:text-2xl truncate max-w-full">
                         {currency}&nbsp;{todaySale}
                       </h1>
-                      <p className="text-white text-sm">Today Sale</p>{" "}
-                      {/* Sale label */}
+                      <p className="text-white text-xs sm:text-sm mt-1">Today Sale</p>
                     </div>
                   </div>
                 </div>
@@ -278,9 +275,9 @@ const DashboardBody = ({ }) => {
                   }`}
               >
                 <div
-                  className="h-28 flex flex-col items-center justify-center rounded-[10px] shadow-lg relative"
+                  className="h-24 sm:h-28 flex flex-col items-center justify-center rounded-xl shadow-lg relative overflow-hidden"
                   style={{
-                    background: " #4CAF50",
+                    background: "#4CAF50",
                   }}
                   data-aos="fade-up"
                 >
@@ -288,15 +285,12 @@ const DashboardBody = ({ }) => {
                     className="absolute inset-0 bg-no-repeat bg-cover opacity-5"
                     style={{ backgroundImage: `url(${bgrndfour})` }}
                   ></div>
-                  <div className="flex flex-row items-start space-x-4">
-
-                    {/* Shopping Cart Icon */}
-                    <div className="flex flex-col items-start">
-                      <h1 className="text-white font-bold text-center text-[10px] sm:text-[20px] md:text-[20px] lg:text-[24px] xl:text-[28px]">
+                  <div className="flex flex-row items-center justify-center w-full px-2 sm:px-4">
+                    <div className="flex flex-col items-center text-center">
+                      <h1 className="text-white font-bold text-lg sm:text-xl md:text-2xl lg:text-2xl truncate max-w-full">
                         {currency}&nbsp;{todayPurchase}
                       </h1>
-                      <p className="text-white text-sm">Today Purchase</p>{" "}
-                      {/* Sale label */}
+                      <p className="text-white text-xs sm:text-sm mt-1">Today Purchase</p>
                     </div>
                   </div>
                 </div>
@@ -310,28 +304,22 @@ const DashboardBody = ({ }) => {
                   }`}
               >
                 <div
-                  className="h-28 flex flex-col items-center justify-center rounded-[10px] shadow-lg relative"
+                  className="h-24 sm:h-28 flex flex-col items-center justify-center rounded-xl shadow-lg relative overflow-hidden"
                   style={{
-                    background: " #D4AF37",
+                    background: "#D4AF37",
                   }}
                   data-aos="fade-up"
                 >
-                  {/* Background Image */}
                   <div
                     className="absolute inset-0 bg-no-repeat bg-cover opacity-[5%]"
                     style={{ backgroundImage: `url(${bgrnd})` }}
                   ></div>
-                  <div className="flex flex-row items-start space-x-4">
-
-                    {/* Shopping Cart Icon */}
-                    <div className="flex flex-col items-start">
-                      <h1 className="text-white font-bold text-center text-[10px] sm:text-[20px] md:text-[20px] lg:text-[24px] xl:text-[28px]">
-                        {currency}&nbsp; {todayPurchaseReturn}
+                  <div className="flex flex-row items-center justify-center w-full px-2 sm:px-4">
+                    <div className="flex flex-col items-center text-center">
+                      <h1 className="text-white font-bold text-lg sm:text-xl md:text-2xl lg:text-2xl truncate max-w-full">
+                        {currency}&nbsp;{todayPurchaseReturn}
                       </h1>
-                      <p className="text-white text-sm">
-                        Today Purchase Return
-                      </p>{" "}
-                      {/* Sale label */}
+                      <p className="text-white text-xs sm:text-sm mt-1">Today Purchase Return</p>
                     </div>
                   </div>
                 </div>

@@ -340,7 +340,7 @@ function ViewQuatationBody() {
     };
 
     return (
-        <div className='relative background-white absolute top-[80px] left-[18%] w-[82%] min-h-[100vh] p-5'>
+        <div className='product-page-container relative background-white absolute top-[80px] min-h-[100vh] p-3 sm:p-5'>
             <div className='flex flex-col sm:flex-row justify-between mb-4 gap-4'>
                 <div className="relative w-full max-w-md">
                     <form onSubmit={(e) => e.preventDefault()} className="flex items-center">

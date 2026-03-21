@@ -152,7 +152,7 @@ function QuantityAlertReportBody() {
     }, 0);
 
     return (
-        <div className='relative background-white absolute top-[80px] left-[18%] w-[82%] min-h-screen p-5'>
+        <div className='product-page-container relative background-white absolute top-[80px] min-h-screen p-3 sm:p-5'>
             <div>
                 <div className="m-0 flex justify-center">
                     {/* Warehouse field */}

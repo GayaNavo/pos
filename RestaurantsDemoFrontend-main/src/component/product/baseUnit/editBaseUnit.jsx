@@ -91,7 +91,7 @@ function EditBaseUnitBody() {
     };
 
     return (
-        <div className='background-white absolute top-[80px] left-[18%] w-[82%] h-[800px] p-5'>
+        <div className='product-page-container background-white absolute top-[80px] min-h-full p-3 sm:p-5'>
             {loading && (
   <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-white/80 z-50">
     <Loader />

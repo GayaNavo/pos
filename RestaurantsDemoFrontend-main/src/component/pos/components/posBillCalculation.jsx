@@ -19,7 +19,7 @@ import { useOrderChannel } from '../../../context/OrderChannelContext';
 import { Monitor, Trash2, RefreshCw } from 'lucide-react';
 import { silentPrint } from '../utils/silentPrint';
 
-const BillingSection = ({ productBillingHandling, setProductBillingHandling, setProductData, selectedCustomer, setSelectedCustomer, setReloadStatus, reloadStatus, setHeldProductReloading, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setError, setFetchRegData, setOrderId, orderId, setPalcedStatus, palcedStatus, handleOpenCustomerDisplay }) => {
+const BillingSection = ({ productBillingHandling, setProductBillingHandling, setProductData, selectedCustomer, setSelectedCustomer, setReloadStatus, reloadStatus, setHeldProductReloading, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setError, setFetchRegData, setOrderId, orderId, setPalcedStatus, palcedStatus, handleOpenCustomerDisplay, selectedWarehouse }) => {
     const { currency } = useCurrency();
     const [permissionData, setPermissionData] = useState({});
     const { userData } = useContext(UserContext);
@@ -1718,6 +1718,7 @@ const BillingSection = ({ productBillingHandling, setProductBillingHandling, set
                         setOrderId={setOrderId}
                         serviceChargeValue={serviceChargeValue}
                         customerDisplayChannel={customerDisplayChannel}
+                        selectedWarehouse={selectedWarehouse}
                     />
                 )}
             </div>

@@ -79,10 +79,14 @@ const ZBill = () => {
                 let totalVariance = 0;
                 let totalCashHandIn = 0;
                 let totalGrandTotal = 0;
-                let openedTimes = z.registers.map(r => r.openedTime);
-                let closedTimes = z.registers.map(r => r.closedTime);
-                let earliestOpen = openedTimes[0];
-                let latestClose = closedTimes[closedTimes.length - 1];
+                // Find earliest opened time and latest closed time
+                // Get all valid opened and closed times from registers
+                let openedTimes = z.registers.map(r => r.openedTime).filter(t => t && t !== '-' && t !== 'Invalid Date');
+                let closedTimes = z.registers.map(r => r.closedTime).filter(t => t && t !== '-' && t !== 'Invalid Date');
+                
+                // Use the first available opened time and last closed time
+                let earliestOpen = openedTimes.length > 0 ? openedTimes[0] : '-';
+                let latestClose = closedTimes.length > 0 ? closedTimes[closedTimes.length - 1] : '-';
 
                 z.registers.forEach(r => {
                     totalCash += r.cashPaymentAmount || 0;
@@ -209,10 +213,14 @@ const ZBill = () => {
                         let totalVariance = 0;
                         let totalCashHandIn = 0;
                         let totalGrandTotal = 0;
-                        let openedTimes = z.registers.map(r => r.openedTime);
-                        let closedTimes = z.registers.map(r => r.closedTime);
-                        let earliestOpen = openedTimes[0];
-                        let latestClose = closedTimes[closedTimes.length - 1];
+                        // Find earliest opened time and latest closed time
+                        // Get all valid opened and closed times from registers
+                        let openedTimes = z.registers.map(r => r.openedTime).filter(t => t && t !== '-' && t !== 'Invalid Date');
+                        let closedTimes = z.registers.map(r => r.closedTime).filter(t => t && t !== '-' && t !== 'Invalid Date');
+                        
+                        // Use the first available opened time and last closed time
+                        let earliestOpen = openedTimes.length > 0 ? openedTimes[0] : '-';
+                        let latestClose = closedTimes.length > 0 ? closedTimes[closedTimes.length - 1] : '-';
 
                         z.registers.forEach(r => {
                             totalCash += r.cashPaymentAmount || 0;
@@ -294,7 +302,7 @@ const ZBill = () => {
     }, []);
 
     return (
-        <div className='relative background-white absolute top-[80px] left-[18%] w-[82%] h-[100vh] p-5'>
+        <div className='product-page-container relative background-white absolute top-[80px] min-h-[100vh] p-3 sm:p-5'>
             <div className="flex items-center justify-start mb-4 gap-3">
                 <button
                     onClick={() => setFiltterOptionPopUp(true)}
@@ -348,15 +356,11 @@ const ZBill = () => {
                             {[...saleData].map((zReading, index) => (
                                 <tr key={index}>
                                     <td className="px-6 py-4 text-left whitespace-nowrap">
-                                        {zReading.registers && zReading.registers.length === 1
-                                            ? zReading.registers[0].openedTime // full date + time
-                                            : '-'}
+                                        {zReading.openedTime || '-'}
                                     </td>
 
                                     <td className="px-6 py-4 text-left whitespace-nowrap">
-                                        {zReading.registers && zReading.registers.length === 1
-                                            ? zReading.registers[0].closedTime // full date + time
-                                            : '-'}
+                                        {zReading.closedTime || '-'}
                                     </td>
 
                                     <td className="px-6 py-4 text-left whitespace-nowrap">
@@ -486,8 +490,8 @@ const ZBill = () => {
                                                                                     <div>
                                                                                         <p className="text-xs text-gray-500 text-left uppercase tracking-wide">Open Date</p>
                                                                                         <p className="font-semibold text-gray-700 text-left">
-                                                                                            {zReading.registers && zReading.registers.length === 1
-                                                                                                ? zReading.registers[0].openedTime.split(' ')[0] // dd/mm/yyyy
+                                                                                            {zReading.openedTime && zReading.openedTime !== '-' 
+                                                                                                ? zReading.openedTime.split(' ')[0] // dd/mm/yyyy
                                                                                                 : '-'}
                                                                                         </p>
                                                                                     </div>
@@ -497,8 +501,8 @@ const ZBill = () => {
                                                                                     <div>
                                                                                         <p className="text-xs text-gray-500 uppercase tracking-wide text-left">Open Time</p>
                                                                                         <p className="font-semibold text-gray-700 text-left">
-                                                                                            {zReading.registers && zReading.registers.length === 1
-                                                                                                ? zReading.registers[0].openedTime.split(' ')[1] // hh:mm:ss
+                                                                                            {zReading.openedTime && zReading.openedTime !== '-' 
+                                                                                                ? zReading.openedTime.split(' ')[1] // hh:mm:ss
                                                                                                 : '-'}
                                                                                         </p>
                                                                                     </div>

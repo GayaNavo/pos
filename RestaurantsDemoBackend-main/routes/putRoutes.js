@@ -1,11 +1,9 @@
 
 const express = require('express');
 const router = express.Router();
-const multer = require('multer'); 
-const path = require('path');
-const fs = require('fs');
 
 const {authenticateToken} = require('../middleware/authMiddleware');
+const { uploadProduct, uploadBrand, uploadCategory, uploadUser } = require('../middleware/multerMiddleware');
 const adminController = require('../controllers/userController/adminController');
 
 const currencyController = require('../controllers/currencyController/currencyController');
@@ -43,71 +41,7 @@ const staffRefreshmentsController  = require('../controllers/staffRefreshmentsCo
 const OffersController = require('../controllers/OffersController/OffersController');
 const orderController = require('../controllers/orderController/orderController');
 
-//MULTER MIDDLEWARE
-const baseUploadDir = path.resolve(__dirname, '../uploads');
-
-// Ensure the base uploads folder exists
-if (!fs.existsSync(baseUploadDir)) {
-    fs.mkdirSync(baseUploadDir, { recursive: true });
-}
-
-// Multer storage configuration
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        // Determine subfolder based on route
-        let subFolder;
-        if (req.originalUrl.includes('/updateProduct/')) {
-            subFolder = 'product';
-        } else if (req.originalUrl.includes('/updateBrand/')) {
-            subFolder = 'brand';
-        } else if (req.originalUrl.includes('/updateCategory/')) {
-            subFolder = 'category';
-        } 
-        else if (req.originalUrl.includes('/updateUser')) {
-            subFolder = 'user';
-        }else {
-            subFolder = 'others'; // Fallback if no matching route 
-        }
-
-        // Create the specific folder if it doesn't exist
-        const uploadDir = path.join(baseUploadDir, subFolder);
-        if (!fs.existsSync(uploadDir)) {
-            fs.mkdirSync(uploadDir, { recursive: true });
-        }
-
-        cb(null, uploadDir); // Save files in the specific folder
-    },
-    filename: function (req, file, cb) {
-        cb(null, `${Date.now()}_${file.originalname}`); // Unique filename
-    }
-});
-
-// File filter for image validation
-const fileFilter = (req, file, cb) => {
-  // Define allowed image types
-  const allowedMimes = [
-    'image/jpeg',
-    'image/jpg', 
-    'image/png',
-    'image/gif',
-    'image/webp',
-    'image/svg+xml'
-  ];
-  
-  if (allowedMimes.includes(file.mimetype)) {
-    cb(null, true);
-  } else {
-    cb(new Error('Only image files are allowed!'), false);
-  }
-};
-
-// Initialize multer
-const upload = multer({ 
-  storage,
-  fileFilter
-});
-
-
+// Routes
 
 router.put('/updateProductQty', posController.updateProductQuantities);
 
@@ -135,17 +69,17 @@ router.put('/changepassword/:id', changePasswordController.changePassword);
 
 router.put('/editWarehouseByAdmin' , warehouseController.UpdateWarehouse);
 
-router.put('/updateProduct/:id', upload.single('image'), productControll.updateProduct);
+router.put('/updateProduct/:id', uploadProduct.single('image'), productControll.updateProduct);
 
-router.put('/updateBrand/:id', upload.single('logo'), brandsControll.updateProductBrands); 
+router.put('/updateBrand/:id', uploadBrand.single('logo'), brandsControll.updateProductBrands); 
 
-router.put('/updateCategory/:id', upload.single('logo'), categoryController.updateCategory);
+router.put('/updateCategory/:id', uploadCategory.single('logo'), categoryController.updateCategory);
 
 router.put('/updateUnit/:id', unitControll.updateProductUnit);
 
 router.put('/updateProductVariation/:id',productVariationController.updateProductVariation);
 
-router.put('/updateUser', upload.single('profileImage'), userController.updateUser);
+router.put('/updateUser', uploadUser.single('profileImage'), userController.updateUser);
 
 router.put('/updateUserStatus/:id', userController.updateUserStatus);
 

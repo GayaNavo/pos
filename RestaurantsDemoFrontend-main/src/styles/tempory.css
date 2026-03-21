@@ -1,29 +1,73 @@
+/* Modern Scrollbar Styles */
 .scrollbar-hide {
   -ms-overflow-style: none;
-  /* Internet Explorer 10+ */
   scrollbar-width: none;
-  /* Firefox */
 }
 
-/* Hide scrollbar for Webkit (Chrome, Safari) */
 .scroll-container::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for Firefox */
 .scroll-container {
   scrollbar-width: none;
-}
-
-/* Hide scrollbar for IE/Edge */
-.scroll-container {
   -ms-overflow-style: none;
 }
 
-/* Show horizontal scrollbar for Z Bill table */
+/* Global Table Styles with Dividers */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+table th,
+table td {
+  border-right: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+table th:last-child,
+table td:last-child {
+  border-right: none;
+}
+
+table tr:last-child td {
+  border-bottom: none;
+}
+
+table thead th {
+  background: linear-gradient(135deg, #1F5F3B 0%, #16452a 100%);
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.8px;
+  padding: 18px 16px;
+  text-align: left;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+}
+
+table thead th:last-child {
+  border-right: none;
+}
+
+table tbody td {
+  padding: 12px 16px;
+  color: #374151;
+}
+
+table tbody tr:hover td {
+  background: #f9fafb;
+}
+
+/* Modern Z Bill Table Container */
 .zbill-table-container {
   overflow-x: auto;
   width: 100%;
+  border-radius: 14px;
+  background: white;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .zbill-table-container::-webkit-scrollbar {
@@ -32,23 +76,65 @@
 }
 
 .zbill-table-container::-webkit-scrollbar-track {
-  background: #FFF6E5;
+  background: #f3f4f6;
   border-radius: 10px;
 }
 
 .zbill-table-container::-webkit-scrollbar-thumb {
-  background: #1F5F3B;
+  background: linear-gradient(135deg, #1F5F3B 0%, #4CAF50 100%);
   border-radius: 10px;
 }
 
 .zbill-table-container::-webkit-scrollbar-thumb:hover {
-  background: #4CAF50;
+  background: linear-gradient(135deg, #16452a 0%, #3d8b40 100%);
 }
 
 /* Firefox */
 .zbill-table-container {
   scrollbar-width: thin;
-  scrollbar-color: #1F5F3B #FFF6E5;
+  scrollbar-color: #1F5F3B #f3f4f6;
+}
+
+/* Modern Glass Effect */
+.glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Modern Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, #1F5F3B 0%, #4CAF50 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Modern Hover Lift Effect */
+.hover-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Modern Focus Ring */
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(31, 95, 59, 0.2);
+}
+
+/* Modern Card Hover */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
 /* HTML: <div class="loader"></div> */
