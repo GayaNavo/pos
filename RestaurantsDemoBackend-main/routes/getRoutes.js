@@ -2,13 +2,11 @@
 
 const express = require('express');
 const router = express.Router();
-const Sale = require('../models/saleModel')
-const Purchase = require('../models/purchaseModel')
-const multer = require('multer'); 
 const path = require('path');
 const fs = require('fs');
 
 const {authenticateToken} = require('../middleware/authMiddleware');
+const analyticsController = require('../controllers/analyticsController/analyticsController');
 const adminController = require('../controllers/userController/adminController');
 
 const currencyController = require('../controllers/currencyController/currencyController');
@@ -29,13 +27,11 @@ const posController = require('../controllers/posController/posController');
 const settingsController = require('../controllers/settingsController/settingsController');
 const mailsettingsController = require('../controllers/settingsController/mailSettingsController');
 const receiptettingsController = require('../controllers/settingsController/receiptSettingsController');
-const prefixSettingsController = require('../controllers/settingsController/prefixSettingsController');
+
 const suplierController = require('../controllers/suplierController/suplierController');
 const transferController = require('../controllers/transferController/transferController');
 const userController = require('../controllers/userController/userController');
 const loginController = require('../controllers/userController/loginController'); 
-const {sendResetCode} = require('../controllers/userController/forgetPasswordcontroller');
-const {changePassword} = require('../controllers/userController/changePasswordController');
 const warehouseController = require('../controllers/wherehouseController/warehouseController');
 const upload = require('../middleware/multerMiddleware')
 const productController = require('../controllers/productController/productController');
@@ -55,10 +51,7 @@ const {
   upload: kotUpload,
 } = require('../controllers/settingsController/kotSettingsController');
 
-const {
-  getBOTSettings,
-  upload: botUpload,
-} = require('../controllers/settingsController/botSettingsController');
+
 
 
 router.get('/receipt-logo/:filename', (req, res) => {
@@ -164,7 +157,7 @@ router.get('/getPaymentOfPurchaseById/:purchaseId', purchaseController.fetchPaym
 router.get('/getSettings', settingsController.getSettings);
 router.get('/getMailSettings', mailsettingsController.getMailSettings);
 router.get('/getReceiptSettings', receiptettingsController.getReceiptSettings);
-router.get('/getPrefixSettings', prefixSettingsController.getPrefixSettings);
+
 
 //Making routes for transfer
 router.get('/viewTransfer' , transferController.getTransfer);
@@ -283,217 +276,15 @@ router.get('/searchCurrency', currencyController.searchCurrency)
 
 router.get('/getPlacedOrders', orderController.getPlacedOrderCount);
 router.get('/getProductsForMenu', orderController.findProducts);
+router.get('/orders/pending', orderController.getPendingOrders);
 
-// Define the endpoint to fetch sales data by month
-router.get('/sales/monthly', async (req, res) => {
-    try {
-        const currentYear = new Date().getFullYear();
-        const sales = await Sale.aggregate([
-            {
-                $match: {
-                    date: {
-                        $gte: new Date(`${currentYear}-01-01`),
-                        $lt: new Date(`${currentYear + 1}-01-01`)
-                    }
-                }
-            },
-            {
-                $group: {
-                    _id: { $month: "$date" },
-                    totalSales: { $sum: "$grandTotal" },
-                    pureProfit: { $sum: "$pureProfit"},
-                    count: { $sum: 1 }
-                }
-            },
-            {
-                $project: {
-                    month: "$_id",
-                    totalSales: 1,
-                    pureProfit: 1,
-                    count: 1,
-                    _id: 0
-                }
-            },
-            {
-                $sort: { month: 1 }
-            }
-        ]);
-
-        res.json(sales);
-    } catch (error) {
-        console.error('Error fetching monthly sales data:', error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-});
-
-router.get('/sales/weekly', async (req, res) => {
-    try {
-        const sales = await Sale.aggregate([
-            {
-                $group: {
-                    _id: { $isoWeek: "$date" },
-                    totalSales: { $sum: "$grandTotal" },
-                    pureProfit: { $sum: "$pureProfit"},
-                    count: { $sum: 1 },
-                    startDate: { $min: "$date" }
-                }
-            },
-            {
-                $project: {
-                    week: "$_id",
-                    totalSales: 1,
-                    pureProfit: 1,
-                    count: 1,
-                    startDate: 1,
-                    _id: 0
-                }
-            },
-            {
-                $sort: { week: 1 }
-            }
-        ]);
-
-        res.json(sales);
-    } catch (error) {
-        console.error('Error fetching weekly sales data:', error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-});
-
-
-router.get('/sales/daily', async (req, res) => {
-    try {
-        const sales = await Sale.aggregate([
-            {
-                $group: {
-                    _id: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
-                    totalSales: { $sum: "$grandTotal" },
-                    pureProfit: { $sum: "$pureProfit"},
-                    count: { $sum: 1 }
-                }
-            },
-            {
-                $project: {
-                    date: "$_id",
-                    totalSales: 1,
-                    pureProfit: 1,
-                    count: 1,
-                    _id: 0
-                }
-            },
-            {
-                $sort: { date: 1 }
-            }
-        ]);
-
-        res.json(sales);
-    } catch (error) {
-        console.error('Error fetching daily sales data:', error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-});
-
-router.get('/purchases/monthly', async (req, res) => {
-    try {
-        const currentYear = new Date().getFullYear();
-        const purchases = await Purchase.aggregate([
-            {
-                $match: {
-                    date: {
-                        $gte: new Date(`${currentYear}-01-01`),
-                        $lt: new Date(`${currentYear + 1}-01-01`)
-                    }
-                }
-            },
-            {
-                $group: {
-                    _id: { $month: "$date" },
-                    totalPurchases: { $sum: "$grandTotal" },
-                    count: { $sum: 1 }
-                }
-            },
-            {
-                $project: {
-                    month: "$_id",
-                    totalPurchases: 1,
-                    count: 1,
-                    _id: 0,
-                    label: { $concat: [{ $toString: "$_id" }, " ", { $toString: currentYear }] }
-                }
-            },
-            {
-                $sort: { month: 1 }
-            }
-        ]);
-
-        res.json(purchases);
-    } catch (error) {
-        console.error('Error fetching monthly purchase data:', error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-});
-
-router.get('/purchases/weekly', async (req, res) => {
-    try {
-        const purchases = await Purchase.aggregate([
-            {
-                $group: {
-                    _id: { $isoWeek: "$date" },
-                    totalPurchases: { $sum: "$grandTotal" },
-                    count: { $sum: 1 },
-                    startDate: { $min: "$date" }
-                }
-            },
-            {
-                $project: {
-                    week: "$_id",
-                    totalPurchases: 1,
-                    count: 1,
-                    startDate: 1,
-                    _id: 0
-                }
-            },
-            {
-                $sort: { week: 1 }
-            }
-        ]);
-
-        res.json(purchases);
-    } catch (error) {
-        console.error('Error fetching weekly purchase data:', error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-});
-
-router.get('/purchases/daily', async (req, res) => {
-    try {
-        const purchases = await Purchase.aggregate([
-            {
-                $group: {
-                    _id: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
-                    totalPurchases: { $sum: "$grandTotal" },
-                    count: { $sum: 1 }
-                }
-            },
-            {
-                $project: {
-                    date: "$_id",
-                    totalPurchases: 1,
-                    count: 1,
-                    _id: 0
-                }
-            },
-            {
-                $sort: { date: 1 }
-            }
-        ]);
-
-        res.json(purchases);
-    } catch (error) {
-        console.error('Error fetching daily purchase data:', error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-});
+// Analytics routes
+router.get('/sales/monthly', analyticsController.getMonthlySales);
+router.get('/sales/weekly', analyticsController.getWeeklySales);
+router.get('/sales/daily', analyticsController.getDailySales);
+router.get('/purchases/monthly', analyticsController.getMonthlyPurchases);
+router.get('/purchases/weekly', analyticsController.getWeeklyPurchases);
+router.get('/purchases/daily', analyticsController.getDailyPurchases);
 
 
 // Serve KOT logo
@@ -504,15 +295,6 @@ router.get('/kot-logo/:filename', (req, res) => {
 });
 
 router.get('/getKOTSettings', getKOTSettings);
-
-// Serve BOT logo
-router.get('/bot-logo/:filename', (req, res) => {
-  const filename = req.params.filename;
-  const filepath = path.join(__dirname, '../uploads/bot-logos', filename);
-  res.sendFile(filepath);
-});
-
-router.get('/getBOTSettings', getBOTSettings);
 
 module.exports=router;
 

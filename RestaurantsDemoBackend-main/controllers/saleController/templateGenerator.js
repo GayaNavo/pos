@@ -613,11 +613,6 @@ const generateFooterSection = (footer, saleData, receiptSettings) => {
     `;
   }
 
-  // Add system by if enabled
-  if (footer.showSystemBy) {
-    footerHTML += `<div style="margin: 2px 0; font-size: 11px; color: #666;">System by IDEAZONE</div>`;
-  }
-
   footerHTML += '</div>';
   return footerHTML;
 };

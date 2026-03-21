@@ -12,9 +12,14 @@ import "../../styles/sidebar.css";  // Import sidebar styles for layout
 
 const MainLayout = () => {
   const [SidebarToggle, setSidebarToggle] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const { sidebarHidden, setSidebarHidden } = useSidebar();
   const { userData } = useContext(UserContext);
   const location = useLocation();  //current location object
+
+  const handleSidebarToggle = (collapsed) => {
+    setIsSidebarCollapsed(collapsed);
+  };
 
   // Defining the routes where ReportHeader should be shown
   const reportRoutes = [
@@ -34,8 +39,8 @@ const MainLayout = () => {
   const isReportPage = reportRoutes.some(route => location.pathname.startsWith(route));
 
   return (
-    <div className={`flex ${sidebarHidden ? 'sidebar-hidden' : ''}`}>
-      <Sidebar userData={userData} SidebarToggle={SidebarToggle} sidebarHidden={sidebarHidden} />
+    <div className={`flex ${sidebarHidden ? 'sidebar-hidden' : ''} ${isSidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
+      <Sidebar userData={userData} SidebarToggle={SidebarToggle} sidebarHidden={sidebarHidden} onToggleSidebar={handleSidebarToggle} />
       <div className="content w-full transition-all duration-300">
         {/* Conditionally render Header or ReportHeader based on isReportPage */}
         {isReportPage ? (

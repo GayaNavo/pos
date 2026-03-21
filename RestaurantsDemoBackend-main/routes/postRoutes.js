@@ -2,10 +2,11 @@
 
 const express = require('express');
 const router = express.Router();
-const multer = require('multer'); 
 const path = require('path');
 const fs = require('fs');
-const { uploadLogo } = require('../middleware/multerMiddleware'); //
+
+const { uploadLogo, uploadReceiptLogo, uploadProduct, uploadBrand, uploadCategory } = require('../middleware/multerMiddleware');
+const { baseUploadDir } = require('../middleware/multerMiddleware');
 
 const adminController = require('../controllers/userController/adminController');
 
@@ -23,13 +24,11 @@ const posController = require('../controllers/posController/posController');
 const settingsController = require('../controllers/settingsController/settingsController');
 const mailsettingsController = require('../controllers/settingsController/mailSettingsController');
 const receiptettingsController = require('../controllers/settingsController/receiptSettingsController');
-const prefixSettingsController = require('../controllers/settingsController/prefixSettingsController');
+
 const suplierController = require('../controllers/suplierController/suplierController');
 const transferController = require('../controllers/transferController/transferController');
 const userController = require('../controllers/userController/userController');
 const loginController = require('../controllers/userController/loginController'); 
-const otpController = require('../controllers/userController/veryfyResetOTP');
-const {sendResetCode} = require('../controllers/userController/forgetPasswordcontroller');
 const warehouseController = require('../controllers/wherehouseController/warehouseController');
 const productControll = require('../controllers/productController/productController');
 const brandsControll = require('../controllers/productController/brandController');
@@ -50,100 +49,10 @@ const {
   upload: kotUpload
 } = require('../controllers/settingsController/kotSettingsController');
 
-const {
-  createOrUpdateBOTSettings,
-  uploadBOTLogo,
-  removeBOTLogo,
-  upload: botUpload
-} = require('../controllers/settingsController/botSettingsController');
 
 
-//MULTER MIDDLEWARE
-const baseUploadDir = path.resolve(__dirname, '../uploads');
 
-// Ensure the base uploads folder exists
-if (!fs.existsSync(baseUploadDir)) {
-    fs.mkdirSync(baseUploadDir, { recursive: true });
-}
-
-// Multer storage configuration
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        let subFolder;
-        if (req.originalUrl.includes('/createProduct')) {
-            subFolder = 'product';
-        } else if (req.originalUrl.includes('/createBrand')) {
-            subFolder = 'brand';
-        } else if (req.originalUrl.includes('/createCategory')) {
-            subFolder = 'category';
-      } else {
-            subFolder = 'others'; 
-        }
-
-        const uploadDir = path.join(baseUploadDir, subFolder);
-        if (!fs.existsSync(uploadDir)) {
-            fs.mkdirSync(uploadDir, { recursive: true });
-        }
-
-        cb(null, uploadDir); 
-    },
-    filename: function (req, file, cb) {
-        cb(null, `${Date.now()}_${file.originalname}`); 
-    }
-});
-
-// File filter for image validation
-const fileFilter = (req, file, cb) => {
-  // Define allowed image types
-  const allowedMimes = [
-    'image/jpeg',
-    'image/jpg', 
-    'image/png',
-    'image/gif',
-    'image/webp',
-    'image/svg+xml'
-  ];
-  
-  if (allowedMimes.includes(file.mimetype)) {
-    cb(null, true);
-  } else {
-    cb(new Error('Only image files are allowed!'), false);
-  }
-};
-
-// Initialize multer
-const upload = multer({ 
-  storage,
-  fileFilter
-});
-
-const receiptLogoStorage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const uploadDir = path.join(baseUploadDir, 'receipt-logos');
-        if (!fs.existsSync(uploadDir)) {
-            fs.mkdirSync(uploadDir, { recursive: true });
-        }
-        cb(null, uploadDir);
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, 'receipt-logo-' + uniqueSuffix + path.extname(file.originalname));
-    }
-});
-
-const uploadReceiptLogo = multer({
-    storage: receiptLogoStorage,
-    limits: {
-        fileSize: 2 * 1024 * 1024 
-    },
-    fileFilter: function (req, file, cb) {
-        if (file.mimetype.startsWith('image/')) {
-            cb(null, true);
-        } else {
-            cb(new Error('Only image files are allowed!'), false);
-        }
-    }
-});
+// Routes
 
 
 router.post('/cashHandIn', cashController.cashHandIn);
@@ -215,7 +124,7 @@ router.post('/createOrUpdateMailSettings', mailsettingsController.createOrUpdate
 
 router.post('/createOrUpdateReceiptSettings', receiptettingsController.createOrUpdateReceiptSettings);
 
-router.post('/createOrUpdatePrefixSettings', prefixSettingsController.createOrUpdatePrefixSettings);
+
 
 router.post('/importSuplier', suplierController.ImportSuplier);
 
@@ -229,17 +138,13 @@ router.post('/createWherehouse', warehouseController.createWarehouse);
 
 router.post('/login', loginController.loginUser);
 
-router.post('/forgetpassword',sendResetCode );
+router.post('/createProduct', uploadProduct.single('image'), productControll.createProduct);
 
-router.post('/verifyOtp', otpController.verifyResetOTP);
-
-router.post('/createProduct', upload.single('image'), productControll.createProduct);
-
-router.post('/createBrand', upload.single('logo'), brandsControll.createProductBrands);
+router.post('/createBrand', uploadBrand.single('logo'), brandsControll.createProductBrands);
 
 router.post('/findOneBrand', brandsControll.findBrand); 
 
-router.post('/createCategory',upload.single('logo'), categoryController.createCategory);
+router.post('/createCategory', uploadCategory.single('logo'), categoryController.createCategory);
 
 router.post('/findOneCategory', categoryController.findCategory);
 
@@ -265,10 +170,5 @@ router.post('/markOrderAsReady', orderController.markOrderAsReady);
 router.post('/createOrUpdateKOTSettings', createOrUpdateKOTSettings);
 router.post('/uploadKOTLogo', kotUpload.single('logo'), uploadKOTLogo);
 router.post('/removeKOTLogo', removeKOTLogo);
-
-// BOT Settings routes
-router.post('/createOrUpdateBOTSettings', createOrUpdateBOTSettings);
-router.post('/uploadBOTLogo', botUpload.single('logo'), uploadBOTLogo);
-router.post('/removeBOTLogo', removeBOTLogo);
 
 module.exports = router;

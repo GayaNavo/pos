@@ -69,8 +69,7 @@ const receiptSettingsSchema = new mongoose.Schema({
       enabled: { type: Boolean, default: true },
       position: { type: Number, required: true }
     }],
-    showBarcode: { type: Boolean, default: true },
-    showSystemBy: { type: Boolean, default: true }
+    showBarcode: { type: Boolean, default: true }
   },
 
   // General Settings

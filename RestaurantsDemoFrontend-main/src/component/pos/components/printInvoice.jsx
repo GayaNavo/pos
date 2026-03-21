@@ -207,7 +207,7 @@ const PrintInvoice = forwardRef((props, ref) => {
                     <Barcode value={invoiceNumber} width={1.5} height={54} fontSize={16} />
                 </div>
 
-                <p className="w-full m-1 text-xs text-center">System By IDEAZONE Tel : 0812 121 996</p>
+
             </div>
         </div>
     );

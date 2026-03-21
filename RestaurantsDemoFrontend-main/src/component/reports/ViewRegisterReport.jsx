@@ -50,7 +50,7 @@ function ViedRegisterReportBody() {
 
 
     return (
-        <div className='relative background-white absolute top-[80px] left-[18%] w-[82%] min-h-screen p-5'>
+        <div className='product-page-container relative background-white absolute top-[80px] min-h-screen p-3 sm:p-5'>
             <div className='absolute right-10'>
                 <button
                     onClick={() => handleExportPdf({

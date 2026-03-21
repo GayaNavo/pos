@@ -297,7 +297,7 @@ const createSale = async (req, res) => {
             header: { enabled: true, fields: [] },
             body: { enabled: true, columns: [] },
             summary: { enabled: true, fields: [] },
-            footer: { enabled: true, customFields: [], showBarcode: true, showSystemBy: true },
+            footer: { enabled: true, customFields: [], showBarcode: true },
             general: { paperSize: '80mm', fontSize: '13px', fontFamily: 'Arial, sans-serif', margin: '10px', showSectionHeaders: true, compactMode: false },
             logoPath: ''
         };

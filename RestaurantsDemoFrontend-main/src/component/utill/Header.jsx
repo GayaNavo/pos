@@ -117,7 +117,7 @@ export default function Header({ userData, grandTotal, orderStatus, paymentStatu
         manageSettings: hasAnyPermission("manageSettings"),
         manageMailSettings: hasAnyPermission("manageMailSettings"),
         manageReceiptSettings: hasAnyPermission("manageReceiptSettings"),
-        managePrefixesSettings: hasAnyPermission("managePrefixesSettings"),
+
         managePOS: hasAnyPermission("managePOS"),
 
         // Extract specific "create" permissions from parent manage permissions
@@ -546,20 +546,6 @@ export default function Header({ userData, grandTotal, orderStatus, paymentStatu
                             >
                               <img src={avatar} className="h-5 w-5" alt="Profile Icon" aria-hidden="true" />
                               <span className="ml-3">Your Profile</span>
-                            </Link>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <Link
-                              to={'/forgetpassword'}
-                              className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block w-full px-6 py-4 text-sm text-black flex items-center'
-                              )}
-                            >
-                              <img src={padlock} className="h-5 w-5" alt="Padlock Icon" aria-hidden="true" />
-                              <span className="ml-3">Change Password</span>
                             </Link>
                           )}
                         </Menu.Item>

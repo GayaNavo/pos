@@ -620,35 +620,35 @@ function RestaurantMenuView() {
                         </button>
                     </div>
 
-                    {/* Search Bar */}
-                    <div className="relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                    {/* Search Bar - Modern Style */}
+                    <div className="relative max-w-3xl mx-auto">
+                        <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
                         <input
                             type="text"
                             placeholder="Search menu items..."
                             value={keyword}
                             onChange={handleInputChange}
-                            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#35AF87]"
+                            className="w-full pl-12 pr-4 py-4 bg-white border-0 rounded-2xl shadow-md focus:outline-none focus:ring-2 focus:ring-[#1F5F3B] focus:shadow-lg transition-all text-gray-700 placeholder-gray-400"
                         />
                     </div>
 
-                    {/* Filters - Responsive Grid */}
+                    {/* Filters - Modern Pill Style */}
                     {(filters.brands.length > 0 || filters.categories.length > 0) && (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-2">
                             {/* Brand Filter */}
                             {filters.brands.length > 0 && (
-                                <div className="border-r pr-4">
-                                    <h3 className="text-sm text-left font-semibold text-gray-700 mb-3">
+                                <div className="border-r border-gray-200 pr-4">
+                                    <h3 className="text-sm font-semibold text-gray-800 mb-3">
                                         Filter by Brand
                                     </h3>
 
-                                    <div className="flex items-center gap-3">
+                                    <div className="flex items-center gap-2 flex-wrap">
                                         {/* Fixed - All Brands */}
                                         <button
                                             onClick={() => setSelectedBrandId(null)}
-                                            className={`h-12 px-6 rounded-full text-sm font-medium whitespace-nowrap transition-all shadow-sm flex items-center justify-center ${selectedBrandId === null
-                                                ? "bg-[#35AF87] text-white shadow-md"
-                                                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                                            className={`h-10 px-5 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 flex items-center justify-center ${selectedBrandId === null
+                                                ? "bg-[#1F5F3B] text-white shadow-md"
+                                                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                                                 }`}
                                         >
                                             All Brands
@@ -656,7 +656,7 @@ function RestaurantMenuView() {
 
                                         {/* Scrollable Brands */}
                                         <div
-                                            className="flex items-center gap-3 overflow-x-auto scrollbar-hide smooth-scroll snap-x snap-mandatory"
+                                            className="flex items-center gap-2 overflow-x-auto scrollbar-hide smooth-scroll"
                                             onWheel={(e) => {
                                                 e.preventDefault();
                                                 e.currentTarget.scrollLeft += e.deltaY * 1.2;
@@ -669,10 +669,10 @@ function RestaurantMenuView() {
                                                 <button
                                                     key={brand._id}
                                                     onClick={() => setSelectedBrandId(brand.brandName)}
-                                                    className={`h-12 px-6 rounded-full text-sm font-medium whitespace-nowrap flex items-center justify-center flex-shrink-0 snap-start transition-all shadow-sm
+                                                    className={`h-10 px-5 rounded-full text-sm font-medium whitespace-nowrap flex items-center justify-center flex-shrink-0 transition-all duration-300
                                                             ${selectedBrandId === brand.brandName
-                                                            ? "bg-[#35AF87] text-white shadow-md"
-                                                            : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                                                            ? "bg-[#1F5F3B] text-white shadow-md"
+                                                            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                                                         }`}
                                                 >
                                                     {brand.brandName}
@@ -687,17 +687,17 @@ function RestaurantMenuView() {
                             {/* Category Filter */}
                             {filters.categories.length > 0 && (
                                 <div>
-                                    <h3 className="text-sm text-left font-semibold text-gray-700 mb-3">
+                                    <h3 className="text-sm font-semibold text-gray-800 mb-3">
                                         Filter by Category
                                     </h3>
 
-                                    <div className="flex items-center gap-3">
+                                    <div className="flex items-center gap-2 flex-wrap">
                                         {/* Fixed - All Categories */}
                                         <button
                                             onClick={() => setSelectedCategoryId(null)}
-                                            className={`h-12 px-6 rounded-full text-sm font-medium whitespace-nowrap transition-all shadow-sm flex items-center justify-center ${selectedCategoryId === null
-                                                ? "bg-[#35AF87] text-white shadow-md"
-                                                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                                            className={`h-10 px-5 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 flex items-center justify-center ${selectedCategoryId === null
+                                                ? "bg-[#1F5F3B] text-white shadow-md"
+                                                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                                                 }`}
                                         >
                                             All Categories
@@ -705,7 +705,7 @@ function RestaurantMenuView() {
 
                                         {/* Scrollable Categories */}
                                         <div
-                                            className="flex items-center gap-3 overflow-x-auto scrollbar-hide smooth-scroll snap-x snap-mandatory"
+                                            className="flex items-center gap-2 overflow-x-auto scrollbar-hide smooth-scroll"
                                             onWheel={(e) => {
                                                 e.preventDefault();
                                                 e.currentTarget.scrollLeft += e.deltaY * 1.2;
@@ -718,10 +718,10 @@ function RestaurantMenuView() {
                                                 <button
                                                     key={category._id}
                                                     onClick={() => setSelectedCategoryId(category.category)}
-                                                    className={`h-12 px-6 rounded-full text-sm font-medium whitespace-nowrap flex items-center justify-center flex-shrink-0 snap-start transition-all shadow-sm
+                                                    className={`h-10 px-5 rounded-full text-sm font-medium whitespace-nowrap flex items-center justify-center flex-shrink-0 transition-all duration-300
                                                             ${selectedCategoryId === category.category
-                                                            ? "bg-[#35AF87] text-white shadow-md"
-                                                            : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                                                            ? "bg-[#1F5F3B] text-white shadow-md"
+                                                            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                                                         }`}
                                                 >
                                                     {category.category}
@@ -753,7 +753,7 @@ function RestaurantMenuView() {
 
                     {!loading && !error && (
                         <>
-                            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
                                 {searchedItems.map((item) => {
                                     const stockQty = getQty(item);
                                     const isInventoryTracked = item.isInventory === true;
@@ -763,32 +763,32 @@ function RestaurantMenuView() {
                                     return (
                                         <div
                                             key={item._id}
-                                            className={`bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 ${isOutOfStock ? 'opacity-50' : 'cursor-pointer'
+                                            className={`group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden border border-gray-100 ${isOutOfStock ? 'opacity-60' : 'cursor-pointer'
                                                 }`}
                                             onClick={() => !isOutOfStock && handleProductClick(item)}
                                         >
-                                            {/* Image Section */}
-                                            <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden relative">
+                                            {/* Image Section - Larger with rounded top */}
+                                            <div className="aspect-[4/3] bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center overflow-hidden relative">
                                                 {item.image ? (
                                                     <img
                                                         src={item.image}
                                                         alt={item.name}
-                                                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                                     />
                                                 ) : (
-                                                    <div className="text-gray-400 text-center p-4">
-                                                        <img src={FoodMenu} alt="menu" className="w-20 h-20 mx-auto opacity-50" />
+                                                    <div className="text-gray-400 text-center p-6">
+                                                        <img src={FoodMenu} alt="menu" className="w-24 h-24 mx-auto opacity-40" />
                                                     </div>
                                                 )}
 
                                                 {/* Out of Stock Overlay */}
                                                 {isOutOfStock && (
-                                                    <div className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center backdrop-blur-sm">
-                                                        <span className="text-white font-bold text-lg">Out of Stock</span>
+                                                    <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center backdrop-blur-sm">
+                                                        <span className="text-white font-bold text-lg tracking-wide">Out of Stock</span>
                                                     </div>
                                                 )}
 
-                                                {/* FINAL DISCOUNT BADGE */}
+                                                {/* Discount Badge - Top Left */}
                                                 {(() => {
                                                     let discount = 0;
                                                     if (item.warehouse && typeof item.warehouse === "object") {
@@ -803,44 +803,47 @@ function RestaurantMenuView() {
                                                     if (discount <= 0) return null;
 
                                                     return (
-                                                        <div className="absolute top-2 left-2 bg-red-500 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg z-10 animate-pulse">
+                                                        <div className="absolute top-3 left-3 bg-gradient-to-r from-red-500 to-red-600 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg z-10">
                                                             Save Rs. {discount}
                                                         </div>
                                                     );
                                                 })()}
 
-                                                {/* Variation Badge */}
+                                                {/* Variation Badge - Top Right */}
                                                 {hasVariations(item) && !isOutOfStock && (
-                                                    <div className="absolute top-2 right-2 bg-[#16796E] text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-md">
+                                                    <div className="absolute top-3 right-3 bg-[#1F5F3B] text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-md">
                                                         Options
                                                     </div>
                                                 )}
 
                                                 {/* Low Stock Badge */}
                                                 {isInventoryTracked && !isOutOfStock && stockQty < 5 && stockQty > 0 && (
-                                                    <div className="absolute bottom-2 left-2 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">
+                                                    <div className="absolute bottom-3 left-3 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-md">
                                                         Only {stockQty} left!
                                                     </div>
                                                 )}
                                             </div>
 
-                                            {/* Content */}
-                                            <div className="p-3">
-                                                <h3 className="font-bold text-gray-900 text-sm mb-0.5 truncate leading-tight">
+                                            {/* Content Section */}
+                                            <div className="p-5">
+                                                {/* Product Name */}
+                                                <h3 className="font-bold text-gray-900 text-lg mb-1 leading-tight group-hover:text-[#1F5F3B] transition-colors">
                                                     {item.name}
                                                 </h3>
-                                                <p className="text-xs text-gray-600 font-medium mb-2">
-                                                    {item.category || "Uncategorized"}
+                                                
+                                                {/* Description/Category */}
+                                                <p className="text-sm text-gray-500 mb-3 line-clamp-2">
+                                                    {item.category || "Delicious food item"}
                                                 </p>
 
-                                                <div className="flex justify-between items-center">
+                                                {/* Price and Add Button Row */}
+                                                <div className="flex items-center justify-between">
+                                                    {/* Price Section */}
                                                     <div>
-                                                        {/* Price with Strike-through if Discounted */}
                                                         {(() => {
                                                             const basePrice = getItemPrice(item);
                                                             let discount = 0;
 
-                                                            // Check ALL warehouses (not just warehouse01)
                                                             if (item.warehouse && typeof item.warehouse === "object") {
                                                                 for (const key in item.warehouse) {
                                                                     if (item.warehouse[key]?.discount > 0) {
@@ -849,7 +852,6 @@ function RestaurantMenuView() {
                                                                     }
                                                                 }
                                                             }
-                                                            // If no warehouse discount → use product-level discount
                                                             if (discount === 0) {
                                                                 discount = Number(item.discount || getDiscount(item) || 0);
                                                             }
@@ -857,55 +859,60 @@ function RestaurantMenuView() {
                                                             const finalPrice = basePrice - discount;
 
                                                             return (
-                                                                <div className="flex items-center gap-2">
-                                                                    <span className="text-lg font-bold text-[#16796E]">
+                                                                <div className="flex flex-col">
+                                                                    <span className="text-xl font-bold text-gray-900">
                                                                         Rs. {finalPrice.toFixed(2)}
                                                                     </span>
                                                                     {discount > 0 && (
-                                                                        <span className="text-sm text-gray-500 line-through">
+                                                                        <span className="text-sm text-gray-400 line-through">
                                                                             Rs. {basePrice.toFixed(2)}
                                                                         </span>
                                                                     )}
                                                                 </div>
                                                             );
                                                         })()}
+                                                    </div>
 
-                                                        <p className="text-xs text-left text-gray-500 mt-1">
-                                                            {isInventoryTracked ? (stockQty > 0 ? `${stockQty} available` : 'Unavailable') : ''}
-                                                        </p>
-                                                    </div>
+                                                    {/* Add Button - Circular Plus */}
+                                                    {!isOutOfStock && (
+                                                        <button 
+                                                            className="w-12 h-12 rounded-full bg-[#E8F5E9] hover:bg-[#1F5F3B] text-[#1F5F3B] hover:text-white flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-110"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                handleProductClick(item);
+                                                            }}
+                                                        >
+                                                            <Plus size={24} strokeWidth={2.5} />
+                                                        </button>
+                                                    )}
                                                 </div>
-                                                {!isOutOfStock && (
-                                                    <div className="flex justify-end items-center gap-1 text-[#16796E]">
-                                                        <Plus size={18} />
-                                                    </div>
-                                                )}
                                             </div>
                                         </div>
                                     );
                                 })}
                             </div>
 
-                            <div className="flex justify-center items-center gap-3 mt-6 pb-4">
+                            {/* Modern Pagination */}
+                            <div className="flex justify-center items-center gap-4 mt-8 pb-6">
                                 <button
                                     onClick={handlePrevPage}
                                     disabled={page === 1}
-                                    className="px-4 sm:px-6 py-2.5 sm:py-3 bg-[#35AF87] text-white rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-[#16796E] transition-all duration-200 flex items-center gap-2 font-medium text-sm shadow-sm hover:shadow-md"
+                                    className="px-6 py-3 bg-[#2D3748] text-white rounded-xl disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-[#1A202C] transition-all duration-300 flex items-center gap-2 font-medium text-sm shadow-md"
                                 >
                                     <ChevronLeft size={18} />
-                                    <span className="hidden sm:inline">Previous</span>
+                                    <span>Previous</span>
                                 </button>
-                                <div className="bg-white px-4 py-2 rounded-lg shadow-sm">
-                                    <span className="text-gray-700 font-semibold text-sm">
+                                <div className="bg-white px-6 py-3 rounded-xl shadow-sm border border-gray-100">
+                                    <span className="text-gray-600 font-medium text-sm">
                                         Page {page} of {totalPages}
                                     </span>
                                 </div>
                                 <button
                                     onClick={handleNextPage}
                                     disabled={page === totalPages}
-                                    className="px-4 sm:px-6 py-2.5 sm:py-3 bg-[#35AF87] text-white rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-[#16796E] transition-all duration-200 flex items-center gap-2 font-medium text-sm shadow-sm hover:shadow-md"
+                                    className="px-6 py-3 bg-[#2D3748] text-white rounded-xl disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-[#1A202C] transition-all duration-300 flex items-center gap-2 font-medium text-sm shadow-md"
                                 >
-                                    <span className="hidden sm:inline">Next</span>
+                                    <span>Next</span>
                                     <ChevronRight size={18} />
                                 </button>
                             </div>

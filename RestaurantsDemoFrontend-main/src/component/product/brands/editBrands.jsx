@@ -182,7 +182,7 @@ function EditBrandBody() {
     };
 
     return (
-        <div className="background-white absolute top-[80px] left-[18%] w-[82%] h-[800px] p-5">
+        <div className="product-page-container background-white absolute top-[80px] min-h-full p-3 sm:p-5">
             <div className="flex justify-between items-center">
                 <div>
                     <h2 className="text-lightgray-300 m-0 p-0 text-2xl">Edit Brands</h2>

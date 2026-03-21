@@ -6,14 +6,10 @@ import "./styles/sidebar.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import ForgetPassword from "./component/auth/ForgetPassword";
-import SendOTP from "./component/auth/SendOTP";
-import NewPassword from "./component/auth/NewPassword";
 import PrivateRoute from "./component/routing/privateRoute";
 import ReceiptSettingsInitiate from "./component/settings/ReceiptSettingsInitiate";
 import KOTSettingsBody from "./component/settings/KOTSettingsBody";
-import PrefixSettingsInitiate from "./component/settings/PrefixSettingsInitiate";
+
 import CreateProductBody from "./component/product/createProduct";
 import EditProductBody from "./component/product/editProduct";
 import MainLayout from "./component/layout/MainLayout";
@@ -79,7 +75,7 @@ import ClickedStokeReport from "./component/reports/ClickedStokeReport";
 import SystemSettingsBody from "./component/settings/SystemSettings";
 import MailSettingsBody from "./component/settings/MailSettings";
 import ReceiptSettingsBody from "./component/settings/ReceiptSettings";
-import PrefixSettingsBody from "./component/settings/prefixSettings";
+
 import ViewUserBody from "./component/user/ViewUser";
 import CreateSaleReturnForSupplier from "./component/sales/ReturnsToSupplier/CreateSaleReturnForSupplier";
 import StaffRefreshments from "./component/sales/staffRefreshments/staffRefreshments";
@@ -92,7 +88,7 @@ import Languages from "./component/utill/sidebarLanguage";
 import Team from "./component/utill/navBar/team";
 import Products from "./component/utill/navBar/products";
 
-import BotSettingsBody from "./component/settings/BotSettingsBody";
+
 import ZBill from "./component/zBill/zBill";
 import RestaurantMenuView from "./component/pos/components/RestaurantMenuView.jsx";
 import CustomerDisplay from "./component/pos/components/CustomerDisplay.jsx";
@@ -134,9 +130,6 @@ function App() {
           <Routes>
             {/* public routes */}
             <Route path="/" element={<Login />} />
-            <Route path="/forgetpassword" element={<ForgetPassword />} />
-            <Route path="/newpassword" element={<NewPassword />} />
-            <Route path="/sendOTP" element={<SendOTP />} />
 
             {/* private routes without MainLayout */}
             <Route
@@ -147,14 +140,7 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route
-              path="/prefixsettingsInitiate"
-              element={
-                <PrivateRoute>
-                  <PrefixSettingsInitiate />
-                </PrivateRoute>
-              }
-            />
+
             {/* private routes */}
             <Route
               element={
@@ -471,20 +457,17 @@ function App() {
               <Route path="/mailSettings" element={<MailSettingsBody />} />
               <Route path="/receiptSettings" element={<ReceiptSettingsBody />} />
               <Route path="/kotSettings" element={<KOTSettingsBody />} />
-              <Route path="/botSettings" element={<BotSettingsBody />} />
-              <Route path="/prefixSettings" element={<PrefixSettingsBody />} />
 
               <Route path="/zBillRecords" element={
                 <PermissionGuard requiredPermissions={['view_zbills']}>
                   <CurrencyProvider><ZBill /></CurrencyProvider>
-                </PermissionGuard>}
-              />
+                </PermissionGuard>
+              } />
 
               {/* Setting routes */}
               <Route path="/settings" element={<SystemSettingsBody />} />
               <Route path="/mailSettings" element={<MailSettingsBody />} />
               <Route path="/receiptSettings" element={<ReceiptSettingsBody />} />
-              <Route path="/prefixSettings" element={<PrefixSettingsBody />} />
             </Route>
 
             <Route path="/posSystem" element={<PosPrivateRoute><CurrencyProvider><PosSystemBody /></CurrencyProvider></PosPrivateRoute>} />

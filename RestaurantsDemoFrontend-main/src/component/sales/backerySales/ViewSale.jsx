@@ -564,8 +564,8 @@ function ViewBackerySale() {
                                                                     <i className="fas fa-building mr-2 text-gray-600"></i>
                                                                     Company Info
                                                                 </h3>
-                                                                <p className="m-2 text-left"><i className="fas fa-building mr-2 text-gray-400 text-left"></i><span className="font-medium">Company:</span> Ideazone</p>
-                                                                <p className="m-2 text-left"><i className="fas fa-envelope mr-2 text-gray-400 text-left"></i><span className="font-medium">Email:</span> ideazone@info.gmail.com</p>
+                                                                <p className="m-2 text-left"><i className="fas fa-building mr-2 text-gray-400 text-left"></i><span className="font-medium">Company:</span> Your Company</p>
+                                                                <p className="m-2 text-left"><i className="fas fa-envelope mr-2 text-gray-400 text-left"></i><span className="font-medium">Email:</span> yourcompany@info.gmail.com</p>
                                                                 <p className="m-2 text-left"><i className="fas fa-phone mr-2 text-gray-400 text-left"></i><span className="font-medium">Phone:</span> +94 2828 395</p>
                                                                 <p className="m-2 text-left"><i className="fas fa-map-marker-alt mr-2 text-gray-400 text-left"></i><span className="font-medium m-2">Address:</span> No 17 Rockview Rd</p>
                                                             </div>
@@ -847,7 +847,7 @@ function ViewBackerySale() {
 
 
     return (
-        <div className='relative background-white absolute top-[80px] left-[18%] w-[82%] h-[100vh] p-5'>
+        <div className='product-page-container relative background-white absolute top-[80px] min-h-[100vh] p-3 sm:p-5'>
             <div className='flex justify-between mb-4 '>
                 <div className="relative w-full max-w-md">
                     <form onSubmit={(e) => e.preventDefault()} className="flex items-center">

@@ -8,7 +8,6 @@ const http = require('http');
 const { corsMiddleware, bodyParserMiddleware } = require('./middleware/commonMiddleware');
 require('dotenv').config();
 const path = require('path');
-const mongoose = require('mongoose');
 const Order = require('./models/orderModel'); 
 
 const app = express();
@@ -27,29 +26,6 @@ app.use('/api', routes);
 
 // At the top with other app.set()
 app.set('orderChannel', new BroadcastChannel('order-channel'));
-
-// ————————————————————————————————
-// NEW ENDPOINT: Get all pending orders (for Live Orders sidebar)
-// ————————————————————————————————
-app.get('/api/orders/pending', async (req, res) => {
-    try {
-        const pendingOrders = await Order.find({ status: 'pending' })
-            .sort({ timestamp: -1 }) // newest first
-            .lean();
-
-        res.json({
-            success: true,
-            data: pendingOrders,
-            count: pendingOrders.length
-        });
-    } catch (err) {
-        console.error('Error fetching pending orders:', err);
-        res.status(500).json({
-            success: false,
-            message: 'Failed to fetch pending orders'
-        });
-    }
-});
 
 // Root route
 app.get('/', (req, res) => {

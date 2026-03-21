@@ -172,7 +172,7 @@ function EditTransferBody() {
     };
 
     return (
-        <div className='bg-[#eff3f7] relative left-[18%] w-[82%] min-h-[100vh] p-5'>
+        <div className='product-page-container bg-[#eff3f7] relative min-h-[100vh] p-3 sm:p-5'>
             <div className='flex justify-between items-center mt-20'>
                 <div>
                     <h2 className="text-lightgray-300 m-0 p-0 text-2xl">Edit Transfer</h2>

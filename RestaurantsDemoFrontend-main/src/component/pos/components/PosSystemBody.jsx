@@ -14,7 +14,6 @@ import formatWithCustomCommas from '../../utill/NumberFormate';
 import Menu from '../../../img/held POS 1.png';
 import pro from '../../../img/Main Close POS 1.png';
 import Full from '../../../img/Full Screen POS 1.png';
-import Cal from '../../../img/Cal POS 1.png';
 import Back from '../../../img/Back POS 1.png';
 import Plced_Order from '../../../img/shopping-bag.png';
 import SL_R from '../../../img/saleReturn.png';
@@ -25,30 +24,29 @@ import BillingSection from './posBillCalculation';
 import popSound from '../../../../src/audio/b.mp3';
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
-import Calculator from './posCalCulator';
 import ProductVariationModal from './productVariationEdit';
 import { handleProductSubmit } from '../utils/searchProduct';
 import { getHeldProducts, handleDeleteHoldProduct } from '../utils/holdProductControll';
 import { fetchCategoryData } from '../utils/fetchByCategory';
 import { fetchBrandData } from '../utils/fetchByBrand';
 import { fetchAllData } from '../utils/fetchAllData';
+import { fetchProductDataByWarehouse } from '../utils/fetchByWarehose';
 import { handleFullScreen } from '../utils/fullScreenView';
 import { handlePopupOpen } from '../utils/registerHandling';
 
 import { getPriceRange, getQty, getTax, getDiscount, getProductCost, getTaxHandler } from '../utils/qtyAndPriceCalculation';
-import { X, Calculator as GripHorizontal, Plus } from "lucide-react";
+import { X, Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { UserContext } from '../../../context/UserContext';
-import Draggable from 'react-draggable';
 import { silentPrint } from '../utils/silentPrint';
 
 function PosSystemBody({ defaultWarehouse }) {
     const ProductIcon = 'https://cdn0.iconfinder.com/data/icons/creative-concept-1/128/PACKAGING_DESIGN-512.png';
     const { userData } = useContext(UserContext);
     const [filters, setFilters] = useState({ brands: [], warehouses: [], categories: [] });
-    // Removed warehouse state since we're allowing products from any warehouse
-    // const [warehouse, setWarehouse] = useState(sessionStorage.getItem("defaultWarehouse") || "");
+    // Warehouse state for POS - uses sessionStorage to persist selection
+    const [selectedWarehouse, setSelectedWarehouse] = useState(sessionStorage.getItem("posSelectedWarehouse") || "");
     const [productData, setProductData] = useState([]);
     const [selectedCustomer, setSelectedCustomer] = useState('')
     const [searchCustomerResults, setSearchCustomerResults] = useState([]);
@@ -64,7 +62,6 @@ function PosSystemBody({ defaultWarehouse }) {
     const [productBillingHandling, setProductBillingHandling] = useState([])
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [selectVariation, setSelectVariation] = useState(false);
-    const [showCalculator, setShowCalculator] = useState(false);
     const [isHoldList, setIsHoldList] = useState(false)
     const [heldProducts, setHeldProducts] = useState([])
     const [isExitingPopupOpen, setIsExitingPopupOpen] = useState(false);
@@ -215,28 +212,44 @@ function PosSystemBody({ defaultWarehouse }) {
         setRefreshKey(Date.now());
     }, []);
 
+    // Set default warehouse when filters are loaded
     useEffect(() => {
-        // Load all products regardless of warehouse since we're allowing products from any warehouse
-        fetchAllData(setProductData, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setProgress, setError);
-    }, []);
+        if (filters.warehouses.length > 0 && !selectedWarehouse) {
+            // If defaultWarehouse prop is provided, use it; otherwise use the first warehouse
+            const defaultWh = defaultWarehouse || filters.warehouses[0]?.name || '';
+            if (defaultWh) {
+                setSelectedWarehouse(defaultWh);
+                sessionStorage.setItem("posSelectedWarehouse", defaultWh);
+            }
+        }
+    }, [filters.warehouses, defaultWarehouse]);
 
-    // Removed warehouse change handler since warehouse selection is removed
-    // const handleWarehouseChange = (e) => {
-    //     const selectedWarehouse = e.target.value;
-    //     setWarehouse(selectedWarehouse);
-    //     if (selectedWarehouse) {
-    //         fetchProductDataByWarehouse(
-    //             selectedWarehouse,
-    //             setProductData,
-    //             setSelectedCategoryProducts,
-    //             setSelectedBrandProducts,
-    //             setSearchedProductData,
-    //             setLoading
-    //         );
-    //     } else {
-    //         setProductData([]);
-    //     }
-    // };
+    // Load products based on selected warehouse
+    useEffect(() => {
+        if (selectedWarehouse) {
+            fetchProductDataByWarehouse(
+                selectedWarehouse,
+                setProductData,
+                setSelectedCategoryProducts,
+                setSelectedBrandProducts,
+                setSearchedProductData,
+                setProgress
+            );
+        } else {
+            // Load all products if no warehouse selected
+            fetchAllData(setProductData, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setProgress, setError);
+        }
+    }, [selectedWarehouse]);
+
+    // Handle warehouse selection change
+    const handleWarehouseChange = (e) => {
+        const warehouse = e.target.value;
+        setSelectedWarehouse(warehouse);
+        sessionStorage.setItem("posSelectedWarehouse", warehouse);
+        // Clear other filters when warehouse changes
+        setSelectedBrand(null);
+        setSelectedCategory(null);
+    };
 
     useEffect(() => {
         if (productData.length > 0) {
@@ -244,21 +257,31 @@ function PosSystemBody({ defaultWarehouse }) {
     }, [productData]);
 
     const canSelectProduct = (productWarehouseName) => {
-
+        // If no warehouse is selected, allow all products (backward compatibility)
+        if (!selectedWarehouse) {
+            return true;
+        }
+        
+        // If product doesn't have warehouse data, don't allow selection
         if (!productWarehouseName) {
             return false;
         }
-        const warehouseEntry = permissionData?.warehousePermissions?.[productWarehouseName] || {};
-
-        if (!warehouseEntry) {
+        
+        // Check if product belongs to the selected warehouse
+        const productInSelectedWarehouse = productWarehouseName.toLowerCase() === selectedWarehouse.toLowerCase();
+        if (!productInSelectedWarehouse) {
             return false;
         }
-        const isSelectable = !!(warehouseEntry.access && warehouseEntry.create_sale_from_pos);
-
-        if (isSelectable) {
-        } else {
+        
+        // Check permissions if they exist
+        const warehouseEntry = permissionData?.warehousePermissions?.[productWarehouseName];
+        if (warehouseEntry) {
+            // If permissions are configured, check them
+            return !!(warehouseEntry.access && warehouseEntry.create_sale_from_pos);
         }
-        return isSelectable;
+        
+        // If no specific permissions configured, allow selection (product is in selected warehouse)
+        return true;
     };
 
     const playSound = () => {
@@ -270,10 +293,6 @@ function PosSystemBody({ defaultWarehouse }) {
 
     useEffect(() => {
     }, [productBillingHandling]);
-
-    const toggleCalculator = () => {
-        setShowCalculator((prev) => !prev);
-    };
 
     useEffect(() => {
         const fetchSystemSettings = async () => {
@@ -361,16 +380,19 @@ function PosSystemBody({ defaultWarehouse }) {
 
     const handleAddingProduct = (product) => {
         setProductBillingHandling((prevBilling) => {
-            // Get the first available warehouse from the product since we're allowing any warehouse
+            // Get available warehouses from the product
             const productWarehouses = Object.keys(product.warehouse || {});
             if (!product.warehouse || productWarehouses.length === 0) {
                 toast.error("Product data is missing warehouse details.");
                 return prevBilling;
             }
 
-            // Select the first available warehouse for this product
-            const selectedWarehouse = productWarehouses[0];
-            const warehouseData = product.warehouse[selectedWarehouse];
+            // Use the currently selected warehouse if the product has it, otherwise use first available
+            let productWarehouse = productWarehouses[0];
+            if (selectedWarehouse && product.warehouse[selectedWarehouse]) {
+                productWarehouse = selectedWarehouse;
+            }
+            const warehouseData = product.warehouse[productWarehouse];
 
             if (!product.isInventory && product.ptype === "Single") {
                 const existing = prevBilling.find(p => p.id === product.id);
@@ -383,13 +405,13 @@ function PosSystemBody({ defaultWarehouse }) {
             }
 
             if (!warehouseData) {
-                toast.error(`No data found for warehouse '${selectedWarehouse}'.`);
+                toast.error(`No data found for warehouse '${productWarehouse}'.`);
                 return prevBilling;
             }
 
             if (product.ptype === "Single") {
                 const existingProduct = prevBilling.find(
-                    (p) => p.id === product.id && p.warehouse === selectedWarehouse
+                    (p) => p.id === product.id && p.warehouse === productWarehouse
                 );
 
                 if (existingProduct) {
@@ -398,7 +420,7 @@ function PosSystemBody({ defaultWarehouse }) {
                         return prevBilling;
                     }
                     return prevBilling.map((p) =>
-                        p.id === product.id && p.warehouse === selectedWarehouse
+                        p.id === product.id && p.warehouse === productWarehouse
                             ? { ...p, qty: p.qty + 1 }
                             : p
                     );
@@ -410,7 +432,7 @@ function PosSystemBody({ defaultWarehouse }) {
                     return [...prevBilling, {
                         ...product,
                         qty: 1,
-                        warehouse: selectedWarehouse
+                        warehouse: productWarehouse
                     }];
                 }
             }
@@ -2010,14 +2032,6 @@ function PosSystemBody({ defaultWarehouse }) {
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div className='ml-0 lg:ml-3 xl:ml-4 mt-3 lg:mt-0 hidden xl:block'>
-                                                <div className="p-2 m-2 w-[55px] h-[55px] md:w-[60px] md:h-[60px] lg:w-[65px] lg:h-[63px] pb-2 border bg-[#1A5B63] rounded-[10px] flex items-center justify-center">
-                                                    <button onClick={toggleCalculator}>
-                                                        <img className="w-[35px] h-[35px] md:w-[40px] md:h-[40px] lg:w-[45px] lg:h-[45px]" src={Cal} alt="Calculator" />
-                                                    </button>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
 
@@ -2050,13 +2064,6 @@ function PosSystemBody({ defaultWarehouse }) {
                         <div className="p-1 md:p-2 xl:p-2 m-1 md:m-2 xl:m-2 w-[55px] h-[55px] md:w-[60px] md:h-[60px] xl:w-[65px] xl:h-[65px] border bg-[#1A5B63] rounded-[10px] flex items-center justify-center flex-shrink-0">
                             <button className='' onClick={handleFullScreen}>
                                 <img className="w-[35px] h-[35px] md:w-[40px] md:h-[40px] xl:w-[45px] xl:h-[45px]" src={Full} alt="" />
-                            </button>
-                        </div>
-
-
-                        <div className="p-1 md:p-2 xl:p-2 m-1 md:m-2 xl:m-2 w-[55px] h-[55px] md:w-[60px] md:h-[60px] xl:w-[65px] xl:h-[65px] border bg-[#1A5B63] rounded-[10px] flex items-center justify-center flex-shrink-0">
-                            <button onClick={toggleCalculator}>
-                                <img className="w-[35px] h-[35px] md:w-[40px] md:h-[40px] xl:w-[45px] xl:h-[45px]" src={Cal} alt="Calculator" />
                             </button>
                         </div>
 
@@ -2122,6 +2129,7 @@ function PosSystemBody({ defaultWarehouse }) {
                             setPalcedStatus={setPalcedStatus}
                             palcedStatus={palcedStatus}
                             handleOpenCustomerDisplay={handleOpenCustomerDisplay}
+                            selectedWarehouse={selectedWarehouse}
                         />
                     </div>
                 </div>
@@ -2131,6 +2139,35 @@ function PosSystemBody({ defaultWarehouse }) {
                     <div className="flex-shrink-0">
                         <ProductFilters setFilters={setFilters} setLoading={setLoading} />
                     </div>
+                    
+                    {/* Warehouse Selector */}
+                    {filters.warehouses.length > 0 && (
+                        <div className="flex-shrink-0 px-4 py-2 border-b border-gray-200">
+                            <div className="flex items-center gap-3">
+                                <label className="text-sm font-medium text-gray-700 whitespace-nowrap">
+                                    Warehouse:
+                                </label>
+                                <select
+                                    value={selectedWarehouse}
+                                    onChange={handleWarehouseChange}
+                                    className="flex-1 max-w-[200px] px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#35AF87] focus:border-transparent bg-white"
+                                >
+                                    <option value="">All Warehouses</option>
+                                    {filters.warehouses.map((wh) => (
+                                        <option key={wh._id} value={wh.name}>
+                                            {wh.name.charAt(0).toUpperCase() + wh.name.slice(1)}
+                                        </option>
+                                    ))}
+                                </select>
+                                {selectedWarehouse && (
+                                    <span className="text-xs text-green-600 font-medium">
+                                        Default: {selectedWarehouse.charAt(0).toUpperCase() + selectedWarehouse.slice(1)}
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                    
                     <div className='flex-shrink-0'>
                         <div className="absolute right-8 bottom-10">
                             {/* Three Dots Button */}
@@ -2186,8 +2223,19 @@ function PosSystemBody({ defaultWarehouse }) {
                                 <button
                                     onClick={() => {
                                         setSelectedBrand(null);
-                                        // Fetch all products from all warehouses since warehouse selection is removed
-                                        fetchAllData(setProductData, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setProgress, setError);
+                                        // Fetch products based on selected warehouse
+                                        if (selectedWarehouse) {
+                                            fetchProductDataByWarehouse(
+                                                selectedWarehouse,
+                                                setProductData,
+                                                setSelectedCategoryProducts,
+                                                setSelectedBrandProducts,
+                                                setSearchedProductData,
+                                                setProgress
+                                            );
+                                        } else {
+                                            fetchAllData(setProductData, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setProgress, setError);
+                                        }
                                     }}
                                     className={`p-2.5 rounded-lg px-4 flex-shrink-0 flex flex-col items-center justify-center transition-colors ${selectedBrand === null ? 'custom text-white' : 'bg-gray-200 text-gray-900'
                                         }`}
@@ -2207,7 +2255,7 @@ function PosSystemBody({ defaultWarehouse }) {
                                                 key={b._id}
                                                 onClick={() => {
                                                     setSelectedBrand(b.brandName); // Update selected brand
-                                                    fetchBrandData(b.brandName, setSelectedBrandProducts, setSelectedCategoryProducts, setSearchedProductData, setProgress);
+                                                    fetchBrandData(b.brandName, setSelectedBrandProducts, setSelectedCategoryProducts, setSearchedProductData, setProgress, selectedWarehouse);
                                                 }}
                                                 className={`flex-shrink-0 border border-gray-200 rounded-lg px-4 flex flex-col items-center justify-center hover:shadow-md ${selectedBrand === b.brandName ? 'custom text-white' : 'bg-gray-200 text-gray-900'
                                                     }`}
@@ -2237,8 +2285,19 @@ function PosSystemBody({ defaultWarehouse }) {
                                 {/* All Category Button */}
                                 <button onClick={() => {
                                     setSelectedCategory(null);
-                                    // Fetch all products from all warehouses since warehouse selection is removed
-                                    fetchAllData(setProductData, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setProgress, setError);
+                                    // Fetch products based on selected warehouse
+                                    if (selectedWarehouse) {
+                                        fetchProductDataByWarehouse(
+                                            selectedWarehouse,
+                                            setProductData,
+                                            setSelectedCategoryProducts,
+                                            setSelectedBrandProducts,
+                                            setSearchedProductData,
+                                            setProgress
+                                        );
+                                    } else {
+                                        fetchAllData(setProductData, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setProgress, setError);
+                                    }
                                 }}
                                     className={`p-2.5 rounded-lg px-4 flex-shrink-0 flex flex-col items-center justify-center transition-colors ${selectedCategory === null ? 'custom text-white' : 'bg-gray-200 text-gray-900'
                                         }`}>
@@ -2255,7 +2314,7 @@ function PosSystemBody({ defaultWarehouse }) {
                                                 key={c._id}
                                                 onClick={() => {
                                                     setSelectedCategory(c.category);
-                                                    fetchCategoryData(c.category, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setProgress);
+                                                    fetchCategoryData(c.category, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setProgress, selectedWarehouse);
                                                 }}
                                                 className={`flex-shrink-0 border border-gray-200 rounded-lg px-4 flex flex-col items-center justify-center hover:shadow-md ${selectedCategory === c.category ? 'custom text-white' : 'bg-gray-200 text-gray-900'
                                                     }`}
@@ -2331,8 +2390,23 @@ function PosSystemBody({ defaultWarehouse }) {
 
                                 {/* THEN YOUR PRODUCTS LIST */}
                                 {(searchedProductDataByName.length > 0 ? searchedProductDataByName : combinedProductData).map((p) => {
-                                    const warehouseName = p.warehouse ? Object.keys(p.warehouse)[0] : null;
-                                    const warehouseData = warehouseName ? p.warehouse[warehouseName] : null;
+                                    // Get warehouse data based on selected warehouse or first available
+                                    let warehouseName = null;
+                                    let warehouseData = null;
+                                    
+                                    if (selectedWarehouse && p.warehouse && p.warehouse[selectedWarehouse]) {
+                                        // Use the selected warehouse data
+                                        warehouseName = selectedWarehouse;
+                                        warehouseData = p.warehouse[selectedWarehouse];
+                                    } else if (p.warehouse) {
+                                        // Fallback to first available warehouse
+                                        const warehouseKeys = Object.keys(p.warehouse);
+                                        if (warehouseKeys.length > 0) {
+                                            warehouseName = warehouseKeys[0];
+                                            warehouseData = p.warehouse[warehouseName];
+                                        }
+                                    }
+                                    
                                     const isSelectable = canSelectProduct(warehouseName);
                                     const productQtyForSelectedWarehouse = warehouseData ? warehouseData.productQty : 0;
 
@@ -2400,54 +2474,6 @@ function PosSystemBody({ defaultWarehouse }) {
                             />
                         )}
                     </div>
-
-                    {showCalculator && (
-                        <>
-                            <div
-                                className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40"
-                                onClick={toggleCalculator}
-                            />
-
-                            {/* Draggable Calculator */}
-                            <Draggable handle=".drag-handle" cancel=".no-drag">
-                                <div className="fixed top-4 right-8 z-50 w-[500px] md:w-[500px] select-none">
-
-                                    {/* Main Container */}
-                                    <div className="rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-b from-[#E6F4F1] to-[#A7D4C2]">
-
-                                        {/* Header (Drag Handle) */}
-                                        <div className="drag-handle flex items-center justify-between bg-gradient-to-r from-[#1F5F3B] to-[#4CAF50] text-white px-4 py-2 cursor-move">
-                                            <div className="flex items-center gap-2 text-sm font-semibold tracking-wide">
-                                                <GripHorizontal className="w-4 h-4 opacity-80" />
-                                                Calculator
-                                            </div>
-
-                                            <button
-                                                type="button"
-                                                className="no-drag p-1.5 hover:bg-white/20 rounded-full transition"
-                                                title="Close"
-                                                onMouseDown={(e) => {
-                                                    e.preventDefault();
-                                                    e.stopPropagation();
-                                                }}
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    toggleCalculator();
-                                                }}
-                                            >
-                                                <X className="w-4 h-4" />
-                                            </button>
-                                        </div>
-
-                                        {/* Calculator Body */}
-                                        <div className="p-4">
-                                            <Calculator />
-                                        </div>
-                                    </div>
-                                </div>
-                            </Draggable>
-                        </>
-                    )}
 
                     {showAddProductModal && (
                         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -2545,7 +2571,7 @@ function PosSystemBody({ defaultWarehouse }) {
                                                 key={b._id}
                                                 onClick={() => {
                                                     setSelectedBrand(b.brandName);
-                                                    fetchBrandData(b.brandName, setSelectedBrandProducts, setSelectedCategoryProducts, setSearchedProductData, setProgress);
+                                                    fetchBrandData(b.brandName, setSelectedBrandProducts, setSelectedCategoryProducts, setSearchedProductData, setProgress, selectedWarehouse);
                                                     setShowAllBrandsModal(false);
                                                 }}
                                                 className={`p-4 border border-gray-200 rounded-lg flex items-center justify-center hover:shadow-md transition-all ${selectedBrand === b.brandName
@@ -2585,7 +2611,7 @@ function PosSystemBody({ defaultWarehouse }) {
                                                 key={c._id}
                                                 onClick={() => {
                                                     setSelectedCategory(c.category);
-                                                    fetchCategoryData(c.category, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setProgress);
+                                                    fetchCategoryData(c.category, setSelectedCategoryProducts, setSelectedBrandProducts, setSearchedProductData, setProgress, selectedWarehouse);
                                                     setShowAllCategoriesModal(false);
                                                 }}
                                                 className={`p-4 border border-gray-200 rounded-lg flex items-center justify-center hover:shadow-md transition-all ${selectedCategory === c.category
