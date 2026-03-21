@@ -56,7 +56,6 @@ const Sidebar = ({ items, sidebarHidden, onToggleSidebar }) => {
     '/viewAdjustment': { index: 23, dropdown: null },
     // '/language': { index: 24, dropdown: null }, // Commented out in original code
     '/settings': { index: 25, dropdown: 'settings' },
-    '/mailSettings': { index: 26, dropdown: 'settings' },
     '/receiptSettings': { index: 27, dropdown: 'settings' },
     '/kotSettings': { index: 30, dropdown: 'settings' },
 
@@ -98,7 +97,6 @@ const Sidebar = ({ items, sidebarHidden, onToggleSidebar }) => {
         manageAdjustments: hasAnyPermission('manageAdjustments'),
         manageLanguage: hasAnyPermission('manageLanguage'),
         manageSettings: hasAnyPermission('manageSettings'),
-        manageMailSettings: hasAnyPermission('manageMailSettings'),
         manageReceiptSettings: hasAnyPermission('manageReceiptSettings'),
 
         managePOS: hasAnyPermission('managePOS'),
@@ -907,19 +905,6 @@ const Sidebar = ({ items, sidebarHidden, onToggleSidebar }) => {
                 >
                   <CogIcon className="h-6 w-6 mr-4 text-gray-500 group-hover:text-[#2a9d34]" aria-hidden="true" />
                   Settings
-                </Link>
-              </li>
-            )}
-            {permissionData.manageMailSettings && (
-              <li id="settings" className="rounded-sm flex items-center space-x-2">
-                <Link
-                  to="/mailSettings"
-                  className={`w-full flex items-center cursor-pointer p-2 rounded-lg transition-all ${activeIndex === 26 ? 'active text-[#1F5F3B]' : 'text-white hover:bg-white/10'
-                    }`}
-                  onClick={() => handleClick(26, '/mailSettings')}
-                >
-                  <CogIcon className="h-6 w-6 text-gray-500 mr-4" aria-hidden="true" />
-                  Mail settings
                 </Link>
               </li>
             )}
