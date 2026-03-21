@@ -45,7 +45,7 @@ function CreateCustomerBody() {
                 return;
             }
 
-           
+            // Customer data (no country, city, or nic)))
             const customerData = {
                 name,
                 mobile,
